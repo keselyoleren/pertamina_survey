@@ -9,10 +9,14 @@ from manage_user.models import AccountUser, Customer
 # Create your models here.
 class Survey(BaseModel):
     name = models.CharField(max_length=255)
-    description = models.TextField()
+    description = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = _("Survey")
+        verbose_name_plural = _("Survey")
 
 class Question(BaseModel):
     question = models.CharField(_("Pertanyaan"), max_length=255)
@@ -20,6 +24,7 @@ class Question(BaseModel):
     
     class Meta:
         verbose_name = _("Pertanyaan")
+        verbose_name_plural = _("Pertanyaan")
 
 class Responden(BaseModel):
     RATING_CHOICES = [(i, str(i)) for i in range(1, 11)]
@@ -37,3 +42,4 @@ class Responden(BaseModel):
     
     class Meta:
         verbose_name = _("Responden")
+        verbose_name_plural = _("Responden")
