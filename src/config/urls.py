@@ -23,6 +23,7 @@ urlpatterns = [
     path("", TemplateView.as_view(template_name='admin/index.html'), name=""),
     path("admin-panel/", include([
         path('general/', include('general.urls')),
+        path('manage-user/', include('manage_user.urls')),
     ])),
     path('admin/', admin.site.urls),
 
