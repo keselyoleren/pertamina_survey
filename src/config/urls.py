@@ -20,12 +20,13 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    path("", TemplateView.as_view(template_name='admin/index.html'), name=""),
+    path('superadmin/', admin.site.urls),
     path("admin-panel/", include([
         path('general/', include('general.urls')),
         path('manage-user/', include('manage_user.urls')),
     ])),
-    path('admin/', admin.site.urls),
+    path("", TemplateView.as_view(template_name='admin-panel/index.html'), name=""),
+    
 
 ]
 

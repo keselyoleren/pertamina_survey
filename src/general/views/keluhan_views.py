@@ -9,7 +9,7 @@ from general.models import Keluhan
 
 class KeluhanListView(ListView):
     model = Keluhan
-    template_name = 'admin/keluhan/list.html'
+    template_name = 'admin-panel/keluhan/list.html'
     context_object_name = 'keluhan_list'
     
     def get_context_data(self, **kwargs):
@@ -21,7 +21,7 @@ class KeluhanListView(ListView):
 
 class KeluhanCreateView(CreateView):
     model = Keluhan
-    template_name = 'admin/component/form.html'
+    template_name = 'admin-panel/component/form.html'
     form_class = KeluhanForm
     success_url = reverse_lazy('keluhan-list')
 
@@ -33,7 +33,7 @@ class KeluhanCreateView(CreateView):
 
 class KeluhanUpdateView(UpdateView):
     model = Keluhan
-    template_name = 'admin/component/form.html'
+    template_name = 'admin-panel/component/form.html'
     form_class = KeluhanForm
     success_url = reverse_lazy('keluhan-list')
 
@@ -45,7 +45,7 @@ class KeluhanUpdateView(UpdateView):
 
 class KeluhanDeleteView(DeleteView):
     model = Keluhan
-    template_name = 'admin/component/delete.html'
+    template_name = 'admin-panel/component/delete.html'
     success_url = reverse_lazy('keluhan-list')
 
     def get_context_data(self, **kwargs):

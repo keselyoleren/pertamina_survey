@@ -1,0 +1,68 @@
+{% extends 'admin-panel/layouts/main.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- Page Heading -->
+    {% include 'admin-panel/component/content_header.html' %}
+    
+    <div class="row">
+        <div class="col">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">{{ header_title }}</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="datatable" class="table table-striped table-bordered"
+                           data-toggle="data-table">
+                           <thead>
+                              <tr>
+                                 <th>Photo</th>
+                                 <th>Username</th>
+                                 <th>Email</th>
+                                 <th>Nama Depan</th>
+                                 <th>Nama Belakang</th>
+                                 <th>Role User</th>
+                                 <th>Instansi</th>
+                                 <th>Customer</th>
+                                 <th>Lokasi PTM</th>
+                                 <th>Action</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                            {% for item in list_users %}
+                                <tr role="row" class="even">
+                                    
+                                    <td>
+                                        <a href="#" class="pop">
+                                            {% if item.profile_picture %}
+                                                <img src="{{ item.profile_picture.url }}" width="70" height="70" alt="" srcset="">
+                                            {% endif %}
+
+                                        </a>
+                                    </td>
+                                    
+                                    <td>{{item.username}}</td>
+                                    <td>{{item.email}}</td>
+                                    <td>{{item.last_name}}</td>
+                                    <td>{{item.first_name}}</td>
+                                    <td>{{item.role_user}}</td>
+                                    <td>{{item.instansi}}</td>
+                                    <td>{{item.customer}}</td>
+                                    <td>{{item.ptm_location}}</td>
+                                    <td>
+                                        <a class="btn btn-outline-info" href="{% url 'user-update' item.id  %}"><i class="fa fa-edit"></i></a>
+                                        <a class="btn btn-outline-danger" href="{% url 'user-delete' item.id  %}"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                        </table>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock  %}

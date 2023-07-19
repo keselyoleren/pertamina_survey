@@ -8,7 +8,7 @@ from general.models import Informasi
 
 class InformasiListView(ListView):
     model = Informasi
-    template_name = 'admin/informasi/list.html'
+    template_name = 'admin-panel/informasi/list.html'
     context_object_name = 'informasi_list'
     
     def get_context_data(self, **kwargs):
@@ -20,7 +20,7 @@ class InformasiListView(ListView):
 
 class InformasiCreateView(CreateView):
     model = Informasi
-    template_name = 'admin/component/form.html'
+    template_name = 'admin-panel/component/form.html'
     form_class = InformasiForm
     success_url = reverse_lazy('informasi-list')
 
@@ -32,7 +32,7 @@ class InformasiCreateView(CreateView):
 
 class InformasiUpdateView(UpdateView):
     model = Informasi
-    template_name = 'admin/component/form.html'
+    template_name = 'admin-panel/component/form.html'
     form_class = InformasiForm
     success_url = reverse_lazy('informasi-list')
 
@@ -44,7 +44,7 @@ class InformasiUpdateView(UpdateView):
 
 class InformasiDeleteView(DeleteView):
     model = Informasi
-    template_name = 'admin/component/delete.html'
+    template_name = 'admin-panel/component/delete.html'
     success_url = reverse_lazy('informasi-list')
 
     def get_context_data(self, **kwargs):

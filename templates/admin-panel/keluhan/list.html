@@ -1,9 +1,9 @@
-{% extends 'admin/layouts/main.html' %}
+{% extends 'admin-panel/layouts/main.html' %}
 {% load static %}
 
 {% block content %}
     <!-- Page Heading -->
-    {% include 'admin/component/content_header.html' %}
+    {% include 'admin-panel/component/content_header.html' %}
     
     <div class="row">
         <div class="col">
@@ -13,7 +13,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="datatable" class="table table-striped"
+                        <table id="datatable" class="table table-striped table-bordered"
                            data-toggle="data-table">
                            <thead>
                               <tr>
