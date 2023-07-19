@@ -22,8 +22,8 @@ class Keluhan(BaseModel):
 
 class Informasi(BaseModel):
     user = models.ForeignKey(AccountUser, on_delete=models.CASCADE)
-    custumer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    Informasi = models.TextField(_("Komentar"))
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    informasi = models.TextField(_("Komentar"))
 
     def __str__(self) -> str:
         return self.user.username

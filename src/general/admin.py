@@ -9,5 +9,5 @@ class KeluhanAdminView(admin.ModelAdmin):
 
 @admin.register(Informasi)
 class InformasiAdminView(admin.ModelAdmin):
-    list_display = ('id','user','custumer','Informasi')
+    list_display = ('id','user','customer','informasi')
     

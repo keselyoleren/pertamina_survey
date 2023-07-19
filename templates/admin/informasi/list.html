@@ -1,0 +1,55 @@
+{% extends 'admin/layouts/main.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- Page Heading -->
+    {% include 'admin/component/content_header.html' %}
+    
+    <div class="row">
+        <div class="col">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">{{ header_title }}</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="datatable" class="table table-striped"
+                           data-toggle="data-table">
+                           <thead>
+                              <tr>
+                                 <th>User</th>
+                                 <th>Customer</th>
+                                 <th>Komentar</th>
+                                 <th>Action</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              {% for item in informasi_list %}
+                              <tr>
+                                 <td>
+                                    <a href="{% url 'informasi-update' item.id %}">
+                                       {{ item.user.username }}
+                                    </a>
+                                 </td>
+                                 <td>{{ item.customer.name }}</td>
+                                 <td>{{ item.informasi }}</td>
+                                 
+                                 <td>
+                                    <a href="{% url 'informasi-update' item.id %}"
+                                        type="button" class="btn btn-outline-info">Edit</a>
+                                    <a href="{% url 'informasi-delete' item.id %}" 
+                                       type="button" class="btn
+                                       btn-outline-danger">Hapus</a>
+                                 </td>
+                              </tr>
+                              {% endfor %}
+                           </tbody>
+                        </table>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock  %}
