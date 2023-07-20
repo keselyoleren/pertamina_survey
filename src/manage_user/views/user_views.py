@@ -4,12 +4,13 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth import login, authenticate
 from django.http import HttpResponseRedirect
+from config.permisson import IsAuthenticated
 
 from manage_user.form.user_form import AccountUserForm, UserForm
 from manage_user.models import AccountUser
 
 
-class AccountUserListView(ListView):
+class AccountUserListView(IsAuthenticated, ListView):
     model = AccountUser
     template_name = 'admin-panel/users/list.html'
     context_object_name = 'list_users'

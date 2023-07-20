@@ -17,22 +17,26 @@
                            data-toggle="data-table">
                            <thead>
                               <tr>
-                                 <th>Lokasi</th>
-                                 <th>Action</th>
+                                <th>No</th>
+                                <th>Pertanaan</th>
+                                <th>Type Pertanaan</th>
+                                <th>Action</th>
                               </tr>
                            </thead>
                            <tbody>
-                              {% for item in location_list %}
+                              {% for item in question_list %}
                                 <tr>
+                                    <td>{{ forloop.counter }}</td>
                                     <td>
-                                        <a href="{% url 'ptm-update' item.id %}">
-                                            {{ item.location }}
+                                        <a href="{% url 'question-update' survey_id=item.survey.id pk=item.id %}">
+                                            {{ item.question }}
                                         </a>    
                                     </td>
+                                    <td>{{ item.type }}</td>
                                     <td>
-                                        <a href="{% url 'ptm-update' item.id %}"
-                                            type="button" class="btn btn-outline-info"><i class="fa fa-edit"></i></a>
-                                        <a href="{% url 'ptm-delete' item.id %}" 
+                                        <a href="{% url 'question-update' survey_id=item.survey.id pk=item.id %}"
+                                            type="button" class="btn btn-outline-warning"><i class="fa fa-edit"></i></a>
+                                        <a href="{% url 'question-delete' survey_id=item.survey.id pk=item.id %}" 
                                             class="btn btn-outline-danger"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>

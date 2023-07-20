@@ -2,12 +2,13 @@
 
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from config.permisson import IsAuthenticated
 from general.form.keluhan_form import KeluhanForm
 
 from general.models import Keluhan
 
 
-class KeluhanListView(ListView):
+class KeluhanListView(IsAuthenticated, ListView):
     model = Keluhan
     template_name = 'admin-panel/keluhan/list.html'
     context_object_name = 'keluhan_list'

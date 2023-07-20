@@ -19,15 +19,16 @@ from django.views.generic import TemplateView
 from django.conf.urls.static import static
 from django.conf import settings
 
+from general.views.dashboard_views import DashboardView
+
 urlpatterns = [
     path('superadmin/', admin.site.urls),
     path("admin-panel/", include([
         path('general/', include('general.urls')),
         path('manage-user/', include('manage_user.urls')),
+        path('', include('survey.urls')),
+        path("", DashboardView.as_view(), name=""),
     ])),
-    path("", TemplateView.as_view(template_name='admin-panel/index.html'), name=""),
-    
-
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -2,11 +2,12 @@
 
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from config.permisson import IsAuthenticated
 from general.form.informasi_form import InformasiForm
 
 from general.models import Informasi
 
-class InformasiListView(ListView):
+class InformasiListView(IsAuthenticated, ListView):
     model = Informasi
     template_name = 'admin-panel/informasi/list.html'
     context_object_name = 'informasi_list'

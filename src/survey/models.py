@@ -19,8 +19,12 @@ class Survey(BaseModel):
         verbose_name_plural = _("Survey")
 
 class Question(BaseModel):
+    survey = models.ForeignKey(Survey, on_delete=models.CASCADE, blank=True, null=True)
     question = models.CharField(_("Pertanyaan"), max_length=255)
     type = models.CharField(_("Tipe Pertanyaan"), max_length=255, choices=TypeQuestion.choices)
+
+    def __str__(self) -> str:
+        return self.question
     
     class Meta:
         verbose_name = _("Pertanyaan")

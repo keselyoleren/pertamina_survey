@@ -17,21 +17,27 @@
                            data-toggle="data-table">
                            <thead>
                               <tr>
-                                 <th>Lokasi</th>
+                                 <th>Nama</th>
+                                 <th>Deskripsi</th>
                                  <th>Action</th>
                               </tr>
                            </thead>
                            <tbody>
-                              {% for item in location_list %}
+                              {% for item in survey_list %}
                                 <tr>
                                     <td>
                                         <a href="{% url 'ptm-update' item.id %}">
-                                            {{ item.location }}
+                                            {{ item.name }}
                                         </a>    
                                     </td>
+                                    <td>{{ item.description }}</td>
                                     <td>
                                         <a href="{% url 'ptm-update' item.id %}"
-                                            type="button" class="btn btn-outline-info"><i class="fa fa-edit"></i></a>
+                                            type="button" class="btn btn-outline-warning"><i class="fa fa-edit"></i></a>
+                                        <a href="{% url 'question-create' survey_id=item.id %}"
+                                            type="button" class="btn btn-outline-info"><i class="fa fa-plus"></i></a>
+                                            <a href="{% url 'question-list' survey_id=item.id %}"
+                                            type="button" class="btn btn-outline-primary"><i class="fa fa-eye"></i></a>
                                         <a href="{% url 'ptm-delete' item.id %}" 
                                             class="btn btn-outline-danger"><i class="fa fa-trash"></i></a>
                                     </td>

@@ -2,10 +2,11 @@
 
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from config.permisson import IsAuthenticated
 from manage_user.form.ptm_location_form import PTMForm
 from manage_user.models import PTM
 
-class PTMListView(ListView):
+class PTMListView(IsAuthenticated, ListView):
     model = PTM
     template_name = 'admin-panel/ptm_location/list.html'
     context_object_name = 'location_list'

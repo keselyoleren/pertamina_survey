@@ -2,10 +2,11 @@
 
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from config.permisson import IsAuthenticated
 from manage_user.form.instansi_form import InstansiForm
 from manage_user.models import Instansi
 
-class InstansiListView(ListView):
+class InstansiListView(IsAuthenticated, ListView):
     model = Instansi
     template_name = 'admin-panel/instansi/list.html'
     context_object_name = 'instansi_list'

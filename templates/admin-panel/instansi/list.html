@@ -31,10 +31,9 @@
                                     </td>
                                     <td>
                                         <a href="{% url 'instansi-update' item.id %}"
-                                            type="button" class="btn btn-outline-info">Edit</a>
+                                            type="button" class="btn btn-outline-info"><i class="fa fa-edit"></i></a>
                                         <a href="{% url 'instansi-delete' item.id %}" 
-                                            type="button" class="btn
-                                            btn-outline-danger">Hapus</a>
+                                            class="btn btn-outline-danger"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                               {% endfor %}
