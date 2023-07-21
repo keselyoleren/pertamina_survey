@@ -8,7 +8,7 @@ from manage_user.models import PTM, AccountUser, Customer, Instansi
 class UserAdmin(BaseUserAdmin):
     list_display = ('username','email','role_user', 'is_superuser')
     fieldsets = (
-        (None, {'fields': ('username', 'password', 'role_user')}),
+        (None, {'fields': ('username', 'password', 'role_user', 'ptm_location')}),
         (_('Personal info'), {'fields': (
             'first_name', 
             'last_name', 
@@ -22,7 +22,7 @@ class UserAdmin(BaseUserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('username', 'password1', 'password2', 'role_user'),
+            'fields': ('username', 'password1', 'password2', 'role_user', 'ptm_location'),
         }),
     )
 

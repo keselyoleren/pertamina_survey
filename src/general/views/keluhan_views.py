@@ -3,6 +3,7 @@
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from config.permis import IsAuthenticated
+from config.choice import RoleUser
 from general.form.keluhan_form import KeluhanForm
 
 from general.models import Keluhan
@@ -13,6 +14,13 @@ class KeluhanListView(IsAuthenticated, ListView):
     model = Keluhan
     template_name = 'admin-panel/keluhan/list.html'
     context_object_name = 'keluhan_list'
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_superuser or user.role_user == RoleUser.SUPER_ADMIN:
+            return super().get_queryset()
+        return super().get_queryset().filter(user__ptm_location=self.request.user.ptm_location)
+
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
