@@ -10,60 +10,9 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="{% url 'dashboard-admin' %}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
-    </li>
-
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        General
-    </div>
-
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'keluhan-list' %}">
-            <i class="fas fa-fw fa-comments"></i>
-            <span>Keluhan</span></a>
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'informasi-list' %}">
-            <i class="fas fa-fw fa-info"></i>
-            <span>Informasi</span></a>
-    </li>
-    
-
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Manage Users
-    </div>
-
-    <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'user-list' %}">
-            <i class="fas fa-fw fa-user"></i>
-            <span>User</span></a>
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'customer-list' %}">
-            <i class="fas fa-fw fa-user"></i>
-            <span>Customer</span></a>
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'instansi-list' %}">
-            <i class="fas fa-fw fa-building"></i>
-            <span>Instansi</span></a>
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'ptm-list' %}">
-            <i class="fas fa-fw fa-map-marker"></i>
-            <span>Lokasi Ptm</span></a>
     </li>
 
     <!-- Divider -->
@@ -85,10 +34,60 @@
             <i class="fas fa-fw fa-map-marker"></i>
             <span>Responden</span></a>
     </li>
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        General
+    </div>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'keluhan-list' %}">
+            <i class="fas fa-fw fa-comments"></i>
+            <span>Keluhan</span></a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'informasi-list' %}">
+            <i class="fas fa-fw fa-info"></i>
+            <span>Informasi</span></a>
+    </li>
     
-    
+    <hr class="sidebar-divider">
+
+    {% if request.user.role_user == 'super admin' %}
+    <!-- Heading -->
+        <div class="sidebar-heading">
+            Manage Users
+        </div>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'user-list' %}">
+                <i class="fas fa-fw fa-user"></i>
+                <span>User</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'customer-list' %}">
+                <i class="fas fa-fw fa-user"></i>
+                <span>Customer</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'instansi-list' %}">
+                <i class="fas fa-fw fa-building"></i>
+                <span>Instansi</span></a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'ptm-list' %}">
+                <i class="fas fa-fw fa-map-marker"></i>
+                <span>Lokasi Ptm</span></a>
+        </li>
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
+    {% endif %}
 
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">

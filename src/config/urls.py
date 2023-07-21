@@ -18,16 +18,22 @@ from django.urls import path, include
 from django.views.generic import TemplateView
 from django.conf.urls.static import static
 from django.conf import settings
+from general.views.customer_views import DashboardCustomerView
 
 from general.views.dashboard_views import DashboardView
+from manage_user.views.login_views import LogoutCustomerView
 
 urlpatterns = [
+    path('', DashboardCustomerView.as_view(), name="dashboard-customer"),
+    path('account/', include([
+        path('logout', LogoutCustomerView.as_view(), name="logout-customer"),
+    ])),
     path('superadmin/', admin.site.urls),
     path("admin-panel/", include([
         path('general/', include('general.urls')),
         path('manage-user/', include('manage_user.urls')),
         path('', include('survey.urls')),
-        path("", DashboardView.as_view(), name=""),
+        path("", DashboardView.as_view(), name="dashboard-admin"),
     ])),
 ]
 

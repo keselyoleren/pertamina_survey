@@ -4,7 +4,7 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth import login, authenticate
 from django.http import HttpResponseRedirect
-from config.permisson import IsAuthenticated
+from config.permis import IsAuthenticated
 
 from manage_user.form.user_form import AccountUserForm, UserForm
 from manage_user.models import AccountUser

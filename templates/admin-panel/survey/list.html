@@ -26,13 +26,13 @@
                               {% for item in survey_list %}
                                 <tr>
                                     <td>
-                                        <a href="{% url 'ptm-update' item.id %}">
+                                        <a href="{% url 'survey-update' item.id %}">
                                             {{ item.name }}
                                         </a>    
                                     </td>
                                     <td>{{ item.description }}</td>
                                     <td>
-                                        <a href="{% url 'ptm-update' item.id %}"
+                                        <a href="{% url 'survey-update' item.id %}"
                                             type="button" class="btn btn-outline-warning"><i class="fa fa-edit"></i></a>
                                         <a href="{% url 'question-create' survey_id=item.id %}"
                                             type="button" class="btn btn-outline-info"><i class="fa fa-plus"></i></a>

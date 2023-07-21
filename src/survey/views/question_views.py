@@ -2,7 +2,7 @@
 
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from config.permisson import IsAuthenticated
+from config.permis import IsAuthenticated
 from survey.form.pertanyaan_views import QuestionForm
 
 from survey.models import Question, Survey

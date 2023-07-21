@@ -2,10 +2,11 @@
 
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from config.permisson import IsAuthenticated
+from config.permis import IsAuthenticated
 from general.form.keluhan_form import KeluhanForm
 
 from general.models import Keluhan
+
 
 
 class KeluhanListView(IsAuthenticated, ListView):

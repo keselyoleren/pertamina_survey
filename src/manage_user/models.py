@@ -61,5 +61,6 @@ class AccountUser(AbstractUser):
                 img.thumbnail(output_size)
                 img.save(self.profile_picture)
             return super().save(*args, **kwargs)
+        return super().save(*args, **kwargs)
         
     
