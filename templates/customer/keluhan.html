@@ -1,0 +1,43 @@
+{% extends 'customer/layout/main.html' %}
+{% block content %}
+<style></style>
+<div class="main" role="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 center">
+                <div class="heading heading-border heading-middle-border heading-middle-border-center">
+                    <h1><strong>Keluhan</strong></h1>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="wpb_wrapper wpb_text_column td_block_wrap td_block_wrap vc_column_text td_block_template_1">
+                    <div class="td-block-title-wrap">
+                        <h4 class="block-title"><span class="td-pulldown-size">Send us a message!</span></h4>
+                    </div>
+                    <form action="" method="post">    
+                        {% csrf_token %}
+                        {% for fields in form.visible_fields %}
+                        <div class="form-group">
+                            <label class=""
+                                for="{{ fields.label_tag.id }}">
+                                <h6>
+                                    {{ fields.label_tag }}
+                                    {% if fields.field.required %}
+                                        <span class="text-red" style="color: red;">*</span>
+                                    {% endif %}
+                                </h6>
+                            </label>
+                            {{ fields }}
+                        </div>
+                        {% endfor %}
+                    
+                        <div class="form-group">
+                            <input type="submit" name="submit" id="" class="bnt btn-success" placeholder="Nama">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
