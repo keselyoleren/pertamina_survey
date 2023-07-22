@@ -14,8 +14,8 @@ class AccessMixin:
     Abstract CBV mixin that gives access mixins the same customizable
     functionality.
     """
-    login_url = "/admin-panel/manage-user/auth/login/"
-    login_user_url = '/admin-panel/manage-user/auth/login/'
+    login_url = "/auth/login/"
+    login_user_url = '/auth/login/'
     permission_denied_message = 'Hayoo mau ngapain.. awas lo.. kena uu ITE..!!'
     raise_exception = False
     redirect_field_name = REDIRECT_FIELD_NAME
@@ -72,6 +72,8 @@ class LoginRequiredMixin(AccessMixin):
 class IsLoginAuthenticated(AccessMixin):
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
+            if request.user.role_user == RoleUser.CUSTOMNER:
+                return redirect('/')
             return redirect('/admin-panel/')
         return super().dispatch(request, *args, **kwargs)
 
@@ -84,13 +86,17 @@ class LoginViewMixinUser(AccessMixin):
 
 class IsAuthenticated(AccessMixin):
     def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return self.handle_no_permission()
+        if request.user.role_user == RoleUser.CUSTOMNER:
+            return self.handle_no_permission()
         if request.user.is_authenticated:
             return super().dispatch(request, *args, **kwargs)
         if request.user.is_superuser:
             return super().dispatch(request, *args, **kwargs)
-        if request.user.role_user == 'dppu':
+        if request.user.role_user == RoleUser.DPPU:
             return super().dispatch(request, *args, **kwargs)
-        if request.user.role_user == 'super admin':
+        if request.user.role_user == RoleUser.SUPER_ADMIN:
             return super().dispatch(request, *args, **kwargs)
         return self.handle_no_permission()
         

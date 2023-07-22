@@ -8,10 +8,6 @@ from manage_user.views.instansi_views import *
 from manage_user.views.user_views import *
 
 urlpatterns = [
-    path("auth/", include([
-        path("login/", UserLoginView.as_view(), name="admin-login"),
-        path("logout/", LogoutView.as_view(), name="admin-logout"),
-    ])),
     path("customer/", include([
         path('', CustomerListView.as_view(), name='customer-list'),
         path('create/', CustomerCreateView.as_view(), name='customer-create'),

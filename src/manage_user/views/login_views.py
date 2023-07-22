@@ -7,7 +7,7 @@ from manage_user.form.login_form import LoginForm
 from config.choice import RoleUser
 
 class UserLoginView(IsLoginAuthenticated ,LoginView):
-    template_name = 'admin-panel/auth/login.html'
+    template_name = 'auth/login.html'
     form_class = LoginForm
 
     def get_success_url(self) -> str:
@@ -19,7 +19,7 @@ class LogoutView(RedirectView):
     """
     Provides users the ability to logout
     """
-    url = '/admin-panel/manage-user/auth/login/'
+    url = '/auth/login/'
 
     def get(self, request, *args, **kwargs):
         auth_logout(request)
