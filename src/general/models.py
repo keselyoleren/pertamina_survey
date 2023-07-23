@@ -8,7 +8,7 @@ from manage_user.models import AccountUser, Customer
 
 # Create your models here.
 class Keluhan(BaseModel):
-    user = models.ForeignKey(AccountUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(AccountUser, on_delete=models.CASCADE, blank=True, null=True)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     perihal = models.CharField(_("Perihal"), max_length=255)
     komentar = models.TextField(_("Komentar"))
@@ -21,7 +21,7 @@ class Keluhan(BaseModel):
         verbose_name_plural = _("Keluhan")
 
 class Informasi(BaseModel):
-    user = models.ForeignKey(AccountUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(AccountUser, on_delete=models.CASCADE, blank=True, null=True)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     informasi = models.TextField(_("Komentar"))
 

@@ -29,8 +29,8 @@ urlpatterns = [
     path('informasi', InformasiCustomerView.as_view(), name="informasi-customer"),
     path('survey', SuerveCustomerView.as_view(), name="survey-customer"),
     path("auth/", include([
-        path("login/", UserLoginView.as_view(), name="admin-login"),
-        path("logout/", LogoutView.as_view(), name="admin-logout"),
+        path("login/", UserLoginView.as_view(), name="login"),
+        path("logout/", LogoutView.as_view(), name="logout"),
         path('logout-customer', LogoutCustomerView.as_view(), name="logout-customer"),
     ])),
     path('superadmin/', admin.site.urls),
