@@ -13,6 +13,8 @@
 
     <title>Survey APP - Pertamina</title>
 
+    {% block css %}{% endblock %}
+
     <!-- Custom fonts for this template-->
     <link href="{% static 'dppu/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
     <link
@@ -105,17 +107,19 @@
     <script src="{% static 'dppu/js/sb-admin-2.min.js'%}"></script>
 
     <!-- Page level plugins -->
-    <script src="{% static 'dppu/vendor/chart.js/Chart.min.js'%}"></script>
+    {% comment %} <script src="{% static 'dppu/vendor/chart.js/Chart.min.js'%}"></script> {% endcomment %}
 
     <!-- Page level custom scripts -->
-    <script src="{% static 'dppu/js/demo/chart-area-demo.js'%}"></script>
-    <script src="{% static 'dppu/js/demo/chart-pie-demo.js'%}"></script>
+    {% comment %} <script src="{% static 'dppu/js/demo/chart-area-demo.js'%}"></script> {% endcomment %}
+    {% comment %} <script src="{% static 'dppu/js/demo/chart-pie-demo.js'%}"></script> {% endcomment %}
 
     <script src="{% static 'dppu/vendor/datatables/jquery.dataTables.min.js'%}"></script>
     <script src="{% static 'dppu/vendor/datatables/dataTables.bootstrap4.min.js'%}"></script>
 
     <!-- Page level custom scripts -->
     <script src="{% static 'dppu/js/demo/datatables-demo.js'%}"></script>
+
+    {% block js %} {% endblock  %}
     <script>
         $(document).ready(function() {
             $('#datatable').DataTable();

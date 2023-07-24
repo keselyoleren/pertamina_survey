@@ -1,4 +1,5 @@
 {% extends 'customer/layout/main.html' %}
+{% block css %}{{ form.media.css }}{% endblock %}
 {% block content %}
 <style></style>
 <div class="main" role="main">
@@ -41,3 +42,6 @@
     </div>
 </div>
 {% endblock %}
+{% block js %}
+{{ form.media.js }}
+{% endblock  %}

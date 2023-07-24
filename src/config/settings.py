@@ -45,7 +45,8 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
-    # 'djf_surveys',
+    'ckeditor_uploader',
+    'ckeditor',
 ]
 
 LOCAL_APP = [
@@ -153,3 +154,15 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'manage_user.AccountUser'
+
+CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+ 
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_IMAGE_BACKEND = "pillow"
+ 
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Full',
+        'width': '100%', 
+    },
+}

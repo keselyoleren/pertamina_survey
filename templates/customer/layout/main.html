@@ -28,15 +28,16 @@
         <link rel="stylesheet" href="{% static 'customer/css/custom.css' %}">
         <script src="{% static 'customer/js/modernizr.min.js'%}"></script>
         <link rel="stylesheet" href="{% static 'customer/css/slider-bootstrap.css'%}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.6/dist/sweetalert2.min.css">
         <script async
             src="https://www.googletagmanager.com/gtag/js?id=UA-20166082-2"></script>
         <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','UA-20166082-2');</script>
+        {% block css %}{% endblock  %}
     </head>
 
     <body>
         <div class="body">
             {% include 'customer/layout/headers.html' %}
-            
             {% block content %}
             {% endblock %}
             
@@ -60,6 +61,17 @@
         <script src="{% static 'customer/js/theme.js'%}"></script>
         <script src="{% static 'customer/js/custom.js'%}"></script>
         <script src="{% static 'customer/js/theme.init.js' %}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.6/dist/sweetalert2.all.min.js"></script>
         <script type="text/javascript">function langSwitch(content,langId){if(content!=''){var url="/"+langId+"/"+content;window.location=url;}else{if(langId=="id"){alert("Maaf, halaman ini tidak tersedia untuk bahasa inggris");return false;}else{alert("Sorry, this content not available in English.");return false;}}}$('a#btnDownload').each(function(){$(this).click(function(e){e.preventDefault();var getdocName=$(this).data('doc');var lang=$(this).data('lang');console.log(getdocName);$.post({type:"GET",url:window.location.origin+"/Ajax/getDownloadDoc?doc="+getdocName+"&lang="+lang,contentType:"application/json",success:function(response){console.log(window.location.origin+response);window.location=window.location.origin+response;},failure:function(response){alert('Terjadi kesalahan!');}});});});</script>
+        {% if messages %}
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                {% for message in messages %}
+                    swal.fire('{{ message.tags }}', '{{ message }}', '{{ message.tags }}');
+                {% endfor %}
+                });
+            </script>
+        {% endif %}
+        {% block js %}{% endblock %}
     </body>
 </html>

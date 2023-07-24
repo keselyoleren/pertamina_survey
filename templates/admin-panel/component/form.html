@@ -1,5 +1,6 @@
 {% extends 'admin-panel/layouts/main.html' %}
 {% load static %}
+{% block css %}{{ form.media.css }}{% endblock %}
 
 {% block content %}
     <!-- Page Heading -->
@@ -71,4 +72,8 @@
         
     </div>
 
+{% endblock  %}
+
+{% block js %}
+{{ form.media.js }}
 {% endblock  %}

@@ -18,7 +18,7 @@ from django.urls import path, include
 from django.views.generic import TemplateView
 from django.conf.urls.static import static
 from django.conf import settings
-from general.views.customer_views import DashboardCustomerView, InformasiCustomerView, KeluhanCustomerView, SuerveCustomerView
+from general.views.customer_views import DashboardCustomerView, DetailInformasiCreateView, InformasiCustomerView, KeluhanCustomerView, SuerveCustomerView
 
 from general.views.dashboard_views import DashboardView
 from manage_user.views.login_views import LogoutCustomerView, LogoutView, UserLoginView
@@ -27,6 +27,7 @@ urlpatterns = [
     path('', DashboardCustomerView.as_view(), name="dashboard-customer"),
     path('keluhan', KeluhanCustomerView.as_view(), name="keluhan-customer"),
     path('informasi', InformasiCustomerView.as_view(), name="informasi-customer"),
+    path('informasi/<int:pk>/', DetailInformasiCreateView.as_view(), name="informasi-detail-customer"),
     path('survey', SuerveCustomerView.as_view(), name="survey-customer"),
     path("auth/", include([
         path("login/", UserLoginView.as_view(), name="login"),

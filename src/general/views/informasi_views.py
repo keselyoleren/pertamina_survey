@@ -3,7 +3,7 @@
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from config.choice import RoleUser
-from config.permis import IsAuthenticated
+from config.permis import IsAuthenticated, LoginRequiredMixin
 from general.form.informasi_form import InformasiForm
 
 from general.models import Informasi
@@ -27,7 +27,7 @@ class InformasiListView(IsAuthenticated, ListView):
         context['create_url'] = reverse_lazy('informasi-create')
         return context
 
-class InformasiCreateView(CreateView):
+class InformasiCreateView(IsAuthenticated, CreateView):
     model = Informasi
     template_name = 'admin-panel/component/form.html'
     form_class = InformasiForm
@@ -39,7 +39,7 @@ class InformasiCreateView(CreateView):
         context['header_title'] = 'Tambah Informasi'
         return context
 
-class InformasiUpdateView(UpdateView):
+class InformasiUpdateView(IsAuthenticated, UpdateView):
     model = Informasi
     template_name = 'admin-panel/component/form.html'
     form_class = InformasiForm
@@ -51,7 +51,7 @@ class InformasiUpdateView(UpdateView):
         context['header_title'] = 'Edit Informasi'
         return context
 
-class InformasiDeleteView(DeleteView):
+class InformasiDeleteView(IsAuthenticated, DeleteView):
     model = Informasi
     template_name = 'admin-panel/component/delete.html'
     success_url = reverse_lazy('informasi-list')

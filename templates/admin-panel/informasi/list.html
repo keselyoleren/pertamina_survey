@@ -19,7 +19,7 @@
                               <tr>
                                  <th>User</th>
                                  <th>Customer</th>
-                                 <th>Komentar</th>
+                                 <th>Informasi</th>
                                  <th>Action</th>
                               </tr>
                            </thead>
@@ -32,7 +32,7 @@
                                     </a>
                                  </td>
                                  <td>{{ item.customer.name }}</td>
-                                 <td>{{ item.informasi }}</td>
+                                 <td>{{ item.informasi|truncatechars:"255"|safe }}</td>
                                  
                                  <td>
                                     <a href="{% url 'informasi-update' item.id %}"

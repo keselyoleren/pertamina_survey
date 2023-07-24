@@ -3,6 +3,7 @@ from django.db import models
 from config.choice import TypeQuestion
 from config.models import BaseModel
 from django.utils.translation import gettext as _
+from config.request import get_user
 
 from manage_user.models import AccountUser, Customer
 
@@ -38,6 +39,11 @@ class Responden(BaseModel):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     resp_int = models.CharField(_("Respon nilai"), max_length=255, choices=RATING_CHOICES, blank=True, null=True)
     resp_text = models.TextField(_("Respon Text"), blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        if not get_user().is_superuser:
+            self.user = get_user()
+        return super().save(*args, **kwargs)
 
     
     def __str__(self) -> str:

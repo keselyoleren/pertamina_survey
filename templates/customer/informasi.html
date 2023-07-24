@@ -10,40 +10,69 @@
                 </div>
             </div>
         </div>
+        <br>
+        <hr>
         <div class="row mt-md mb-xl">
-            <div class="col-md-4">
+            {% for item in informasi_list  %}
+            <div class="col">
                 <div class="thumb-info custom-thumb-info-4">
-                    <div class="thumb-info-wrapper"><img src="https://pertaminadppubabullah.com/asset/foto_link/SPBU.jpg" class="img-responsive" /></div>
+                    {% comment %} <div class="thumb-info-wrapper"><img src="https://pertaminadppubabullah.com/asset/foto_link/SPBU.jpg" class="img-responsive"></div> {% endcomment %}
                     <div class="thumb-info-caption custom-box-shadow">
                         <div class="thumb-info-caption-text">
-                            <h4 class="text-center"><a href="#" class="text-color-dark"> Produk Kami</a></h4>
-                            <p class="justify">
-                                Kegiatan PERTAMINA dalam menyelenggarakan usaha di bidang energi dan petrokimia, terbagi ke dalam dua sector, yaitu Hulu dan Hilir, serta ditunjang oleh kegiatan Anak-Anak Perusahaan dan Perusahaan Patungan.
-                            </p>
+                            <a href="{% url 'informasi-detail-customer' item.pk %}">
+                                <h3 class="text-left"> {{ item.customer }}</h3>
+                                <p class="justify">
+                                    {{ item.informasi|truncatechars:"255"|safe }}
+                                </p>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="thumb-info custom-thumb-info-4">
-                    <div class="thumb-info-wrapper"><img src="https://pertaminadppubabullah.com/asset/foto_link/renew_energy_PGE.jpg" class="img-responsive" /></div>
-                    <div class="thumb-info-caption custom-box-shadow">
-                        <div class="thumb-info-caption-text">
-                            <h4 class="text-center"><a href="" class="text-color-dark"> Energi Terbarukan</a></h4>
-                            <p class="justify">Pertamina mengembangkan energi terbarukan seperti solar photovoltaic (solar cell), mikrohidro, green diesel, bio LNG dan lainnya.</p>
-                        </div>
-                    </div>
-                </div>
+            <hr>
+            {% endfor %}
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-5">
+                <div class="dataTables_info" id="list_mhs_info" role="status" aria-live="polite"> Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</div>
             </div>
-            <div class="col-md-4">
-                <div class="thumb-info custom-thumb-info-4">
-                    <div class="thumb-info-wrapper"><img src="https://pertaminadppubabullah.com/asset/foto_link/investor_relation.jpg" class="img-responsive" /></div>
-                    <div class="thumb-info-caption custom-box-shadow">
-                        <div class="thumb-info-caption-text">
-                            <h4 class="text-center"><a href="" class="text-color-dark"> Pemegang Saham</a></h4>
-                            <p class="justify">Pertamina adalah perusahaan energi nasional yang sahamnya 100% dimiliki oleh Pemerintah Republik Indonesia melalui kementerian Badan usaha milik negara(BUMN) selaku pemegang saham.</p>
-                        </div>
-                    </div>
+            <div class="col-sm-12 col-md-7">
+                <div class="dataTables_paginate paging_simple_numbers" id="list_mhs_paginate">
+                    {% if is_paginated %}
+                        <ul class="pagination">
+                            {% if page_obj.has_previous %}
+                                <li class="paginate_button page-item previous " id="list_mhs_previous">
+                                    <a href="?page={{page_obj.previous_page_number}}"  class="page-link">Previous</a>
+                                </li>
+                            {% else %}
+                                <li class="paginate_button page-item next disabled" id="list_mhs_next">
+                                    <a href="#"  class="page-link">Previous</a>
+                                </li>
+                            {% endif %} 
+                            
+                            {% for i in page_range %} 
+                                {% if page_obj.number == i %}
+                                    <li class="paginate_button page-item active">
+                                        <a href="#"  class="page-link">{{ i }}</a>
+                                    </li>
+                                {% else %}
+                                    <li class="paginate_button page-item ">
+                                        <a href="?page={{ i }}"  class="page-link">{{ i }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if page_obj.has_next %}
+                                <li class="paginate_button page-item next" id="list_mhs_next">
+                                    <a href="?page={{page_obj.next_page_number}}"  class="page-link">Next</a>
+                                </li>
+                            {% else %}
+                                <li class="paginate_button page-item next disabled" id="list_mhs_next">
+                                    <a href="#"  class="page-link">Next</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    {% endif %}
                 </div>
             </div>
         </div>

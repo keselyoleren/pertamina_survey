@@ -1,0 +1,25 @@
+{% extends 'customer/layout/main.html' %}
+{% block content %}
+
+<div class="main" role="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 center">
+                <div class="heading heading-border heading-middle-border heading-middle-border-center">
+                    <h1><strong>Informasi</strong></h1>
+                </div>
+            </div>
+        </div>
+        <br>
+        <hr>
+        <div class="row mt-md mb-xl">
+            <h3 class="text-left"> {{ informasi.customer }}</h3>
+            <p class="justify">
+                {{informasi.informasi|safe}}
+            </p>
+        </div>
+    </div>
+</div>
+
+
+{% endblock  %}
