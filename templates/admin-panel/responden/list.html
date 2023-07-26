@@ -1,0 +1,53 @@
+{% extends 'admin-panel/layouts/main.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- Page Heading -->
+    {% include 'admin-panel/component/content_header.html' %}
+    
+    <div class="row">
+        <div class="col">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">{{ header_title }}</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="datatable" class="table table-striped table-bordered"
+                           data-toggle="data-table">
+                           <thead>
+                              <tr>
+                                 <th>Customer </th>
+                                 <th>Respondent</th>
+                                 <th>Created At</th>
+                                 <th>Action</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              {% for item in respondents %}
+                                <tr>
+                                    <td>
+                                        <a href="{% url 'responden-detail' item.id %}">
+                                            {{ item.user.customer.name }}
+                                        </a>    
+                                    </td>
+                                    <td>{{ item.user.username }}</td>
+                                    <td>{{ item.created_at }}</td>
+                                    <td>
+                                        <a href="{% url 'responden-detail' item.id %}"
+                                            type="button" class="btn btn-outline-primary"><i class="fa fa-eye"></i></a>
+                                        <a href="{% url 'responden-delete' item.id %}" 
+                                            class="btn btn-outline-danger"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                              {% endfor %}
+                           </tbody>
+                        </table>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock  %}

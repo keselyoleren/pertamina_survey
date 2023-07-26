@@ -1,8 +1,9 @@
 # myapp/urls.py
 
 from django.urls import path, include
-from survey.views.question_views import QuestionCreateView, QuestionDeleteView, QuestionListView, QuestionUpdateView
-from survey.views.suervey_views import SurveyListView, SurveyCreateView, SurveyUpdateView, SurveyDeleteView
+from survey.views.question_views import *
+from survey.views.responden_view import *
+from survey.views.suervey_views import *
 
 
 urlpatterns = [
@@ -11,6 +12,12 @@ urlpatterns = [
         path('create/', SurveyCreateView.as_view(), name='survey-create'),
         path('update/<int:pk>/', SurveyUpdateView.as_view(), name='survey-update'),
         path('delete/<int:pk>/', SurveyDeleteView.as_view(), name='survey-delete'),
+    ])),
+
+    path('responden/', include([
+        path('', RespondenListView.as_view(), name='responden-list'),
+        path('views/<int:pk>/', RespondenDetailView.as_view(), name='responden-detail'),
+        path('delete/<int:pk>/', RespondenDeleteView.as_view(), name='responden-delete'),
     ])),
 
     path("question/", include([

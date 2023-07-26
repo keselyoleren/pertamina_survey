@@ -40,23 +40,26 @@ class Question(BaseModel):
         verbose_name_plural = _("Pertanyaan")
 
 class Responden(BaseModel):
-    RATING_CHOICES = [(i, str(i)) for i in range(1, 11)]
     user = models.ForeignKey(AccountUser, on_delete=models.CASCADE, blank=True, null=True)
-    custumer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.user.username
+
+class SurveyResult(BaseModel):
+    responden = models.ForeignKey(Responden, on_delete=models.CASCADE, blank=True, null=True)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    resp_int = models.CharField(_("Respon nilai"), max_length=255, choices=RATING_CHOICES, blank=True, null=True)
+    resp_int = models.CharField(_("Respon nilai"), max_length=100,  blank=True, null=True)
     resp_text = models.TextField(_("Respon Text"), blank=True, null=True)
 
     def save(self, *args, **kwargs):
-        if not get_user().is_superuser:
-            self.user = get_user()
         return super().save(*args, **kwargs)
 
     
     def __str__(self) -> str:
-        return f"{self.user.username} {self.custumer.name}"
+        return f"{self.responden.user.username} {self.customer.name}"
     
     
     class Meta:
-        verbose_name = _("Responden")
-        verbose_name_plural = _("Responden")
+        verbose_name = _("Survey Result")
+        verbose_name_plural = _("Survey Result")
