@@ -1,8 +1,8 @@
-from tabnanny import verbose
 from django.db import models
 from config.choice import TypeQuestion
 from config.models import BaseModel
 from django.utils.translation import gettext as _
+from django.utils.text import slugify
 from config.request import get_user
 
 from manage_user.models import AccountUser, Customer
@@ -22,10 +22,18 @@ class Survey(BaseModel):
 class Question(BaseModel):
     survey = models.ForeignKey(Survey, on_delete=models.CASCADE, blank=True, null=True)
     question = models.CharField(_("Pertanyaan"), max_length=255)
+    is_required = models.BooleanField(_("Wajib diisi"), default=False)
+    slug = models.SlugField(max_length=100, unique=True, blank=True, null=True)
     type = models.CharField(_("Tipe Pertanyaan"), max_length=255, choices=TypeQuestion.choices)
 
     def __str__(self) -> str:
         return self.question
+
+
+    def save(self, *args, **kwargs):
+        slug_field = f"{self.pk} {self.question}"
+        self.slug = slugify(slug_field)
+        super().save(*args, **kwargs)
     
     class Meta:
         verbose_name = _("Pertanyaan")

@@ -1,17 +1,63 @@
+import json
 from django.views.generic import TemplateView
 from django.views.generic import CreateView
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+from config.choice import TypeQuestion
 from config.permis import LoginRequiredMixin
+from config.survey import MODEL_SURVEY
 from general.form.keluhan_form import KeluhanForm
 from django.contrib import messages
-
+from survey.models import Question, Survey
 from general.models import Informasi, Keluhan
 
 class DashboardCustomerView(TemplateView):
     template_name = 'customer/index.html'
 
-class SuerveCustomerView(TemplateView):
-    template_name = 'customer/survey.html'
+class DetailSuerveCustomerView(DetailView):
+    template_name = 'customer/survey/detail.html'
+    model = Survey
+    context_object_name = 'survey'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        data_model = []
+        for data in Question.objects.filter(survey=self.get_object()):
+            if data.type == TypeQuestion.RATING:
+                data_model.append(
+                    {
+                        "type": "rating", 
+                        "isRequired": bool(data.is_required),
+                        "name": f"{data.slug}",
+                        "title": {"default": f"{data.question}",},
+                        "rateCount": 10, 
+                        "rateMin": 0, 
+                        "rateMax": 9, 
+                        "minRateDescription": {"default": "Tidak Suka",},
+                        "maxRateDescription": {"default": "Sangat Suka",}
+                    }
+                )
+
+            if data.type == TypeQuestion.TEXT:
+                data_model.append(
+                    {
+                        "type": "comment",
+                        "name": f"{data.slug}",
+                        "title": f"{data.question}",
+                        "isRequired": bool(data.is_required),
+                    }
+                )
+        MODEL_SURVEY['title'] = self.get_object().name
+        MODEL_SURVEY['pages'][0]['elements'][0]['elements'] = data_model
+        context['model_survey'] = json.dumps(MODEL_SURVEY)
+        context['questions'] = Question.objects.filter(survey=self.get_object())
+        return context
+
+
+class SurveyCustomerListView(ListView):    
+    template_name = 'customer/survey/index.html'
+    model = Survey
+    context_object_name = 'list_survey'
+    
 
 class KeluhanCustomerView(LoginRequiredMixin, CreateView):
     model = Keluhan

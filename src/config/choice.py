@@ -6,8 +6,8 @@ class RoleUser(TextChoices):
     CUSTOMNER = 'customer'
 
 class TypeQuestion(TextChoices):
-    INT = 'integer'
+    RATING = 'rating'
     TEXT = 'text'
-    COICES = 'choices'
+    
 
     

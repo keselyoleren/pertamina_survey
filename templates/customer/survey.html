@@ -1,7 +1,12 @@
 {% extends 'customer/layout/main.html' %}
+{% block css %}
+    <link type="text/css" rel="stylesheet" href="https://cdn01.jotfor.ms/themes/CSS/5e6b428acc8c4e222d1beb91.css?v=3.3.43700"/>
+    {% comment %} <link type="text/css" rel="stylesheet" href="https://cdn02.jotfor.ms/css/styles/payment/payment_styles.css?3.3.43700" /> {% endcomment %}
+    <link type="text/css" rel="stylesheet" href="https://cdn03.jotfor.ms/css/styles/payment/payment_feature.css?3.3.43700" />
+    <link type="text/css" rel="stylesheet" href="https://cdn01.jotfor.ms/stylebuilder/donationBox.css?v=3.3.43700">
+{% endblock  %}
 {% block content %}
-
-<div class="main" role="main">
+<div class="" role="main">
     <div class="container">
         <div class="row">
             <div class="col-md-12 center">
@@ -9,9 +14,64 @@
                     <h1><strong>Survey</strong></h1>
                 </div>
             </div>
+            <div class="card-body">
+                <form class="jotform-form" action="" method="post" name="form_232054327536453" id="232054327536453" accept-charset="utf-8" autocomplete="on">
+                    <div role="main" class="form-all">
+                        <ul class="form-section page-section">
+                            <li id="cid_1" class="form-input-wide" data-type="control_head">
+                                <div class="form-header-group header-large">
+                                    <div class="header-text httal htvam">
+                                        <h1 id="header_1" class="form-header" data-component="header">New Product Survey</h1>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="form-line" data-type="control_scale" id="id_3">
+                                <label class="form-label form-label-top form-label-auto" id="label_3" for="input_3">What is your first reaction to the product?</label>
+                                <div id="cid_3" class="form-input-wide" data-layout="full">
+                                <span class="form-sub-label-container" style="vertical-align:top">
+                                    <div role="radiogroup" aria-labelledby="label_3 sublabel_input_3_description" cellPadding="4" cellSpacing="0" class="form-scale-table" data-component="scale">
+                                        <div class="rating-item-group">
+                                            <div class="rating-item">
+                                                <span class="rating-item-title for-from"><label for="input_3_worst" aria-hidden="true">Very Negative</label></span><input type="radio" aria-describedby="label_3" class="form-radio" name="q3_whatIs" value="1" title="1" id="input_3_1" /><label for="input_3_1">1</label>
+                                            </div>
+                                            <div class="rating-item">
+                                                <input type="radio" aria-describedby="label_3" class="form-radio" name="q3_whatIs" value="2" title="2" id="input_3_2" /><label for="input_3_2">2</label>
+                                            </div>
+                                            <div class="rating-item">
+                                                <input type="radio" aria-describedby="label_3" class="form-radio" name="q3_whatIs" value="3" title="3" id="input_3_3" /><label for="input_3_3">3</label>
+                                            </div>
+                                            <div class="rating-item">
+                                                <input type="radio" aria-describedby="label_3" class="form-radio" name="q3_whatIs" value="4" title="4" id="input_3_4" /><label for="input_3_4">4</label>
+                                            </div>
+                                            <div class="rating-item">
+                                                <input type="radio" aria-describedby="label_3" class="form-radio" name="q3_whatIs" value="5" title="5" id="input_3_5" /><label for="input_3_5">5</label>
+                                            </div>
+                                            <div class="rating-item">
+                                                <input type="radio" aria-describedby="label_3" class="form-radio" name="q3_whatIs" value="6" title="6" id="input_3_6" /><label for="input_3_6">6</label>
+                                            </div>
+                                            <div class="rating-item">
+                                            <input type="radio" aria-describedby="label_3" class="form-radio" name="q3_whatIs" value="7" title="7" id="input_3_7" /><label for="input_3_7">7</label>
+                                            </div>
+                                            <div class="rating-item">
+                                            <input type="radio" aria-describedby="label_3" class="form-radio" name="q3_whatIs" value="8" title="8" id="input_3_8" /><label for="input_3_8">8</label>
+                                            </div>
+                                            <div class="rating-item">
+                                            <input type="radio" aria-describedby="label_3" class="form-radio" name="q3_whatIs" value="9" title="9" id="input_3_9" /><label for="input_3_9">9</label>
+                                            </div>
+                                            <div class="rating-item">
+                                            <span class="rating-item-title for-to"><label for="input_3_best" aria-hidden="true">Very Positive</label></span><input type="radio" aria-describedby="label_3" class="form-radio" name="q3_whatIs" value="10" title="10" id="input_3_10" /><label for="input_3_10">10</label>
+                                            </div>
+                                        </div>
+                                    </div><label class="form-sub-label" id="sublabel_input_3_description" style="border:0;clip:rect(0 0 0 0);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap" aria-hidden="false">1 is Very Negative, 10 is Very Positive</label>
+                                </span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <input type="hidden" class="simple_spc" id="simple_spc" name="simple_spc" value="232054327536453" />
+                </form>
+            </div>
         </div>
     </div>
 </div>
-
-
-{% endblock  %}
+{% endblock %}

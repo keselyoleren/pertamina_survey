@@ -1,0 +1,33 @@
+{% extends 'customer/layout/main.html' %}
+{% block content %}
+<div class="" role="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 center">
+                <div class="heading heading-border heading-middle-border heading-middle-border-center">
+                    <h1><strong>Survey</strong></h1>
+                </div>
+            </div>
+            <div class="card-body">
+                <div role="main" class="form-all">
+                    <ul class="form-section page-section">
+                        {% for item in list_survey  %}
+                        <li id="cid_1" class="form-input-wide" data-type="control_head">
+                            <div class="form-header-group header-large">
+                                <div class="header-text httal htvam">
+                                    <a href="{% url 'survey-detail-customer' item.pk %}">
+                                        <h1 id="header_1" class="form-header" data-component="header">{{ item.name }}</h1>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                        <hr>
+                        <br>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

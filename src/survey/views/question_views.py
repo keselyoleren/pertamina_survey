@@ -44,6 +44,11 @@ class QuestionCreateView(CreateView):
         context['header_title'] = self.get_question().name
         return context
 
+    def form_valid(self, form):
+        form.instance.survey = self.get_question()
+        form.save()
+        return super().form_valid(form)
+
 class QuestionUpdateView(UpdateView):
     model = Question
     template_name = 'admin-panel/component/form.html'
