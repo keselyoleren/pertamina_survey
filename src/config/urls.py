@@ -18,6 +18,7 @@ from django.urls import path, include
 from django.views.generic import TemplateView
 from django.conf.urls.static import static
 from django.conf import settings
+from general.views.customer_suervey_views import SaveSurveyView
 from general.views.customer_views import DashboardCustomerView, DetailInformasiCreateView, DetailSuerveCustomerView, InformasiCustomerView, KeluhanCustomerView, SurveyCustomerListView
 
 from general.views.dashboard_views import DashboardView
@@ -30,6 +31,7 @@ urlpatterns = [
     path('informasi/<int:pk>/', DetailInformasiCreateView.as_view(), name="informasi-detail-customer"),
     path('survey', SurveyCustomerListView.as_view(), name="survey-customer"),
     path('survey/<int:pk>/', DetailSuerveCustomerView.as_view(), name="survey-detail-customer"),
+    path('save_survey/', SaveSurveyView.as_view(), name="save-survey"),
     path("auth/", include([
         path("login/", UserLoginView.as_view(), name="login"),
         path("logout/", LogoutView.as_view(), name="logout"),

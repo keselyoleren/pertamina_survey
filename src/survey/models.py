@@ -41,7 +41,6 @@ class Question(BaseModel):
 
 class Responden(BaseModel):
     RATING_CHOICES = [(i, str(i)) for i in range(1, 11)]
-
     user = models.ForeignKey(AccountUser, on_delete=models.CASCADE, blank=True, null=True)
     custumer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
