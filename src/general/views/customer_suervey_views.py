@@ -1,7 +1,9 @@
 import json
 from django.views import View
+from django.views.generic import ListView
 from django.http import JsonResponse
 from config.permis import LoginRequiredMixin
+from manage_user.models import Customer
 from survey.models import Question, Responden, SurveyResult
 
 class SaveSurveyView(LoginRequiredMixin, View):
@@ -26,6 +28,7 @@ class SaveSurveyView(LoginRequiredMixin, View):
                 survey_result.resp_text = answer
             survey_result.survey_id=int(survey_id)
             survey_result.save()    
-            print(question)
+            
 
         return JsonResponse({'status': 'success'})
+

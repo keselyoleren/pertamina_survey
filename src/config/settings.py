@@ -85,6 +85,9 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 
             ],
+            'libraries':{
+                'costom_tag': 'survey.templatetags.tags',
+            }
         },
     },
 ]

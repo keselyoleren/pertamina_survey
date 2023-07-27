@@ -2,10 +2,11 @@
 
 from django.views.generic import ListView, DetailView, DeleteView
 from django.urls import reverse_lazy
-from config.choice import TypeQuestion
+from config.choice import RoleUser, TypeQuestion
 from config.permis import IsAuthenticated
+from manage_user.models import Customer
 
-from survey.models import Survey, Responden, SurveyResult
+from survey.models import Question, Survey, Responden, SurveyResult
 from survey.form.suervey_form import SurveyForm
 
 class RespondenListView(IsAuthenticated, ListView):
@@ -13,6 +14,11 @@ class RespondenListView(IsAuthenticated, ListView):
     template_name = 'admin-panel/responden/list.html'
     context_object_name = 'respondents'
     
+    def get_queryset(self):
+        if self.request.user.is_superuser or self.request.user.role_user == RoleUser.SUPER_ADMIN:
+            return super().get_queryset()
+        return super().get_queryset().filter(user__ptm_location=self.request.user.ptm_location)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['header'] = 'Responden'
@@ -45,3 +51,17 @@ class RespondenDeleteView(DeleteView):
         context['header'] = 'Survey'
         context['header_title'] = 'Delete Survey'
         return context
+
+
+class TotalSurveyView(IsAuthenticated, ListView):
+    model = Customer
+    template_name = 'admin-panel/responden/total.html'
+    context_object_name = 'customers'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['header'] = 'Survey'
+        context['header_title'] = f'TotalHasil Survey customer  {self.request.user.ptm_location}'
+        context['questions'] = Question.objects.filter(type=TypeQuestion.RATING)
+        return context
+    

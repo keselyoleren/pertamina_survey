@@ -18,6 +18,7 @@ urlpatterns = [
         path('', RespondenListView.as_view(), name='responden-list'),
         path('views/<int:pk>/', RespondenDetailView.as_view(), name='responden-detail'),
         path('delete/<int:pk>/', RespondenDeleteView.as_view(), name='responden-delete'),
+        path('total/', TotalSurveyView.as_view(), name='responden-total'),
     ])),
 
     path("question/", include([
