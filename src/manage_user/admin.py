@@ -26,9 +26,6 @@ class UserAdmin(BaseUserAdmin):
         }),
     )
 
-@admin.register(Instansi)
-class InstansiAdminView(admin.ModelAdmin):
-    list_display = ('id','name')
 
 @admin.register(Customer)
 class CUstomerAdminView(admin.ModelAdmin):
