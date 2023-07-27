@@ -21,6 +21,7 @@ from decouple import config
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -30,7 +31,7 @@ SECRET_KEY = 'django-insecure-7f#^w@b*kf5qvty(k@*(w)^s5rnt%09ija9$%2j7l_%b@#d@$$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://aviationdigimon.com/', 'aviationdigimon.com', 'localhost', 'localhost:8000']
 
 
 # Application definition
