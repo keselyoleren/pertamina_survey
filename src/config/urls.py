@@ -25,7 +25,7 @@ from general.views.dashboard_views import DashboardView
 from manage_user.views.login_views import LogoutCustomerView, LogoutView, UserLoginView
 
 urlpatterns = [
-    path('superadmin/', admin.site.urls),
+    path('superadmin', admin.site.urls),
     path("admin-panel/", include([
         path("", include('survey.urls')),
         path("", DashboardView.as_view(), name="dashboard-admin"),
