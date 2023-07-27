@@ -25,6 +25,13 @@ from general.views.dashboard_views import DashboardView
 from manage_user.views.login_views import LogoutCustomerView, LogoutView, UserLoginView
 
 urlpatterns = [
+    path('superadmin/', admin.site.urls),
+    path("admin-panel/", include([
+        path("", include('survey.urls')),
+        path("", DashboardView.as_view(), name="dashboard-admin"),
+        path('general/', include('general.urls')),
+        path('manage-user/', include('manage_user.urls')),
+    ])),
     path('', DashboardCustomerView.as_view(), name="dashboard-customer"),
     path('keluhan', KeluhanCustomerView.as_view(), name="keluhan-customer"),
     path('informasi', InformasiCustomerView.as_view(), name="informasi-customer"),
@@ -37,13 +44,7 @@ urlpatterns = [
         path("logout/", LogoutView.as_view(), name="logout"),
         path('logout-customer', LogoutCustomerView.as_view(), name="logout-customer"),
     ])),
-    path('superadmin/', admin.site.urls),
-    path("admin-panel/", include([
-        path('general/', include('general.urls')),
-        path('manage-user/', include('manage_user.urls')),
-        path("", include('survey.urls')),
-        path("", DashboardView.as_view(), name="dashboard-admin"),
-    ])),
+    
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
