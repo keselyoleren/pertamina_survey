@@ -13,7 +13,7 @@ from general.models import Informasi, Keluhan
 class DashboardCustomerView(TemplateView):
     template_name = 'customer/index.html'
 
-class DetailSuerveCustomerView(DetailView):
+class DetailSuerveCustomerView(LoginRequiredMixin, DetailView):
     template_name = 'customer/survey/detail.html'
     model = Survey
     context_object_name = 'survey'
@@ -53,7 +53,7 @@ class DetailSuerveCustomerView(DetailView):
         return context
 
 
-class SurveyCustomerListView(ListView):    
+class SurveyCustomerListView(LoginRequiredMixin, ListView):    
     template_name = 'customer/survey/index.html'
     model = Survey
     context_object_name = 'list_survey'
