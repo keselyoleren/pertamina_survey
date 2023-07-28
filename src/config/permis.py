@@ -74,7 +74,7 @@ class IsLoginAuthenticated(AccessMixin):
         if request.user.is_authenticated:
             if request.user.role_user == RoleUser.CUSTOMNER:
                 return redirect('/')
-            return redirect('/admin-panel/')
+            return redirect('/admin-panel/dashboard/')
         return super().dispatch(request, *args, **kwargs)
 
 class LoginViewMixinUser(AccessMixin):
