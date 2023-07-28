@@ -12,7 +12,7 @@ class UserLoginView(IsLoginAuthenticated ,LoginView):
 
     def get_success_url(self) -> str:
         if self.request.user.role_user in [RoleUser.SUPER_ADMIN, RoleUser.DPPU]:
-            return "/admin-panel/"
+            return "/admin-panel/dashboard"
         return "/"
 
 class LogoutView(RedirectView):
