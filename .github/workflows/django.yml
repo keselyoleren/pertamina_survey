@@ -16,7 +16,9 @@ jobs:
     - uses: actions/checkout@v3
     - name: deploy in server
       run: |
-        sshpass -p ${{secrets.SSH_PASS}} ssh  jogjatec@valerion.sg.rapidplex.com -p 64000
-        source /home/jogjatec/virtualenv/aviationdigimon.com/3.8/bin/activate && cd /home/jogjatec/aviationdigimon.com/pertamina_survey
-        git pull origin master
+        sshpass -p ${{secrets.SSH_PASS}} ssh  jogjatec@valerion.sg.rapidplex.com -p 64000 << EOF
+          source /home/jogjatec/virtualenv/aviationdigimon.com/3.8/bin/activate
+          cd /home/jogjatec/aviationdigimon.com/pertamina_survey
+          git pull origin master
+        EOF
 
