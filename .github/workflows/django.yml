@@ -22,6 +22,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: deploy in server
       run: |
-        sshpass -p ${{}}
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        sshpass -p ${{secrets.SSH_PASS}}
+        source /home/jogjatec/virtualenv/aviationdigimon.com/3.8/bin/activate && cd /home/jogjatec/aviationdigimon.com/pertamina_survey
+        git pull origin master
+
