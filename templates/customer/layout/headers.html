@@ -1,3 +1,13 @@
+<style>
+    .img-profile {
+        height: 2rem;
+        width: 2rem;
+    }
+    .rounded-circle {
+        border-radius: 50% !important;
+    }
+
+</style>
 <header id="header" class="header-no-border-bottom" data-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': true,'stickyStartAt': 140, 'stickySetTop': '-140px', 'stickyChangeLogo': false}">
     <div class="header-body">
         <div class="header-container container">
@@ -6,26 +16,6 @@
                     <div class="header-logo">
                         <img
                             src='https://pertaminadppubabullah.com/asset/logo/PT_Pertamina_Patra_Niaga1.png'/>
-                    </div>
-                </div>
-                <div class="header-column">
-                    <div class="header-search">
-                        <form id="searchForm"
-                            action="https://pertaminadppubabullah.com/berita/index/"
-                            method="POST">
-                            <div class="input-group">
-                                <input type="text"
-                                    class="form-control" name="kata"
-                                    placeholder="Search..."
-                                    required=""
-                                    aria-required="true">
-                                <span class="input-group-btn">
-                                    <button name="cari" class="btn
-                                        btn-default" type="submit"><i
-                                            class="fa fa-search"></i></button>
-                                </span>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -59,25 +49,41 @@
                             <a href="{% url 'informasi-customer' %}" class="">Informasi</a>
                         </li>
 
-                        {% if request.user.is_authenticated %}
-                        <li class="dropdown dropdown-mega">
-                            <a href="{% url 'dashboard-customer' %}"> <i class="fa fa-user" style="font-size:25px;"></i></a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="{% url 'logout-customer' %}" >Logout</a>
-                                </li>
-                            </ul>
+                        <li class="nav-item dropdown no-arrow">
+                            {% if request.user.is_authenticated %}
+                            
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <img class="img-profile rounded-circle" src="{{ request.user.profile_picture.url }}">
+                            </a>
+                            
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="{% url 'profile' %}">
+                                    <i class="fa fa-user-circle-o"> Profile</i> 
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{% url 'logout-customer' %}">
+                                    <i class="fa fa-sign-out"> Logout</i> 
+                                </a>
+                            </div>
+                            {% else %}
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account
+                            </a>
+                            
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="{% url 'login' %}">
+                                    <i class="fa fa-sign-in"> Login</i> 
+                                </a>
+                                <div class="dropdown-divider"></div>
+                            </div>
+                            {% endif %}
                         </li>
-                        {% else %}
-                        <li class="dropdown dropdown-mega">
-                            <a href="" class="dropdown-toggle">Account<i class="fa fa-caret-down"></i></a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="{% url 'login' %}" >Login</a>
-                                </li>
-                            </ul>
-                        </li>
-                        {% endif %}
                     </ul>
                 </nav>
             </div>

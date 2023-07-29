@@ -45,7 +45,7 @@ class Customer(BaseModel):
 
 
 class AccountUser(AbstractUser):
-    profile_picture = models.ImageField(_("Profile Picture"), upload_to='profile_picture/', null=True, blank=True)
+    profile_picture = models.ImageField(_("Profile Picture"), upload_to='profile_picture/', null=True, blank=True, default='profile_picture/default.png')
     ptm_location = models.ForeignKey(PTM, on_delete=models.CASCADE, null=True, blank=True)
     role_user = models.CharField(_("Role User"), max_length=20, choices=RoleUser.choices, default=RoleUser.CUSTOMNER)
     jabatan = models.CharField(_("Jabatan"), max_length=100, null=True, blank=True)
