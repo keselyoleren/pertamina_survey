@@ -16,9 +16,15 @@ jobs:
     - uses: actions/checkout@v3
     - name: deploy in server
       run: |
-        sshpass -p ${{secrets.SSH_PASS}} ssh  jogjatec@valerion.sg.rapidplex.com -p 64000 << EOF
-          source /home/jogjatec/virtualenv/aviationdigimon.com/3.8/bin/activate
-          cd /home/jogjatec/aviationdigimon.com/pertamina_survey
-          git pull origin master
-        EOF
+  
+          REMOTE_USER=jogjatec
+          REMOTE_SERVER=valerion.sg.rapidplex.com
+          REMOTE_PORT=64000
+
+          sshpass -p ${{secrets.SSH_PASS}} ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER '
+            source /home/jogjatec/virtualenv/aviationdigimon.com/3.8/bin/activate
+            cd /home/jogjatec/aviationdigimon.com/pertamina_survey
+            git pull origin master
+            # Add any additional commands needed for deployment here
+          '
 
