@@ -18,19 +18,14 @@ jobs:
 
     - name: Deploy in server
       run: |
-        # Install ssh client
+        
         sudo apt-get update
         sudo apt-get install -y openssh-client
 
-        # Replace <remote_user> and <remote_server> with your server credentials
-        REMOTE_USER=jogjatec
-        REMOTE_SERVER=valerion.sg.rapidplex.com
-        REMOTE_PORT=64000
-
-        # SSH command to execute remote commands
-        ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER '
+        
+        sshpass -p ${{secrets.SSH_PASS}} ssh  jogjatec@valerion.sg.rapidplex.com -p 64000 '
           source /home/jogjatec/virtualenv/aviationdigimon.com/3.8/bin/activate
           cd /home/jogjatec/aviationdigimon.com/pertamina_survey
           git pull origin master
-          # Add any additional commands needed for deployment here
+          
         '
