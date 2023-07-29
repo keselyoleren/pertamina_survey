@@ -45,7 +45,10 @@ class ProfileUserApiView(LoginRequiredMixin, UpdateView):
     
 
     def get_context_data(self, **kwargs):
-        return super().get_context_data(**kwargs)
+        context =  super().get_context_data(**kwargs)
+        context['header'] = 'Profile'
+        context['header_title'] = 'Update Profile'
+        return context
 
     def get_object(self, queryset=None):
         return self.request.user
