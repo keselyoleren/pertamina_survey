@@ -8,6 +8,7 @@ from config.permis import IsAuthenticated
 
 from manage_user.form.user_form import AccountUserForm, UserForm
 from manage_user.models import AccountUser
+from config.smtp import Smtp
 
 
 class AccountUserListView(IsAuthenticated, ListView):
@@ -34,6 +35,10 @@ class AccountUserCreateView(CreateView):
         context['header_title'] = 'Tambah User'
         return context
 
+    def form_valid(self, form):
+        print(form.cleaned_data.get('email'))
+        Smtp(reciept=form.cleaned_data.get('email')).create_authorized_recipient()
+        return super().form_valid(form)
 
 class AccountUserUpdateView(UpdateView):
     model = AccountUser

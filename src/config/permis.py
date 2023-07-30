@@ -72,7 +72,7 @@ class LoginRequiredMixin(AccessMixin):
 class IsLoginAuthenticated(AccessMixin):
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            if request.user.role_user == RoleUser.CUSTOMNER:
+            if request.user.role_user == RoleUser.CUSTOMER:
                 return redirect('/')
             return redirect('/admin-panel/dashboard')
         return super().dispatch(request, *args, **kwargs)
@@ -88,7 +88,7 @@ class IsAuthenticated(AccessMixin):
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return self.handle_no_permission()
-        if request.user.role_user == RoleUser.CUSTOMNER:
+        if request.user.role_user == RoleUser.CUSTOMER:
             return self.handle_no_permission()
         if request.user.is_authenticated:
             return super().dispatch(request, *args, **kwargs)

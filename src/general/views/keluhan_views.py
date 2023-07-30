@@ -36,7 +36,6 @@ class KeluhanCreateView(CreateView):
     success_url = reverse_lazy('keluhan-list')
 
     def get_context_data(self, **kwargs):
-        print('matamu')
         context = super().get_context_data(**kwargs)
         context['header'] = 'Keluhan'
         context['header_title'] = 'Tambah Keluhan'

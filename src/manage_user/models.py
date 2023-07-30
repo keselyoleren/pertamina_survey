@@ -47,7 +47,7 @@ class Customer(BaseModel):
 class AccountUser(AbstractUser):
     profile_picture = models.ImageField(_("Profile Picture"), upload_to='profile_picture/', null=True, blank=True, default='profile_picture/default.png')
     ptm_location = models.ForeignKey(PTM, on_delete=models.CASCADE, null=True, blank=True)
-    role_user = models.CharField(_("Role User"), max_length=20, choices=RoleUser.choices, default=RoleUser.CUSTOMNER)
+    role_user = models.CharField(_("Role User"), max_length=20, choices=RoleUser.choices, default=RoleUser.CUSTOMER)
     jabatan = models.CharField(_("Jabatan"), max_length=100, null=True, blank=True)
     instansi = models.CharField(_("Instansi"), max_length=100, null=True, blank=True)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True, blank=True, help_text="jika role user adalah superadmin dan dppu maka field ini tidak usah di isi")

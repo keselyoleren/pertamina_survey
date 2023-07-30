@@ -54,13 +54,13 @@ class ProfileUserApiView(LoginRequiredMixin, UpdateView):
         return self.request.user
 
     def get_template_names(self):
-        if self.request.user.role_user ==  RoleUser.CUSTOMNER:
+        if self.request.user.role_user ==  RoleUser.CUSTOMER:
             self.template_name = 'auth/profile.html'
         return super().get_template_names()
 
     def get_success_url(self):
         # Redirect to the profile page after successful form submission
         messages.success(self.request, "Profile berhasil di update")
-        if self.request.user.role_user ==  RoleUser.CUSTOMNER:
+        if self.request.user.role_user ==  RoleUser.CUSTOMER:
             return '/'
         return '/admin-panel/dashboard'

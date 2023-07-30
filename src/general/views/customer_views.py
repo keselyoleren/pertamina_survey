@@ -1,12 +1,17 @@
 import json
 from django.views.generic import TemplateView
-from django.views.generic import CreateView
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
-from config.choice import TypeQuestion
+from django.views.generic import (
+    ListView,
+    CreateView,
+    DetailView
+)
+from config.choice import RoleUser, TypeQuestion
+from config.smtp import Smtp
 from config.permis import LoginRequiredMixin
 from config.survey import MODEL_SURVEY
 from general.form.keluhan_form import KeluhanForm
 from django.contrib import messages
+from manage_user.models import AccountUser
 from survey.models import Question, Survey
 from general.models import Informasi, Keluhan
 
@@ -59,11 +64,11 @@ class SurveyCustomerListView(LoginRequiredMixin, ListView):
     context_object_name = 'list_survey'
     
 
-class KeluhanCustomerView(LoginRequiredMixin, CreateView):
+class KeluhanCustomerView(CreateView):
     model = Keluhan
     template_name = 'customer/keluhan.html'
     form_class = KeluhanForm
-    success_url = '/keluhan'
+    success_url = '/'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -72,6 +77,19 @@ class KeluhanCustomerView(LoginRequiredMixin, CreateView):
         return context
 
     def form_valid(self, form):
+        template = 'email/keluhan.html'
+        context = {
+            'user':self.request.user,
+            'perihal':form.cleaned_data.get('perihal'),
+            'komentar':form.cleaned_data.get('komentar'),
+        }
+        for user in AccountUser.objects.filter(role_user=RoleUser.DPPU, ptm_location=self.request.user.ptm_location):
+            Smtp(
+                template=template,
+                subject='Keluhan',
+                reciept=[user.email],
+                context=context
+            ).send_mail()        
         messages.success(self.request, "Keluhan berhasil dikirim")
         return super().form_valid(form)
 

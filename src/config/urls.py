@@ -33,7 +33,7 @@ urlpatterns = [
         path('manage-user/', include('manage_user.urls')),
     ])),
     path('', DashboardCustomerView.as_view(), name="dashboard-customer"),
-    path('keluhan', KeluhanCustomerView.as_view(), name="keluhan-customer"),
+    path('keluhan/create/', KeluhanCustomerView.as_view(), name="keluhan-customer"),
     path('informasi', InformasiCustomerView.as_view(), name="informasi-customer"),
     path('informasi/<int:pk>/', DetailInformasiCreateView.as_view(), name="informasi-detail-customer"),
     path('survey', SurveyCustomerListView.as_view(), name="survey-customer"),

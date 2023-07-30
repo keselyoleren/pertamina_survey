@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email</title>
+    <style>
+        /* Reset default styles */
+        body, p, h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Set primary color to red */
+        body {
+            background-color: #ffffff;
+        }
+
+        .header {
+            background-color: #ff0000; /* Red */
+            text-align: center;
+            padding: 20px;
+        }
+
+        .header img {
+            max-width: 200px;
+            height: auto;
+        }
+
+        .content {
+            padding: 20px;
+        }
+        .footer {
+            background-color: #f2f2f2; /* Light gray */
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        {% comment %} <img src="{% static 'img/logo_pertamina.png' %}" alt="Logo"> {% endcomment %}
+    </div>
+    <div class="content">
+        <h1>Hello, {{ dppu }} ada keluhan dari user {{ user.username }} ({{ user.customer }})</h1>
+
+        <h4>Perihal {{ perihal }}</h4><br><hr>
+
+        {{ komentar|safe }}
+    </div>
+    <div class="footer">
+        <p>Pt Pertamina</p>
+        <p>City, State, Postal Code</p>
+        <p>Indonesia</p>
+    </div>
+</body>
+</html>
