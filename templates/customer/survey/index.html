@@ -10,21 +10,19 @@
             </div>
             <div class="card-body">
                 <div role="main" class="form-all">
-                    <ul class="form-section page-section">
+                    <div class="card text-center">
                         {% for item in list_survey  %}
-                        <li id="cid_1" class="form-input-wide" data-type="control_head">
-                            <div class="form-header-group header-large">
-                                <div class="header-text httal htvam">
-                                    <a href="{% url 'survey-detail-customer' item.pk %}">
-                                        <h1 id="header_1" class="form-header" data-component="header">{{ item.name }}</h1>
-                                    </a>
-                                </div>
-                            </div>
-                        </li>
-                        <hr>
-                        <br>
+                        <div class="card-header">
+                            Featured
+                        </div>
+                        <div class="card-body">
+                            <h4>Kepadat Yth <b>Pimpinan Garuda Indonesia</b> </h4>
+                            <p class="card-text">Suara Anda adalah motivasi kami. Kami ingin mengetahui persepsi Anda tentang Pertamina DPPU Mopah Merauke yang akan kami gunakan untuk menjaga, memperbaiki, dan meningkatkan kinerja kami melayani Anda</p>
+                            <p class="card-text">{{ item.name }}</p>
+                            <a href="{% url 'survey-detail-customer' item.pk %}" class="btn btn-primary">Go somewhere</a>
+                        </div>
                         {% endfor %}
-                    </ul>
+                    </div>
                 </div>
             </div>
         </div>

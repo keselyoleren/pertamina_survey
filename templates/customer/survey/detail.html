@@ -1,7 +1,8 @@
 {% extends 'customer/layout/main.html' %}
 {% load static %}
 {% block css %}
-    <link rel="stylesheet" href="https://unpkg.com/survey-jquery@1.9.98/defaultV2.min.css" />
+    {% comment %} <link rel="stylesheet" href="https://unpkg.com/survey-jquery@1.9.98/defaultV2.min.css" /> {% endcomment %}
+    <link rel="stylesheet" href="{% static 'customer/css/survey.css' %}">
 {% endblock  %}
 {% block content %}
 <div class="" role="main">
@@ -23,8 +24,13 @@
 <script src="https://unpkg.com/survey-jquery@1.9.98/survey.jquery.min.js"></script>
 <script>
     const json_strinig = '{{ model_survey|safe }}'
+    const themeJson = {
+        "cssVariables": {},
+        "isPanelless": false
+      }
     const json_model = JSON.parse(json_strinig)
     const survey = new Survey.Model(json_model);
+    survey.applyTheme(themeJson);
     survey.onComplete.add((sender, options) => {
         $.ajax({
             type: 'POST',

@@ -63,6 +63,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                {% if is_profile %}
+                                    <img src="{{ request.user.profile_picture.url }}"class="img-thumbnail">
+                                {% endif %}
                             </div>
                         </div>
                     </form>

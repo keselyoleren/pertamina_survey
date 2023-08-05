@@ -8,6 +8,8 @@
     }
 
 </style>
+{% load costom_tag %}
+
 <header id="header" class="header-no-border-bottom" data-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': true,'stickyStartAt': 140, 'stickySetTop': '-140px', 'stickyChangeLogo': false}">
     <div class="header-body">
         <div class="header-container container">
@@ -40,7 +42,7 @@
                             </a>
                         </li>
                         <li class="">
-                            <a href="{% url 'survey-customer' %}" class="">Survey </a>
+                            <a href="{% url 'survey-detail-customer' costom_tag|get_survey   %}" class="">Survey </a>
                         </li>                            
                         <li class="">
                             <a href="{% url 'keluhan-customer' %}" class="">Keluhan</a>
@@ -67,7 +69,7 @@
                                 <br>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{% url 'change-password' %}">
-                                    <i class="fa fa-sign-out"> Ganti Password</i> 
+                                    <i class="fa fa-key"> Ganti Password</i> 
                                 </a>
                                 <br>
                                 <div class="dropdown-divider"></div>

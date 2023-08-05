@@ -1,4 +1,5 @@
 import json
+from turtle import ht
 from django.views.generic import TemplateView
 from django.views.generic import (
     ListView,
@@ -8,7 +9,7 @@ from django.views.generic import (
 from config.choice import RoleUser, TypeQuestion
 from config.smtp import Smtp
 from config.permis import LoginRequiredMixin
-from config.survey import MODEL_SURVEY
+from config.survey import MODEL_SURVEY, MODEL_WITH_INTRO
 from general.form.keluhan_form import KeluhanForm
 from django.contrib import messages
 from manage_user.models import AccountUser
@@ -26,35 +27,66 @@ class DetailSuerveCustomerView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         data_model = []
-        for data in Question.objects.filter(survey=self.get_object()):
-            if data.type == TypeQuestion.RATING:
-                data_model.append(
+        # testing
+        survey_object = self.get_object()
+
+        # Get all the questions for the given survey
+        questions = Question.objects.filter(survey=survey_object)
+
+        # Initialize an empty list to store the arrays
+        html_intro = f"<h4>Kepadat Yth. <br> <b>Pimpinan {self.request.user.customer.name}</b> </h4> <b> <p >Suara Anda adalah motivasi kami. Kami ingin mengetahui persepsi Anda tentang Pertamina {self.request.user.ptm_location.location} Merauke yang akan kami gunakan untuk menjaga, memperbaiki, dan meningkatkan kinerja kami melayani Anda</p><p >{self.get_object().name}</p></b>"
+        
+        arrays = [{
+            "name": "page0",
+            "elements": [{
+                    "type": "html",
+                    "name": "question2",
+                    "html": html_intro
+                    }
+                ]
+            }
+        ]
+
+        # Iterate over the questions and divide them into arrays of maximum size 5
+        current_array = []
+        for i, question in enumerate(questions, 1):
+            if question.type == TypeQuestion.RATING:
+                current_array.append(
                     {
                         "type": "rating", 
-                        "isRequired": bool(data.is_required),
+                        "isRequired": bool(question.is_required),
                         "rateType": "stars",
-                        "name": f"{data.slug}",
-                        "title": {"default": f"{data.question}",},
+                        "name": f"{question.slug}",
+                        "title": {"default": f"{question.question}",},
                         "rateCount": 10, 
                         "rateMin": 1, 
                         "rateMax": 10, 
-                        "minRateDescription": {"default": "Tidak Suka",},
-                        "maxRateDescription": {"default": "Sangat Suka",}
+                        "minRateDescription": {"default": " ",},
+                        "maxRateDescription": {"default": " ",}
                     }
                 )
 
-            if data.type == TypeQuestion.TEXT:
-                data_model.append(
+            if question.type == TypeQuestion.TEXT:
+                current_array.append(
                     {
                         "type": "comment",
-                        "name": f"{data.slug}",
-                        "title": f"{data.question}",
-                        "isRequired": bool(data.is_required),
+                        "name": f"{question.slug}",
+                        "title": f"{question.question}",
+                        "isRequired": bool(question.is_required),
                     }
                 )
-        MODEL_SURVEY['title'] = self.get_object().name
-        MODEL_SURVEY['pages'][0]['elements'][0]['elements'] = data_model
-        context['model_survey'] = json.dumps(MODEL_SURVEY)
+            # current_array.append(question)
+            # Check if the current array size reaches 5 or it's the last question
+            if i % 5 == 0 or i == len(questions):
+                arrays.append({
+                    "name": f"page{i}",
+                    "elements": current_array,
+                })
+                current_array = []
+        # 
+        
+        MODEL_WITH_INTRO['pages'] = arrays
+        context['model_survey'] = json.dumps(MODEL_WITH_INTRO)
         context['questions'] = Question.objects.filter(survey=self.get_object())
         return context
 

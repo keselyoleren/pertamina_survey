@@ -21,3 +21,18 @@ MODEL_SURVEY = {
   "widthMode": "static",
   "width": "1000px"
 }
+
+MODEL_WITH_INTRO = {
+  "progressBarType": "pages",
+  "showProgressBar": "top",
+  "showQuestionNumbers": True,
+  "completedHtml": "<h3>Survey berhasil dikirim, Termimakasih!</h3>",
+  "completeText": "Submit",
+  "pageNextText": "Continue",
+  "pagePrevText": "Previous",
+  "pages": [  ],
+  "showPrevButton": True,
+  "showQuestionNumbers": "off",
+  "widthMode": "static",
+  "width": "1000px"
+}

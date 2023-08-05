@@ -20,6 +20,7 @@ class Keluhan(BaseModel):
     
     def save(self, *args, **kwargs):
         if not get_user().is_superuser:
+            self.customer = get_user().customer
             self.user = get_user()
         return super().save(*args, **kwargs)
 

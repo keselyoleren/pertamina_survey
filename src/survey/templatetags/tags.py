@@ -1,7 +1,7 @@
 
 from django import template
 from config.choice import RoleUser
-from survey.models import SurveyResult
+from survey.models import Survey, SurveyResult
 from django.db.models import Avg
 from config.request import get_user
 register = template.Library()
@@ -13,3 +13,8 @@ def survey_result(question, customer):
         average_result = SurveyResult.objects.filter(question_id=question, customer_id=customer).aggregate(avg_resp_int=Avg('resp_int'))
     return average_result['avg_resp_int']
     # return question.survey_result(responden)
+
+
+@register.filter(name='get_survey')
+def get_survey(arg):
+    return Survey.objects.all().first().id
