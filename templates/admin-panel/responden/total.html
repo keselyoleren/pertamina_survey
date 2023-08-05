@@ -19,8 +19,10 @@
                                 <tr>
                                     <th rowspan="1">Kriteria (Criteria)</th>
                                     {% for item in customers %}
-                                        <th colspan="1" style="text-align: center;">{{ item.name }}</th>
+                                        <th colspan="1" style="text-align: center;">{{ item.cus_id }}</th>
                                     {% endfor %}
+                                    <th>&nbsp;</th>
+                                    <th>Average</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -31,6 +33,8 @@
                                     {% for cus in customers %}
                                         <th>{{item.id|survey_result:cus.id}}</th>
                                     {% endfor %}
+                                    <td>&nbsp;</td>
+                                    <td>{{ item.id|avg_survey }}</td>
                                 </tr>
                                 {% endfor %}
                                 

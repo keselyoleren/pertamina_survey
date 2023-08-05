@@ -21,8 +21,8 @@ class RespondenListView(IsAuthenticated, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['header'] = 'Responden'
-        context['header_title'] = 'List Responden'
+        context['header'] = 'Hasil Survey'
+        context['header_title'] = 'List Hasil Survey'
         return context
 
 
@@ -49,7 +49,7 @@ class RespondenDeleteView(DeleteView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['header'] = 'Survey'
-        context['header_title'] = 'Delete Survey'
+        context['header_title'] = 'Delete Hasil Survey'
         return context
 
 
@@ -58,10 +58,15 @@ class TotalSurveyView(IsAuthenticated, ListView):
     template_name = 'admin-panel/responden/total.html'
     context_object_name = 'customers'
 
+    def get_queryset(self):
+        if self.request.user.is_superuser or self.request.user.role_user == RoleUser.SUPER_ADMIN:
+            return super().get_queryset()
+        return super().get_queryset().filter(lokasi=self.request.user.ptm_location)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['header'] = 'Survey'
-        context['header_title'] = f'TotalHasil Survey customer  {self.request.user.ptm_location}'
+        context['header_title'] = f'Hasil Survey dari customer  {self.request.user.ptm_location}'
         context['questions'] = Question.objects.filter(type=TypeQuestion.RATING)
         return context
     
