@@ -1,11 +1,32 @@
-
 <footer class="color color-quaternary" id="footer">
+    {% comment %} <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col">
+                        <h5>Depot Pengisian Pesawat Udara {{ request.user.ptm_location.location }}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> {% endcomment %}
     <div class="footer-copyright">
         <div class="container">
             <div class="row">
-                <div class="col-md-11">
-                    <p>© Copyright PT Pertamina(Persero) 2022. All Rights Reserved.</p>
+                <div class="col-md-9">
+                    {% if request.user.is_authenticated %}
+                        <h5>Depot Pengisian Pesawat Udara {{ request.user.ptm_location.location }}</h5>
+                    {% else %}
+                        <h5>Depot Pengisian Pesawat Udara </h5>
+                    {% endif %}
                 </div>
+                <div class="col-md-3">
+                    <div class="header-logo">
+                        <img
+                            src='https://recruitment.pertamina.com/assets/frontend/images/pertamina-white.png' style="width: 50%;"/>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </div>

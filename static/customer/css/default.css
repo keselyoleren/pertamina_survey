@@ -4640,8 +4640,8 @@ html #footer.color-tertiary .footer-copyright {
 }
 
 html #footer.color-quaternary {
-	background: #383f48;
-	border-top-color: #383f48;
+	background: #fff;
+	border-top-color: #fff;
 }
 
 html #footer.color-quaternary .footer-ribbon {
@@ -4653,8 +4653,8 @@ html #footer.color-quaternary .footer-ribbon:before {
 }
 
 html #footer.color-quaternary .footer-copyright {
-	background: #2d323a;
-	border-top-color: #2d323a;
+	background: #c32119;
+	border-top-color: #c32119;
 }
 
 html #footer.color-dark {
