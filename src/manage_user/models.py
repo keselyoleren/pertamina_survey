@@ -12,14 +12,15 @@ from PIL import Image
 
 # Create your models here.
 class PTM(BaseModel):
-    location = models.CharField(_("PTM Location"), max_length=100)
+    lokasi_id = models.CharField(_("Lokasi ID"), max_length=100, unique=True)
+    location = models.CharField(_("Lokasi"), max_length=100)
 
     def __str__(self) -> str:
-        return self.location
+        return f"{self.lokasi_id} - {self.location}"
 
     class Meta:
-        verbose_name = _("PTM Location")
-        verbose_name_plural = _("PTM Location")
+        verbose_name = _("Lokasi DPPU")
+        verbose_name_plural = _("Lokasi DPPU")
 
 class Instansi(BaseModel):
     name = models.CharField(_("Nama Instansi"), max_length=100)
@@ -34,10 +35,11 @@ class Instansi(BaseModel):
 
 class Customer(BaseModel):
     cus_id = models.CharField(_("Customer ID"), max_length=100, unique=True)
+    lokasi = models.ForeignKey(PTM, on_delete=models.CASCADE, verbose_name=_("Lokasi"))
     name = models.CharField(_("Nama Customer"), max_length=100)
     
     def __str__(self) -> str:
-        return self.name
+        return f"{self.cus_id} - {self.name} "
     
     class Meta:
         verbose_name = _("Customer")
@@ -46,11 +48,10 @@ class Customer(BaseModel):
 
 class AccountUser(AbstractUser):
     profile_picture = models.ImageField(_("Profile Picture"), upload_to='profile_picture/', null=True, blank=True, default='profile_picture/default.png')
-    ptm_location = models.ForeignKey(PTM, on_delete=models.CASCADE, null=True, blank=True)
+    ptm_location = models.ForeignKey(PTM, on_delete=models.CASCADE, null=True, blank=True,verbose_name=_("Lokasi"))
     role_user = models.CharField(_("Role User"), max_length=20, choices=RoleUser.choices, default=RoleUser.CUSTOMER)
     jabatan = models.CharField(_("Jabatan"), max_length=100, null=True, blank=True)
-    instansi = models.CharField(_("Instansi"), max_length=100, null=True, blank=True)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True, blank=True, help_text="jika role user adalah superadmin dan dppu maka field ini tidak usah di isi")
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True, blank=True)
 
 
     def save(self, *args, **kwargs):

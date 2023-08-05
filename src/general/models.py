@@ -1,20 +1,19 @@
-from operator import mod
-from tabnanny import verbose
 from django.db import models
 from django.utils.translation import gettext as _
+from config.choice import PerihalKeluhan, PrihalInformasi
 from config.models import BaseModel
 from config.request import get_user
 from manage_user.models import AccountUser, Customer
-from ckeditor.fields import RichTextField
+
 
 
 
 # Create your models here.
 class Keluhan(BaseModel):
     user = models.ForeignKey(AccountUser, on_delete=models.CASCADE, blank=True, null=True)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    perihal = models.CharField(_("Perihal"), max_length=255)
-    komentar = RichTextField(_("Komentar"))
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, blank=True, null=True)
+    perihal = models.CharField(_("Perihal"), max_length=255, choices=PerihalKeluhan.choices)
+    komentar = models.TextField(_("Komentar"))
 
     def __str__(self) -> str:
         return self.perihal
@@ -31,7 +30,8 @@ class Keluhan(BaseModel):
 class Informasi(BaseModel):
     user = models.ForeignKey(AccountUser, on_delete=models.CASCADE, blank=True, null=True)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    informasi = RichTextField(_("Informasi"))
+    perihal = models.CharField(_("Perihal"), max_length=255, choices=PrihalInformasi.choices)
+    informasi = models.TextField(_("Informasi"))
 
     def __str__(self) -> str:
         return self.user.username

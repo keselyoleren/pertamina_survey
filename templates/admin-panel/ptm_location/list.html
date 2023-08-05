@@ -17,6 +17,7 @@
                            data-toggle="data-table">
                            <thead>
                               <tr>
+                                 <th>Lokasi ID</th>
                                  <th>Lokasi</th>
                                  <th>Action</th>
                               </tr>
@@ -26,9 +27,10 @@
                                 <tr>
                                     <td>
                                         <a href="{% url 'ptm-update' item.id %}">
-                                            {{ item.location }}
+                                            {{ item.lokasi_id }}
                                         </a>    
                                     </td>
+                                    <td>{{ item.location }}</td>
                                     <td>
                                         <a href="{% url 'ptm-update' item.id %}"
                                             type="button" class="btn btn-outline-info"><i class="fa fa-edit"></i></a>

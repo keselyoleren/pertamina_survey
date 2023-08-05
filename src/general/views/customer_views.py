@@ -32,11 +32,12 @@ class DetailSuerveCustomerView(LoginRequiredMixin, DetailView):
                     {
                         "type": "rating", 
                         "isRequired": bool(data.is_required),
+                        "rateType": "stars",
                         "name": f"{data.slug}",
                         "title": {"default": f"{data.question}",},
                         "rateCount": 10, 
-                        "rateMin": 0, 
-                        "rateMax": 9, 
+                        "rateMin": 1, 
+                        "rateMax": 10, 
                         "minRateDescription": {"default": "Tidak Suka",},
                         "maxRateDescription": {"default": "Sangat Suka",}
                     }

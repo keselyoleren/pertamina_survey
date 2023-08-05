@@ -1,0 +1,50 @@
+[CODE]
+ <!DOCTYPE html>
+ <html>
+ <head>
+ <title>blank</title>
+ <meta charset="UTF-8">
+ </head>
+ 
+ <body>
+ <style>
+ .hide{
+ display:none;
+ }
+ </style>
+ <select id="select" onChange="handleSelection(value)">
+ <option selected>Please select one </option>
+ <option value="div1">True </option>
+ <option value="div2">False </option>
+ </select>
+ <div class="hide" id="div1">
+ <input type="text"></input><br />
+ <input type="checkbox"/><br />
+ <input type="text"></input><br />
+ </div>
+ <div class="hide" id="div2">
+ <input type="checkbox"/><br />
+ <input type="text"></input><br />
+ <input type="checkbox"/><br />
+ <input type="text"></input><br />
+ <textarea></textarea>
+ </div>
+ 
+ <script type="text/javascript">
+ 
+ function handleSelection(choice) {
+ //document.getElementById('select').disabled=true;
+ if(choice=='div1')
+ {
+ document.getElementById(choice).style.display="block";
+ document.getElementById('div2').style.display="none";
+ }
+ else
+ {
+ document.getElementById(choice).style.display="block";
+ document.getElementById('div1').style.display="none";
+ }
+ }
+ </script>
+ </body>
+ </html>

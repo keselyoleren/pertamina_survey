@@ -17,8 +17,9 @@
                            data-toggle="data-table">
                            <thead>
                               <tr>
+                                <th>Lokasi DPPU</th>
                                  <th>Customer ID</th>
-                                 <th>Name</th>
+                                 <th>Nama</th>
                                  <th>Action</th>
                               </tr>
                            </thead>
@@ -27,9 +28,10 @@
                                 <tr>
                                     <td>
                                         <a href="{% url 'customer-update' item.id %}">
-                                            {{ item.cus_id }}
+                                            {{ item.lokasi }}
                                         </a>    
                                     </td>
+                                    <td>{{ item.cus_id }}</td>
                                     <td>{{ item.name }}</td>
                                     <td>
                                         <a href="{% url 'customer-update' item.id %}"

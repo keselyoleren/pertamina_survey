@@ -13,8 +13,8 @@ class PTMListView(IsAuthenticated, ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['header'] = 'PTM'
-        context['header_title'] = 'List lokasi PTM'
+        context['header'] = 'DPPU'
+        context['header_title'] = 'List lokasi DPPU'
         context['create_url'] = reverse_lazy('ptm-create')
         return context
 
@@ -26,8 +26,8 @@ class PTMCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['header'] = 'lokasi PTM'
-        context['header_title'] = 'Tambah lokasi PTM'
+        context['header'] = 'lokasi DPPU'
+        context['header_title'] = 'Tambah lokasi DPPU'
         return context
 
 class PTMUpdateView(UpdateView):
@@ -38,8 +38,8 @@ class PTMUpdateView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['header'] = 'Lokasi PTM'
-        context['header_title'] = 'Edit lokasi PTM'
+        context['header'] = 'Lokasi DPPU'
+        context['header_title'] = 'Edit lokasi DPPU'
         return context
 
 class PTMDeleteView(DeleteView):
@@ -49,6 +49,6 @@ class PTMDeleteView(DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['header'] = 'Lokasi PTM'
-        context['header_title'] = 'Delete Lokasi PTM'
+        context['header'] = 'Lokasi DPPU'
+        context['header_title'] = 'Delete Lokasi DPPU'
         return context

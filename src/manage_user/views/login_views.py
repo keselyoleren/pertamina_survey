@@ -1,14 +1,17 @@
-from webbrowser import get
+
 from django.contrib.auth.views import LoginView
 from django.views.generic import RedirectView
 from django.contrib.auth import REDIRECT_FIELD_NAME, login as auth_login, logout as auth_logout
 from django.contrib import messages
+from django.urls import reverse_lazy
+from django.contrib import messages
 
 from config.permis import IsAuthenticated, IsLoginAuthenticated, LoginRequiredMixin
-from manage_user.form.login_form import LoginForm, ProfileForm
+from manage_user.form.login_form import AdminPasswordChangeForm, LoginForm, ProfileForm
 from django.views.generic.edit import UpdateView
 from config.choice import RoleUser
 from manage_user.models import AccountUser
+from django.contrib.auth.views import PasswordChangeView
 
 class UserLoginView(IsLoginAuthenticated ,LoginView):
     template_name = 'auth/login.html'
@@ -36,6 +39,32 @@ class LogoutCustomerView(RedirectView):
     def get(self, request, *args, **kwargs):
         auth_logout(request)
         return super(LogoutCustomerView, self).get(request, *args, **kwargs)
+
+
+class CustomPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
+    template_name = 'admin-panel/component/form.html'
+    form_class = AdminPasswordChangeForm
+    success_url = reverse_lazy('dashboard-admin')
+
+    def get_success_url(self) -> str:
+        if self.request.user.role_user ==  RoleUser.CUSTOMER:
+            return '/'
+        return '/admin-panel/dashboard'
+
+    def get_template_names(self):
+        if self.request.user.role_user ==  RoleUser.CUSTOMER:
+            self.template_name = 'auth/profile.html'
+        return super().get_template_names()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['header'] = 'Ganti Password'
+        context['header_title'] = 'Ganti Password'
+        return context
+
+    def form_valid(self, form):
+        messages.success(self.request, "Ganti Password Success..")
+        return super().form_valid(form)
 
 
 class ProfileUserApiView(LoginRequiredMixin, UpdateView):

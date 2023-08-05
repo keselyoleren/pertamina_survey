@@ -17,7 +17,6 @@
                            data-toggle="data-table">
                            <thead>
                               <tr>
-                                 <th>User</th>
                                  <th>Customer</th>
                                  <th>Perihal</th>
                                  <th>Komentar</th>
@@ -29,10 +28,9 @@
                               <tr>
                                  <td>
                                     <a href="{% url 'keluhan-update' item.id %}">
-                                       {{ item.user.username }}
+                                       {{item.user.ptm_location}} - {{ item.user.customer }} 
                                     </a>
                                  </td>
-                                 <td>{{ item.customer.name }}</td>
                                  <td>{{ item.perihal }}</td>
                                  <td>{{ item.komentar }}</td>
                                  

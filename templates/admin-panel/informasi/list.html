@@ -17,7 +17,6 @@
                            data-toggle="data-table">
                            <thead>
                               <tr>
-                                 <th>User</th>
                                  <th>Customer</th>
                                  <th>Informasi</th>
                                  <th>Action</th>
@@ -28,10 +27,9 @@
                               <tr>
                                  <td>
                                     <a href="{% url 'informasi-update' item.id %}">
-                                       {{ item.user.username }}
+                                       {{item.user.ptm_location}} - {{ item.user.customer }}
                                     </a>
                                  </td>
-                                 <td>{{ item.customer.name }}</td>
                                  <td>{{ item.informasi|truncatechars:"255"|safe }}</td>
                                  
                                  <td>

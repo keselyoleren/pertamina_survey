@@ -44,7 +44,7 @@ class RespondenDetailView(IsAuthenticated, DetailView):
 class RespondenDeleteView(DeleteView):
     model = Responden
     template_name = 'admin-panel/component/delete.html'
-    success_url = reverse_lazy('survey-list')
+    success_url = reverse_lazy('responden-list')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

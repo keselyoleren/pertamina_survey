@@ -18,7 +18,6 @@
                            <thead>
                               <tr>
                                  <th>Customer </th>
-                                 <th>Respondent</th>
                                  <th>Created At</th>
                                  <th>Action</th>
                               </tr>
@@ -28,10 +27,10 @@
                                 <tr>
                                     <td>
                                         <a href="{% url 'responden-detail' item.id %}">
-                                            {{ item.user.customer.name }}
+                                            {{item.user.ptm_location}} - {{ item.user.customer }}
                                         </a>    
                                     </td>
-                                    <td>{{ item.user.username }}</td>
+                                    
                                     <td>{{ item.created_at }}</td>
                                     <td>
                                         <a href="{% url 'responden-detail' item.id %}"

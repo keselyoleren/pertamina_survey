@@ -24,6 +24,7 @@
     <!-- Custom styles for this template-->
     <link href="{% static 'dppu/css/sb-admin-2.min.css'%}" rel="stylesheet">
     <link href="{% static 'dppu/vendor/datatables/dataTables.bootstrap4.min.css'%}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.6/dist/sweetalert2.min.css">
 
 </head>
 
@@ -59,7 +60,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                        <span>Copyright &copy; Your Website 2023</span>
                     </div>
                 </div>
             </footer>
@@ -118,7 +119,16 @@
 
     <!-- Page level custom scripts -->
     <script src="{% static 'dppu/js/demo/datatables-demo.js'%}"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.6/dist/sweetalert2.all.min.js"></script>
+    {% if messages %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                {% for message in messages %}
+                    swal.fire('{{ message.tags }}', '{{ message }}', '{{ message.tags }}');
+                {% endfor %}
+            });
+        </script>
+    {% endif %}
     {% block js %} {% endblock  %}
     <script>
         $(document).ready(function() {

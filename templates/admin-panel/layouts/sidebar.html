@@ -2,7 +2,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-text mx-3">Suervey App</div>
+        <div class="sidebar-brand-text">Aviation Digimon</div>
     </a>
     
     <!-- Divider -->
@@ -24,11 +24,11 @@
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
+    {% comment %} <li class="nav-item">
         <a class="nav-link" href="{% url 'survey-list' %}">
             <i class="fas fa-fw fa-poll-h"></i>
-            <span>Survey</span></a>
-    </li>
+            <span>Hasil Survey</span></a>
+    </li> {% endcomment %}
     
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -86,7 +86,7 @@
         <li class="nav-item">
             <a class="nav-link" href="{% url 'ptm-list' %}">
                 <i class="fas fa-fw fa-map-marker"></i>
-                <span>Lokasi Ptm</span></a>
+                <span>Lokasi DPPU</span></a>
         </li>
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

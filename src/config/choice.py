@@ -10,4 +10,12 @@ class TypeQuestion(TextChoices):
     TEXT = 'text'
     
 
-    
+class PrihalInformasi(TextChoices):
+    DISTRIBUSI = 'Distribusi'
+    SURVEY = 'Survey'
+
+class PerihalKeluhan(TextChoices):
+    DELAY = 'Delay'
+    QUALITY_PRODUCT = 'Quality Product'
+    HOSPITALITY = 'Hospitality'
+    OTHER = 'Other'
