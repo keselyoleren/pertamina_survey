@@ -51,7 +51,7 @@ class AccountUser(AbstractUser):
     ptm_location = models.ForeignKey(PTM, on_delete=models.CASCADE, null=True, blank=True,verbose_name=_("Lokasi"))
     role_user = models.CharField(_("Role User"), max_length=20, choices=RoleUser.choices, default=RoleUser.CUSTOMER)
     jabatan = models.CharField(_("Jabatan"), max_length=100, null=True, blank=True)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True, blank=True)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True, blank=True, verbose_name=_("Customer ID"))
 
 
     def save(self, *args, **kwargs):

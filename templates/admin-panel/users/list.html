@@ -23,7 +23,7 @@
                                  <th>Nama Depan</th>
                                  <th>Nama Belakang</th>
                                  <th>Role User</th>
-                                 <th>Customer</th>
+                                 <th>Customer ID</th>
                                  <th>Lokasi</th>
                                  <th>Action</th>
                               </tr>
@@ -46,7 +46,7 @@
                                     <td>{{item.last_name}}</td>
                                     <td>{{item.first_name}}</td>
                                     <td>{{item.role_user}}</td>
-                                    <td>{{item.customer}}</td>
+                                    <td>{{item.customer.cus_id}}</td>
                                     <td>{{item.ptm_location}}</td>
                                     <td>
                                         <a class="btn btn-outline-info" href="{% url 'user-update' item.id  %}"><i class="fa fa-edit"></i></a>

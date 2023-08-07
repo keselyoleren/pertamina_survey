@@ -37,7 +37,7 @@ class RespondenDetailView(IsAuthenticated, DetailView):
         context['numbers'] = list(range(1, 11))
         context['reviews'] = SurveyResult.objects.filter(responden=self.get_object(), question__type=TypeQuestion.RATING)
         context['comments'] = SurveyResult.objects.filter(responden=self.get_object(), question__type=TypeQuestion.TEXT)
-        context['header_title'] = f'Survey oleh {self.get_object().user.username} Customer dari {self.get_object().user.customer.name}' 
+        context['header_title'] = f'Customer {self.get_object().user.customer.name}' 
         return context
 
 
@@ -66,7 +66,7 @@ class TotalSurveyView(IsAuthenticated, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['header'] = 'Survey'
-        context['header_title'] = f'Hasil Survey dari customer  {self.request.user.ptm_location}'
+        context['header_title'] = f'Total Survey  {self.request.user.ptm_location}'
         context['questions'] = Question.objects.filter(type=TypeQuestion.RATING)
         return context
     
