@@ -1,5 +1,6 @@
 from webbrowser import get
 from django import forms
+from config.choice import RoleUser
 
 from config.request import get_user
 
@@ -12,7 +13,7 @@ class AbstractForm(forms.ModelForm):
             if field == 'slug':
                 self.fields['slug'].widget = forms.HiddenInput()
 
-            if not get_user().is_superuser and field == 'customer':
+            if (not get_user().is_superuser or get_user().role_user == RoleUser.CUSTOMER) and field == 'customer' and get_user().role_user != 'dppu':
                 self.fields['customer'].widget = forms.HiddenInput()
 
             if field != 'is_required':
