@@ -75,14 +75,14 @@ class DashboardView(IsAuthenticated, TemplateView):
 
         context =  super().get_context_data(**kwargs)
         context['customers'] = total_customer
-        context['top_rating'] = average_results['max_resp_int']
-        context['low_rating'] = average_results['min_resp_int']
         context['survey_received'] = total_survey
         context['questions'] = label
         context['scores'] = scores
         context['keluhan'] = keluhan
         context['responden'] = responden
         with contextlib.suppress(Exception):
+            context['top_rating'] = min_max_result.order_by('-avg_resp_int').first().avg_resp_int
+            context['low_rating'] = min_max_result.order_by('avg_resp_int').first().avg_resp_int
             context['top_survey'] = min_max_result.order_by('-avg_resp_int').first().question.question
             context['low_survey'] = min_max_result.order_by('avg_resp_int').first().question.question
         return context
