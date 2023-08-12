@@ -26,3 +26,6 @@ class AbstractForm(forms.ModelForm):
 
             if not get_user().is_superuser and field == 'jabatan':
                 self.fields['jabatan'].widget.attrs['disabled'] = 'disabled'
+
+            # if field == 'waktu':
+            #     self.fields['waktu'].widget = forms.HiddenInput()

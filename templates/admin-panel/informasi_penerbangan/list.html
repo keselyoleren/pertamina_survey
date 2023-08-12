@@ -1,0 +1,60 @@
+{% extends 'admin-panel/layouts/main.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- Page Heading -->
+    {% include 'admin-panel/component/content_header.html' %}
+    
+    <div class="row">
+        <div class="col">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">{{ header_title }}</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="datatable" class="table table-striped table-bordered"
+                           data-toggle="data-table">
+                           <thead>
+                              <tr>
+                                 <th>Waktu</th>
+                                 <th>Tujuan</th>
+                                 <th>Maskapai</th>
+                                 <th>Penerbangan</th>
+                                 <th>Terminal</th>
+                                 <th>Keterangan</th>
+                                 <th>Action</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              {% for item in informasi_penerbangan %}
+                              <tr>
+                                 <td>
+                                    <a href="{% url 'informasi_penerbangan-update' item.id %}">
+                                       {{ item.waktu }}
+                                    </a>
+                                 </td>
+                                 <td>{{ item.tujuan }}</td>
+                                 <td>{{ item.maskapai }}</td>
+                                 <td>{{ item.penerbangan }}</td>
+                                 <td>{{ item.terminal }}</td>
+                                 <td>{{ item.keterangan }}</td>
+                                 
+                                 <td>
+                                    <a href="{% url 'informasi_penerbangan-update' item.id %}"
+                                        type="button" class="btn btn-outline-info"><i class="fa fa-edit"></i></a>
+                                    <a href="{% url 'informasi_penerbangan-delete' item.id %}" 
+                                       class="btn btn-outline-danger"><i class="fa fa-trash"></i></a>
+                                 </td>
+                              </tr>
+                              {% endfor %}
+                           </tbody>
+                        </table>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock  %}

@@ -25,6 +25,10 @@
     <link href="{% static 'dppu/css/sb-admin-2.min.css'%}" rel="stylesheet">
     <link href="{% static 'dppu/vendor/datatables/dataTables.bootstrap4.min.css'%}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.6/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
+
+    <!-- DateTimePicker JS -->
+    
 
 </head>
 
@@ -120,6 +124,9 @@
     <!-- Page level custom scripts -->
     <script src="{% static 'dppu/js/demo/datatables-demo.js'%}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.6/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
     {% if messages %}
         <script>
             document.addEventListener('DOMContentLoaded', function() {
@@ -135,6 +142,11 @@
             $('#datatable').DataTable();
         });
     </script>
+    <script>
+        $(function () {
+          $("#datetimepicker1").datetimepicker();
+        });
+      </script>
 
 </body>
 
