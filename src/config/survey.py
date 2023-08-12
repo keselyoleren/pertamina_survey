@@ -26,7 +26,7 @@ MODEL_WITH_INTRO = {
   "progressBarType": "pages",
   "showProgressBar": "top",
   "showQuestionNumbers": True,
-  "completedHtml": "<h3>Survey berhasil dikirim, Termimakasih!</h3>",
+  "completedHtml": "<h3>Survey berhasil dikirim, Terimakasih!</h3>",
   "completeText": "Submit",
   "pageNextText": "Continue",
   "pagePrevText": "Previous",

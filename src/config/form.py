@@ -1,7 +1,11 @@
 from webbrowser import get
 from django import forms
 from config.choice import RoleUser
-
+from django.contrib.admin.widgets import (
+    FilteredSelectMultiple,
+    AdminDateWidget,
+    AdminSplitDateTime,
+)
 from config.request import get_user
 
 class AbstractForm(forms.ModelForm):
@@ -27,5 +31,8 @@ class AbstractForm(forms.ModelForm):
             if not get_user().is_superuser and field == 'jabatan':
                 self.fields['jabatan'].widget.attrs['disabled'] = 'disabled'
 
-            # if field == 'waktu':
-            #     self.fields['waktu'].widget = forms.HiddenInput()
+            if field == 'waktu':
+                self.fields['waktu'].widget = forms.DateTimeInput(
+                    attrs={'class': 'datetime-input form-control',"type":"datetime-local"}, 
+                    format='%Y-%m-%dT%H:%M')
+                

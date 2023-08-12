@@ -9,15 +9,12 @@ class InformasiForm(AbstractForm):
         fields = '__all__'
 
 class InformasiPenerbanganForm(AbstractForm):
-    waktu = forms.DateTimeField(
-        input_formats=['%Y-%m-%dT%H:%M'],
-        widget=forms.DateTimeInput(attrs={
-            'class': 'form-control datetimepicker-input',
-            'type':'datetime-local',
-        })
-    )
-
-    
     class Meta:
         model = InformasiPenerbangan
         fields = '__all__'
+    
+    def __init__(self, *args, **kwargs):
+        super(InformasiPenerbanganForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            if field == 'user':
+                self.fields['user'].widget = forms.HiddenInput()
