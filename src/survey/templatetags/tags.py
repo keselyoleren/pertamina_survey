@@ -28,3 +28,14 @@ def avg_survey(question):
 @register.filter(name='get_survey')
 def get_survey(arg):
     return Survey.objects.all().first().id
+
+@register.filter
+def format_size(value):
+    kb_size = value / 1024
+    if kb_size < 1024:
+        return f"{kb_size:.2f} KB"
+    mb_size = kb_size / 1024
+    if mb_size < 1024:
+        return f"{mb_size:.2f} MB"
+    gb_size = mb_size / 1024
+    return f"{gb_size:.2f} GB"

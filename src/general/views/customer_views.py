@@ -3,7 +3,8 @@ from django.views.generic import TemplateView
 from django.views.generic import (
     ListView,
     CreateView,
-    DetailView
+    DetailView,
+    UpdateView,
 )
 from config.choice import RoleUser, TypeQuestion
 from config.smtp import Smtp
@@ -96,7 +97,58 @@ class SurveyCustomerListView(LoginRequiredMixin, ListView):
     context_object_name = 'list_survey'
     
 
-class KeluhanCustomerView(CreateView):
+class KeluhanCustomerListView(LoginRequiredMixin, ListView):
+    model = Keluhan
+    template_name = 'customer/keluhan_list.html'
+    context_object_name = 'keluhan_list'
+    paginate_by = 10
+    object_list = []
+
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        paginator = context['paginator']
+        page_numbers_range = 5  # Display 5 pages range by default
+        # Calculate the current page number and the index of the first page in the range
+        current_page = context['page_obj'].number
+        first_page_in_range = max(current_page - page_numbers_range, 1)
+
+        # Add the page range to the context
+        context['page_range'] = range(first_page_in_range, paginator.num_pages + 1)[:page_numbers_range*2]
+        context['header'] = 'Keluhan'
+        context['header_title'] = 'List Keluhan'
+        return context
+
+class KeluhanCustomerUpdateView(LoginRequiredMixin, UpdateView):
+    model = Keluhan
+    template_name = 'customer/keluhan_detail.html'
+    form_class = KeluhanForm
+    context_object_name = 'keluhan'
+
+    def get_context_data(self, **kwargs):
+        context =  super().get_context_data(**kwargs)
+        context['jawaban_keluhan'] = Keluhan.objects.filter(parent=self.get_object())
+        return context
+        
+
+
+class ReplayKeluhanVIew(LoginRequiredMixin, UpdateView):
+    model = Keluhan
+    template_name = 'customer/keluhan.html'
+    form_class = KeluhanForm
+
+    def get_success_url(self) -> str:
+        return f'/keluhan/{self.get_object().id}/update'
+
+    def form_valid(self, form):
+        form.instance.parent = self.get_object()
+        form.save()
+        return super().form_valid(form)
+    
+
+class KeluhanCustomerView(LoginRequiredMixin, CreateView):
     model = Keluhan
     template_name = 'customer/keluhan.html'
     form_class = KeluhanForm

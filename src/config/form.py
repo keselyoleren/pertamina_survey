@@ -20,6 +20,9 @@ class AbstractForm(forms.ModelForm):
             if (not get_user().is_superuser or get_user().role_user == RoleUser.CUSTOMER) and field == 'customer' and get_user().role_user != 'dppu':
                 self.fields['customer'].widget = forms.HiddenInput()
 
+            if (not get_user().is_superuser or get_user().role_user == RoleUser.CUSTOMER) and field == 'status' and get_user().role_user != 'dppu':
+                self.fields['status'].widget = forms.HiddenInput()
+
             if field != 'is_required':
                 self.fields[field].widget.attrs['class'] = 'form-control'
                 if field == 'user' and not get_user().is_superuser:
@@ -36,3 +39,5 @@ class AbstractForm(forms.ModelForm):
                     attrs={'class': 'datetime-input form-control',"type":"datetime-local"}, 
                     format='%Y-%m-%dT%H:%M')
                 
+            if field == 'parent':
+                self.fields['parent'].widget = forms.HiddenInput()

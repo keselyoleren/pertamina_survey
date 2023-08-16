@@ -1,0 +1,110 @@
+{% extends 'customer/layout/main.html' %}
+{% block css %}{{ form.media.css }}{% endblock %}
+{% block content %}
+<style></style>
+<div class="main" role="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 center">
+                <div class="heading heading-border heading-middle-border heading-middle-border-center">
+                    <h1><strong>Keluhan</strong></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header p-2">
+                        <ul class="nav nav-pills">
+                            <li class="nav-item">
+                                <a href="{% url 'keluhan-customer' %}" class="btn btn-primary btn-block"><i class="fa fa-plus"> Keluhan </i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="table-responsive">
+                                <table id="datatable" class="table table-striped table-bordered" data-toggle="data-table">
+                                   <thead>
+                                      <tr>
+                                         <th>Customer</th>
+                                         <th>Perihal</th>
+                                         <th>status</th>
+                                         <th>Last Update</th>
+                                      </tr>
+                                   </thead>
+                                   <tbody>
+                                      {% for item in keluhan_list %}
+                                        <tr>
+                                            <td>
+                                                <a href="{% url 'keluhan-customer-update' item.id %}" class=" ">
+                                                {{ item.customer }}
+                                                </a>
+                                            </td>
+                                            <td>{{ item.perihal }}</td>
+                                            <td>{{ item.status }}</td>
+                                            <td>{{ item.updated_at }}</td>
+                                        </tr>
+                                      {% endfor %}
+                                   </tbody>
+                                </table>
+                             </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-5">
+                                <div class="dataTables_info" id="list_mhs_info" role="status" aria-live="polite"> Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</div>
+                            </div>
+                            <div class="col-sm-12 col-md-7">
+                                <div class="dataTables_paginate paging_simple_numbers" id="list_mhs_paginate">
+                                    {% if is_paginated %}
+                                        <ul class="pagination">
+                                            {% if page_obj.has_previous %}
+                                                <li class="paginate_button page-item previous " id="list_mhs_previous">
+                                                    <a href="?page={{page_obj.previous_page_number}}"  class="page-link">Previous</a>
+                                                </li>
+                                            {% else %}
+                                                <li class="paginate_button page-item next disabled" id="list_mhs_next">
+                                                    <a href="#"  class="page-link">Previous</a>
+                                                </li>
+                                            {% endif %} 
+                                            
+                                            {% for i in page_range %} 
+                                                {% if page_obj.number == i %}
+                                                    <li class="paginate_button page-item active">
+                                                        <a href="#"  class="page-link">{{ i }}</a>
+                                                    </li>
+                                                {% else %}
+                                                    <li class="paginate_button page-item ">
+                                                        <a href="?page={{ i }}"  class="page-link">{{ i }}</a>
+                                                    </li>
+                                                {% endif %}
+                                            {% endfor %}
+                
+                                            {% if page_obj.has_next %}
+                                                <li class="paginate_button page-item next" id="list_mhs_next">
+                                                    <a href="?page={{page_obj.next_page_number}}"  class="page-link">Next</a>
+                                                </li>
+                                            {% else %}
+                                                <li class="paginate_button page-item next disabled" id="list_mhs_next">
+                                                    <a href="#"  class="page-link">Next</a>
+                                                </li>
+                                            {% endif %}
+                                        </ul>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+{% endblock %}
+{% block js %}
+{{ form.media.js }}
+{% endblock  %}

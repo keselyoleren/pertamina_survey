@@ -19,3 +19,8 @@ class PerihalKeluhan(TextChoices):
     QUALITY_PRODUCT = 'Quality Product'
     HOSPITALITY = 'Hospitality'
     OTHER = 'Other'
+
+class StatusKeluhan(TextChoices):
+    PENDING = 'Pending'
+    PROCESS = 'Process'
+    DONE = 'Done'

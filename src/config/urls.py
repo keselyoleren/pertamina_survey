@@ -19,7 +19,7 @@ from django.views.generic import TemplateView
 from django.conf.urls.static import static
 from django.conf import settings
 from general.views.customer_suervey_views import SaveSurveyView
-from general.views.customer_views import DashboardCustomerView, DetailInformasiCreateView, DetailSuerveCustomerView, InformasiCustomerView, InformasiPenerbanganCustomerView, KeluhanCustomerView, SurveyCustomerListView
+from general.views.customer_views import DashboardCustomerView, DetailInformasiCreateView, DetailSuerveCustomerView, InformasiCustomerView, InformasiPenerbanganCustomerView, KeluhanCustomerListView, KeluhanCustomerUpdateView, KeluhanCustomerView, ReplayKeluhanVIew, SurveyCustomerListView
 
 from general.views.dashboard_views import DashboardView
 from manage_user.views.login_views import CustomPasswordChangeView, LogoutCustomerView, LogoutView, ProfileUserApiView, UserLoginView
@@ -33,7 +33,12 @@ urlpatterns = [
         path('manage-user/', include('manage_user.urls')),
     ])),
     path('', DashboardCustomerView.as_view(), name="dashboard-customer"),
-    path('keluhan/create/', KeluhanCustomerView.as_view(), name="keluhan-customer"),
+    path("keluhan/", include([
+        path('create/', KeluhanCustomerView.as_view(), name="keluhan-customer"),
+        path('<int:pk>/update', KeluhanCustomerUpdateView.as_view(), name="keluhan-customer-update"),
+        path('<int:pk>/replay', ReplayKeluhanVIew.as_view(), name="keluhan-customer-replay"),
+        path("", KeluhanCustomerListView.as_view(), name="keluhan-customer-list"),
+    ])),
     path('informasi', InformasiCustomerView.as_view(), name="informasi-customer"),
     path('informasi-penerbangan', InformasiPenerbanganCustomerView.as_view(), name="informasi-penerbangan-customer"),
     path('informasi/<int:pk>/', DetailInformasiCreateView.as_view(), name="informasi-detail-customer"),

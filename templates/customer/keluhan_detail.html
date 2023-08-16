@@ -1,0 +1,91 @@
+{% extends 'customer/layout/main.html' %}
+{% load costom_tag %}
+{% block css %}{{ form.media.css }}
+{% endblock %}
+{% block content %}
+<style></style>
+<div class="main" role="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 center">
+                <div class="heading heading-border heading-middle-border heading-middle-border-center">
+                    <h1><strong>Keluhan</strong></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h2 class="card-title">Keluhan dari user {{ keluhan.user }}</h2>
+                        <span class="float-right">{{ keluhan.created_at }} <span class="mailbox-read-time float-right btn">Perihal = <span class="btn-primary">{{ keluhan.perihal }}</span></span>
+                    </div>
+                    <div class="card-body">
+                        <div class="mailbox-read-message">
+                            {{ keluhan.komentar }}
+                        </div>
+                        <span class="mailbox-attachment-icon"><i class="fa fa-file-pdf"></i></span>
+
+                        {% if keluhan.attachments %}
+                            <span class="mailbox-attachment-icon"><i class="fa fa-file-pdf"></i></span>
+                            <div class="mailbox-attachment-info">
+                                <a href="{{ keluhan.attachments.url }}" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> {{ keluhan.attachments.name }}</a>
+                                <span class="mailbox-attachment-size clearfix mt-1">
+                                    <span>{{ keluhan.attachments.size|format_size }} KB </span>
+                                    <a href="#" class="btn btn-default btn-sm float-right"><i class="fa fa-download"></i></a>
+                                </span>
+                            </div>
+                        {% endif %}
+
+                        <br><br>
+                        <hr>
+                        <div class="float-right">
+                            {% comment %} <a href="#" class="btn btn-default"><i class="fa fa-info"></i> {{ keluhan.status }}</a> {% endcomment %}
+                            <button type="button" class="btn btn-default"><i class="fa fa-trash-alt"></i> Delete</button>
+                        </div>
+                    
+                    </div>
+                </div>
+
+                {% for item in jawaban_keluhan  %}
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                            <h2 class="card-title">Jawaban dari {{ item.user }} {{ user.ptm_location }} </h2>
+                            <span class="float-right">{{ item.created_at }} <span class="mailbox-read-time float-right btn">Perihal = <span class="btn-primary">{{ item.parent.perihal }}</span></span>
+                        </div>
+                        <div class="card-body">
+                            <div class="mailbox-read-message">
+                                {{ item.komentar }}
+                            </div>
+
+                            {% if item.attachments %}
+                            <span class="mailbox-attachment-icon"><i class="fa fa-file-pdf"></i></span>
+                            <div class="mailbox-attachment-info">
+                                <a href="{{ item.attachments.url }}" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> {{ item.attachments.name }}</a>
+                                <span class="mailbox-attachment-size clearfix mt-1">
+                                    <span>{{ item.attachments.size|format_size }} KB </span>
+                                    <a href="#" class="btn btn-default btn-sm float-right"><i class="fa fa-download"></i></a>
+                                </span>
+                            </div>
+                            {% endif %}
+
+                            <br><br>
+                            <hr>
+                            <div class="float-right">
+                                {% comment %} <a href="#" class="btn btn-default"><i class="fa fa-info"></i> {{ keluhan.status }}</a> {% endcomment %}
+                                {% comment %} <button type="button" class="btn btn-default"><i class="fa fa-trash-alt"></i> Delete</button> {% endcomment %}
+                            </div>
+                        
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+{{ form.media.js }}
+{% endblock  %}

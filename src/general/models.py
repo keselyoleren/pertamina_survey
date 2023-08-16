@@ -1,6 +1,7 @@
+from audioop import mul
 from django.db import models
 from django.utils.translation import gettext as _
-from config.choice import PerihalKeluhan, PrihalInformasi
+from config.choice import PerihalKeluhan, PrihalInformasi, StatusKeluhan
 from config.models import BaseModel
 from config.request import get_user
 from manage_user.models import AccountUser, Customer
@@ -10,9 +11,12 @@ from manage_user.models import AccountUser, Customer
 
 # Create your models here.
 class Keluhan(BaseModel):
+    parent=models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)
     user = models.ForeignKey(AccountUser, on_delete=models.CASCADE, blank=True, null=True)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, blank=True, null=True)
-    perihal = models.CharField(_("Perihal"), max_length=255, choices=PerihalKeluhan.choices)
+    perihal = models.CharField(_("Perihal"), max_length=255, choices=PerihalKeluhan.choices,blank=True, null=True)
+    status = models.CharField(_("Status"), max_length=255, choices=StatusKeluhan.choices, default=StatusKeluhan.PENDING, blank=True, null=True)
+    attachments = models.FileField(_("Attachments"), upload_to='keluhan/', blank=True, null=True)
     komentar = models.TextField(_("Komentar"))
 
     def __str__(self) -> str:
