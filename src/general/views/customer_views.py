@@ -31,7 +31,7 @@ class DetailSuerveCustomerView(LoginRequiredMixin, DetailView):
         survey_object = self.get_object()
 
         # Get all the questions for the given survey
-        questions = Question.objects.filter(survey=survey_object)
+        questions = Question.objects.filter(survey=survey_object).order_by("created_at")
 
         # Initialize an empty list to store the arrays
         html_intro = f"<h4>Kepada Yth. <br> <b>Pimpinan {self.request.user.customer.name}</b> </h4> <b> <p >Suara Anda adalah motivasi kami. Kami ingin mengetahui persepsi Anda tentang Pertamina {self.request.user.ptm_location.location} yang akan kami gunakan untuk menjaga, memperbaiki, dan meningkatkan kinerja kami melayani Anda</p><p ><br>{self.get_object().name}</p></b>"
