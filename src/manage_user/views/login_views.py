@@ -66,7 +66,7 @@ class CustomPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
         messages.success(self.request, "Ganti Password Success..")
         return super().form_valid(form)
 
-class ChangePasswordAdminView(PasswordChangeView):
+class ChangePasswordAdminView(IsAuthenticated, PasswordChangeView):
     template_name = 'admin-panel/component/form.html'
     form_class = AdminPasswordChangeForm
 
