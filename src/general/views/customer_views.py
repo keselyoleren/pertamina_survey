@@ -178,7 +178,7 @@ class KeluhanCustomerView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class InformasiCustomerView(ListView):
+class InformasiCustomerView(LoginRequiredMixin, ListView):
     model = Informasi
     template_name = 'customer/informasi.html'
     context_object_name = 'informasi_list'
@@ -202,7 +202,7 @@ class InformasiCustomerView(ListView):
         context['header_title'] = 'List Informasi'
         return context
 
-class DetailInformasiCreateView(DetailView):
+class DetailInformasiCreateView(LoginRequiredMixin, DetailView):
     model = Informasi
     template_name = 'customer/detail_informasi.html'
     context_object_name = 'informasi'
@@ -230,7 +230,7 @@ class InformasiPenerbanganCustomerView(ListView):
         context['header_title'] = 'List Informasi Penerbangan'
         return context
 
-class DetailInformasiPenerbanganCreateView(DetailView):
+class DetailInformasiPenerbanganCreateView(LoginRequiredMixin, DetailView):
     model = Informasi
     template_name = 'customer/detail_informasi_penerbangan.html'
     context_object_name = 'informasi_penerbangan'
