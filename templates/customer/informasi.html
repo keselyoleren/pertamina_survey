@@ -10,28 +10,27 @@
                 </div>
             </div>
         </div>
-        <br>
-        <hr>
+        
         <div class="row mt-md mb-xl">
             {% for item in informasi_list  %}
-            <div class="col">
-                <div class="thumb-info custom-thumb-info-4">
-                    {% comment %} <div class="thumb-info-wrapper"><img src="https://pertaminadppubabullah.com/asset/foto_link/SPBU.jpg" class="img-responsive"></div> {% endcomment %}
-                    <div class="thumb-info-caption custom-box-shadow">
-                        <div class="thumb-info-caption-text">
-                            <a href="{% url 'informasi-detail-customer' item.pk %}">
-                                <h3 class="text-left"> {{ item.customer }}</h3>
-                                <p class="justify">
-                                    {{ item.informasi|truncatechars:"255"|safe }}
-                                </p>
-                            </a>
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h2 class="card-title">{{ item.customer }}</h2>
+                        <span class="float-right">{{ item.created_at }} <span class="mailbox-read-time float-right btn">Perihal  <span class="btn-primary">{{ item.perihal }}</span></span>
+                    </div>
+                    <div class="card-body">
+                        <div class="mailbox-read-message">
+                            {{ item.informasi|truncatechars:"255"|safe }}
                         </div>
+                        <div class="float-right">
+                            <a href="{% url 'informasi-detail-customer' item.pk %}"  class="btn btn-default"><i class="fa fa-trash-alt"></i> Detail</a>
+                        </div>
+                    
                     </div>
                 </div>
-            </div>
-            <hr>
             {% endfor %}
         </div>
+
         <div class="row">
             <div class="col-sm-12 col-md-5">
                 <div class="dataTables_info" id="list_mhs_info" role="status" aria-live="polite"> Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</div>
