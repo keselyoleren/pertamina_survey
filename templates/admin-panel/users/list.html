@@ -50,6 +50,7 @@
                                     <td>{{item.ptm_location}}</td>
                                     <td>
                                         <a class="btn btn-outline-info" href="{% url 'user-update' item.id  %}"><i class="fa fa-edit"></i></a>
+                                        <a href="{% url 'change-password-admin' item.id %}" class="btn btn-outline-warning"><i class="fa fa-key"></i></a>
                                         <a class="btn btn-outline-danger" href="{% url 'user-delete' item.id  %}"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>

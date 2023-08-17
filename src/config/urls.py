@@ -22,7 +22,7 @@ from general.views.customer_suervey_views import SaveSurveyView
 from general.views.customer_views import DashboardCustomerView, DetailInformasiCreateView, DetailSuerveCustomerView, InformasiCustomerView, InformasiPenerbanganCustomerView, KeluhanCustomerListView, KeluhanCustomerUpdateView, KeluhanCustomerView, ReplayKeluhanVIew, SurveyCustomerListView
 
 from general.views.dashboard_views import DashboardView
-from manage_user.views.login_views import CustomPasswordChangeView, LogoutCustomerView, LogoutView, ProfileUserApiView, UserLoginView
+from manage_user.views.login_views import ChangePasswordAdminView, CustomPasswordChangeView, LogoutCustomerView, LogoutView, ProfileUserApiView, UserLoginView
 
 urlpatterns = [
     path('superadmin/', admin.site.urls),
@@ -49,9 +49,9 @@ urlpatterns = [
         path("login/", UserLoginView.as_view(), name="login"),
         path("logout/", LogoutView.as_view(), name="logout"),
         path("change-password/", CustomPasswordChangeView.as_view(), name="change-password"),
+        path('change-password-admin/<int:user_id>', ChangePasswordAdminView.as_view(), name="change-password-admin"),
         path('logout-customer', LogoutCustomerView.as_view(), name="logout-customer"),
         path('profile/', ProfileUserApiView.as_view(), name='profile'),
-
     ])),
     
 ]

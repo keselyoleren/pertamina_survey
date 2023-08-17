@@ -66,13 +66,38 @@ class CustomPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
         messages.success(self.request, "Ganti Password Success..")
         return super().form_valid(form)
 
+class ChangePasswordAdminView(PasswordChangeView):
+    template_name = 'admin-panel/component/form.html'
+    form_class = AdminPasswordChangeForm
+
+    def get_success_url(self):
+        return '/admin-panel/dashboard'
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        user_id = self.kwargs['user_id']
+        user = AccountUser.objects.get(id=user_id)
+        kwargs['user'] = user
+        return kwargs
+
+    def get_context_data(self, **kwargs):
+        context =  super().get_context_data(**kwargs)
+        user_id = self.kwargs['user_id']
+        user = AccountUser.objects.get(id=user_id)
+        context['header'] = f'Ganti Password {user}'
+        context['header_title'] = f'Ganti Password {user}'
+        return context
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Sandi berhasil diubah.')
+        return super().form_valid(form)
+
 
 class ProfileUserApiView(LoginRequiredMixin, UpdateView):
     model = AccountUser
     template_name = 'admin-panel/component/form.html'
     form_class = ProfileForm
     
-
     def get_context_data(self, **kwargs):
         context =  super().get_context_data(**kwargs)
         context['header'] = 'Profile'
