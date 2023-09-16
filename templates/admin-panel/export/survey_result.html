@@ -1,0 +1,53 @@
+<div class="row">
+    <div class="col">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h1 >{{ header_title }}</h1>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">Kriteria (Criteria)</th>
+                                <th colspan="10" style="text-align: center;">Kinerja (Performance)</th>
+                            </tr>
+                            <tr>
+                                {% for i in numbers %}
+                                    <th>{{ i }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in reviews  %}
+                            <tr>
+                                <td>{{ item.question }}</td>
+                                    {% for num in numbers %}
+                                        {% if item.resp_int|add:0 == num %}
+                                            <th class="text-primary">√</th>
+                                        {% else %}
+                                            <th>-</th>
+                                        {% endif %}
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                            <!-- Add more rows for other criteria and performance data -->
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        
+        {% for item in comments  %}
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">{{ item.question }}</h6>
+                </div>
+                <div class="card-body">
+                    {{ item.resp_text }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>

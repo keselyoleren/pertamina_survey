@@ -1,8 +1,11 @@
 # myapp/views.py
 
+from multiprocessing import context
 from django.views.generic import ListView, DetailView, DeleteView
+from django.views import View
 from django.urls import reverse_lazy
 from config.choice import RoleUser, TypeQuestion
+from config.export import GeneratePDF
 from config.permis import IsAuthenticated
 from manage_user.models import Customer
 
@@ -26,11 +29,11 @@ class RespondenListView(IsAuthenticated, ListView):
         return context
 
 
-class RespondenDetailView(IsAuthenticated, DetailView):
+class RespondenDetailView(IsAuthenticated, DetailView, GeneratePDF):
     model = Responden
     template_name = 'admin-panel/responden/view.html'
     context_object_name = 'respondent'
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['header'] = 'Responden'
@@ -39,6 +42,25 @@ class RespondenDetailView(IsAuthenticated, DetailView):
         context['comments'] = SurveyResult.objects.filter(responden=self.get_object(), question__type=TypeQuestion.TEXT)
         context['header_title'] = f'Customer {self.get_object().user.customer.name}' 
         return context
+
+class ExportRespondenDetailView(IsAuthenticated, DetailView, GeneratePDF):
+    model = Responden
+    template_name = 'admin-panel/export/survey_result.html'
+    context_object_name = 'respondent'
+
+    def get(self, request, *args, **kwargs):
+        context = {}
+        context['numbers'] = list(range(1, 11))
+        context['reviews'] = SurveyResult.objects.filter(responden=self.get_object(), question__type=TypeQuestion.RATING)
+        context['comments'] = SurveyResult.objects.filter(responden=self.get_object(), question__type=TypeQuestion.TEXT)
+        context['header_title'] = f'Customer {self.get_object().user.customer.name}' 
+
+        return self.render_to_pdf(
+            context, 
+            self.template_name,
+            '/css/pdf/export.css', 
+            'survey_result.pdf'
+        )
 
 
 class RespondenDeleteView(DeleteView):
@@ -68,5 +90,29 @@ class TotalSurveyView(IsAuthenticated, ListView):
         context['header'] = 'Survey'
         context['header_title'] = f'Total Survey  {self.request.user.ptm_location}'
         context['questions'] = Question.objects.filter(type=TypeQuestion.RATING)
+        # context['comments'] = SurveyResult.objects.filter(question__type=TypeQuestion.TEXT)
+        
         return context
     
+
+class ExportTotalSurveyView(IsAuthenticated, ListView, GeneratePDF):
+    model = Customer
+    template_name = 'admin-panel/export/total_survey_result.html'
+    context_object_name = 'customers'
+
+    def get_queryset(self):
+        if self.request.user.is_superuser or self.request.user.role_user == RoleUser.SUPER_ADMIN:
+            return super().get_queryset()
+        return super().get_queryset().filter(lokasi=self.request.user.ptm_location)
+
+    def get(self, request, *args, **kwargs):
+        context = {}
+        context['header'] = 'Survey'
+        context['header_title'] = f'Total Survey  {self.request.user.ptm_location}'
+        context['questions'] = Question.objects.filter(type=TypeQuestion.RATING)
+        return self.render_to_pdf(
+            context, 
+            self.template_name,
+            '/css/pdf/export.css', 
+            f'total_survey_{self.request.user.ptm_location}.pdf'
+        )

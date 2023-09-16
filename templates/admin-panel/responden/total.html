@@ -4,7 +4,11 @@
 
 {% block content %}
     <!-- Page Heading -->
-    {% include 'admin-panel/component/content_header.html' %}
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">{{ header }}</h1>
+        <a href="{% url 'export-total' %}" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i
+            class="fas fa-download fa-sm text-white-50"></i> Export</a>
+    </div>
     
     <div class="row">
         <div class="col">
