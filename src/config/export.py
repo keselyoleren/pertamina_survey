@@ -17,10 +17,12 @@ class GeneratePDF:
             filename = f'{datetime.now().strftime("%Y_%m_%d-%I_%M_%S_%p")}{name}.pdf'
             response = HttpResponse(result.getvalue(), content_type='application/pdf')
             response['Content-Disposition'] = f'attachment; filename="{filename}"'
-            weasyprint.HTML(string=html).write_pdf(response, 
-                    stylesheets=[
-                        weasyprint.CSS(f"{settings.STATICFILES_DIRS[0]}{style}"),
-                    ])
+            # weasyprint.HTML(string=html).write_pdf(response, 
+            #         stylesheets=[
+            #             weasyprint.CSS(f"{settings.STATICFILES_DIRS[0]}{style}"),
+            #         ])
+            weasyprint.HTML(string=html).write_pdf(response)
+                    
             return response
         return HttpResponse("Not found")
         
