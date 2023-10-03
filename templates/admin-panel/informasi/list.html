@@ -18,6 +18,7 @@
                            <thead>
                               <tr>
                                  <th>Customer</th>
+                                 <th>Perihal</th>
                                  <th>Informasi</th>
                                  <th>Action</th>
                               </tr>
@@ -27,9 +28,10 @@
                               <tr>
                                  <td>
                                     <a href="{% url 'informasi-update' item.id %}">
-                                       {{item.user.ptm_location}} - {{ item.user.customer }}
+                                       {{ item.customer }}
                                     </a>
                                  </td>
+                                 <td>{{ item.perihal }}</td>
                                  <td>{{ item.informasi|truncatechars:"255"|safe }}</td>
                                  
                                  <td>

@@ -5,6 +5,8 @@ from config.choice import PerihalKeluhan, PrihalInformasi, StatusKeluhan
 from config.models import BaseModel
 from config.request import get_user
 from manage_user.models import AccountUser, Customer
+from ckeditor.fields import RichTextField
+
 
 
 
@@ -36,7 +38,7 @@ class Informasi(BaseModel):
     user = models.ForeignKey(AccountUser, on_delete=models.CASCADE, blank=True, null=True)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     perihal = models.CharField(_("Perihal"), max_length=255, choices=PrihalInformasi.choices)
-    informasi = models.TextField(_("Informasi"))
+    informasi = RichTextField(_("Informasi"))
 
 
     def __str__(self) -> str:

@@ -4,9 +4,12 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from config.choice import RoleUser
 from config.permis import IsAuthenticated, LoginRequiredMixin
+from config.smtp import Smtp
+from django.contrib import messages
 from general.form.informasi_form import InformasiForm
 
 from general.models import Informasi
+from manage_user.models import AccountUser
 
 class InformasiListView(IsAuthenticated, ListView):
     model = Informasi
@@ -39,6 +42,24 @@ class InformasiCreateView(IsAuthenticated, CreateView):
         context['header_title'] = 'Tambah Informasi'
         return context
 
+    def form_valid(self, form):
+        template = 'email/informasi.html'
+        context = {
+            'customer':form.cleaned_data.get('customer'),
+            'perihal':form.cleaned_data.get('perihal'),
+            'informasi':form.cleaned_data.get('informasi'),
+        }
+        
+        for user in AccountUser.objects.filter(role_user=RoleUser.CUSTOMER, customer=form.cleaned_data.get('customer')):
+            Smtp(
+                template=template,
+                subject='Informasi',
+                reciept=[user.email],
+                context=context
+            ).send_mail()        
+        messages.success(self.request, "informasi berhasi dikirim")
+        return super().form_valid(form)
+
 class InformasiUpdateView(IsAuthenticated, UpdateView):
     model = Informasi
     template_name = 'admin-panel/component/form.html'
@@ -50,6 +71,7 @@ class InformasiUpdateView(IsAuthenticated, UpdateView):
         context['header'] = 'Informasi'
         context['header_title'] = 'Edit Informasi'
         return context
+
 
 class InformasiDeleteView(IsAuthenticated, DeleteView):
     model = Informasi

@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email</title>
+    <style>
+        /* Reset default styles */
+        body, p, h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Set primary color to red */
+        body {
+            background-color: #ffffff;
+        }
+
+        .header {
+            background-color: #ff0000; /* Red */
+            text-align: center;
+            padding: 20px;
+        }
+
+        .header img {
+            max-width: 200px;
+            height: auto;
+        }
+
+        .content {
+            padding: 20px;
+        }
+        .footer {
+            background-color: #f2f2f2; /* Light gray */
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="https://recruitment.pertamina.com/assets/frontend/images/pertamina-white.png" alt="Logo">
+    </div>
+    <div class="content">
+        <h1>Halo <b>({{ customer }})</b></h1>
+
+        <h4>Informasi perihal {{ perihal }}</h4><br><hr>
+
+        {{ informasi|safe }}
+    </div>
+    <div class="footer">
+        <p>Pt Pertamina</p>
+        <p>City, State, Postal Code</p>
+        <p>Indonesia</p>
+    </div>
+</body>
+</html>
