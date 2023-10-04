@@ -1,6 +1,6 @@
 # myapp/views.py
 
-from multiprocessing import context
+import datetime
 from django.views.generic import ListView, DetailView, DeleteView
 from django.views import View
 from django.urls import reverse_lazy
@@ -109,6 +109,9 @@ class ExportTotalSurveyView(IsAuthenticated, ListView, GeneratePDF):
         context = {}
         context['header'] = 'Survey'
         context['header_title'] = f'Total Survey  {self.request.user.ptm_location}'
+        context['customer'] = self.request.user.customer
+        context['ptm'] = self.request.user.ptm_location
+        context['created_at'] = datetime.datetime.now()
         context['questions'] = Question.objects.filter(type=TypeQuestion.RATING)
         return self.render_to_pdf(
             context, 
