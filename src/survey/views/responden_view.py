@@ -54,6 +54,9 @@ class ExportRespondenDetailView(IsAuthenticated, DetailView, GeneratePDF):
         context['reviews'] = SurveyResult.objects.filter(responden=self.get_object(), question__type=TypeQuestion.RATING)
         context['comments'] = SurveyResult.objects.filter(responden=self.get_object(), question__type=TypeQuestion.TEXT)
         context['header_title'] = f'Customer {self.get_object().user.customer.name}' 
+        context['customer'] = self.get_object().user.customer.name
+        context['ptm'] = self.get_object().user.ptm_location
+        context['created_at'] = datetime.datetime.now()
 
         return self.render_to_pdf(
             context, 
@@ -91,7 +94,9 @@ class TotalSurveyView(IsAuthenticated, ListView):
         context['header_title'] = f'Total Survey  {self.request.user.ptm_location}'
         context['questions'] = Question.objects.filter(type=TypeQuestion.RATING)
         # context['comments'] = SurveyResult.objects.filter(question__type=TypeQuestion.TEXT)
-        
+        context['customer'] = self.request.user.customer
+        context['ptm'] = self.request.user.ptm_location
+        context['created_at'] = datetime.datetime.now()
         return context
     
 
