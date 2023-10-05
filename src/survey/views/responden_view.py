@@ -56,7 +56,7 @@ class ExportRespondenDetailView(IsAuthenticated, DetailView, GeneratePDF):
         context['header_title'] = f'Customer {self.get_object().user.customer.name}' 
         context['customer'] = self.get_object().user.customer.name
         context['ptm'] = self.get_object().user.ptm_location
-        context['created_at'] = datetime.datetime.now()
+        context['created_at'] = self.get_object().created_at
 
         return self.render_to_pdf(
             context, 
