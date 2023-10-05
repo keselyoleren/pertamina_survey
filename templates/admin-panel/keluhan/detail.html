@@ -1,0 +1,50 @@
+{% extends 'admin-panel/layouts/main.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- Page Heading -->
+    {% include 'admin-panel/component/content_header.html' %}
+    
+    <div class="row">
+        <div class="col">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">{{ header_title }}</h6>
+                </div>
+                <div class="card-body">
+                    <h1>Keluhan dari&nbsp;{{keluhan.user.ptm_location}} - {{ keluhan.user.customer }} </h1>
+                    <h3><strong>Perihal : {{keluhan.perihal}}</strong></h3>
+                    <p>{{ keluhan.komentar }}</p>
+                    {% if keluhan.attachments %}
+                        <a href="#" class="pop">
+                            <img src="{{ keluhan.attachments.url }}"
+                                    width="70"
+                                    height="70"
+                                    alt=""
+                                    srcset="">
+                        </a>
+                    {% endif %}
+                    <h3>&nbsp;</h3>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock  %}
+{% block js %}
+
+<script>
+    {% comment %} $.widget.bridge('uibutton', $.ui.button) {% endcomment %}
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+        $('.pop').on('click', function() {
+                $('.imagepreview').attr('src', $(this).find('img').attr('src'));
+                $('#imagemodal').modal('show');   
+            });		
+    
+    })
+</script>
+
+{% endblock  %}

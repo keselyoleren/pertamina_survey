@@ -21,6 +21,7 @@ urlpatterns = [
         path('', KeluhanListView.as_view(), name='keluhan-list'),
         path('create/', KeluhanCreateView.as_view(), name='keluhan-create'),
         path('update/<int:pk>/', KeluhanUpdateView.as_view(), name='keluhan-update'),
+        path('detail/<int:pk>/', KeluhanDetailView.as_view(), name='keluhan-detail'),
         path('delete/<int:pk>/', KeluhanDeleteView.as_view(), name='keluhan-delete'),
     ])),
 ]

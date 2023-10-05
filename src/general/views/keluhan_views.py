@@ -1,6 +1,6 @@
 # myapp/views.py
 
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.urls import reverse_lazy
 from config.permis import IsAuthenticated, LoginRequiredMixin
 from config.choice import RoleUser
@@ -26,6 +26,7 @@ class KeluhanListView(IsAuthenticated, ListView):
         context = super().get_context_data(**kwargs)
         context['header'] = 'Keluhan'
         context['header_title'] = 'List Keluhan'
+        context['btn_add'] = False
         context['create_url'] = reverse_lazy('keluhan-create')
         return context
 
@@ -38,6 +39,7 @@ class KeluhanCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['header'] = 'Keluhan'
+        context['btn_add'] = False
         context['header_title'] = 'Tambah Keluhan'
         return context
 
@@ -50,8 +52,22 @@ class KeluhanUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['header'] = 'Keluhan'
+        context['btn_add'] = False
         context['header_title'] = 'Edit Keluhan'
         return context
+
+class KeluhanDetailView(IsAuthenticated, DetailView):
+    model = Keluhan
+    template_name = 'admin-panel/keluhan/detail.html'
+    context_object_name = 'keluhan'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['header'] = 'Keluhan'
+        context['btn_add'] = False
+        context['header_title'] = 'Detail Keluhan Customer'
+        return context
+
 
 class KeluhanDeleteView(DeleteView):
     model = Keluhan
@@ -61,5 +77,6 @@ class KeluhanDeleteView(DeleteView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['header'] = 'Keluhan'
+        context['btn_add'] = False
         context['header_title'] = 'Delete Keluhan'
         return context

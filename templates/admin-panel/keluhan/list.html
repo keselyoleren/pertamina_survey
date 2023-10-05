@@ -27,7 +27,7 @@
                               {% for item in keluhan_list %}
                               <tr>
                                  <td>
-                                    <a href="{% url 'keluhan-update' item.id %}">
+                                    <a href="{% url 'keluhan-detail' item.id %}">
                                        {{item.user.ptm_location}} - {{ item.user.customer }} 
                                     </a>
                                  </td>
@@ -35,10 +35,8 @@
                                  <td>{{ item.komentar }}</td>
                                  
                                  <td>
-                                    <a href="{% url 'keluhan-update' item.id %}"
-                                        type="button" class="btn btn-outline-info"><i class="fa fa-edit"></i></a>
-                                    <a href="{% url 'keluhan-delete' item.id %}" 
-                                       class="btn btn-outline-danger"><i class="fa fa-trash"></i></a>
+                                    <a href="{% url 'keluhan-detail' item.id %}"
+                                        type="button" class="btn btn-outline-info"><i class="fa fa-eye"></i></a>
                                  </td>
                               </tr>
                               {% endfor %}
