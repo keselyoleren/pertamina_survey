@@ -39,7 +39,10 @@ class DashboardView(IsAuthenticated, TemplateView):
             label.append(q.question)
             average_result = SurveyResult.objects.filter(question__id=q.id, responden__user__ptm_location=self.request.user.ptm_location).aggregate(
                 avg_resp_int=Avg('resp_int'))
-            scores.append("{:.1f}".format(average_result['avg_resp_int']))
+            try:
+                scores.append("{:.1f}".format(average_result['avg_resp_int']))
+            except:
+                scores.append(average_result['avg_resp_int'])
 
         keluhan = Keluhan.objects.filter(user__ptm_location=self.request.user.ptm_location).last()
         responden = Responden.objects.filter(user__ptm_location=self.request.user.ptm_location).last()
