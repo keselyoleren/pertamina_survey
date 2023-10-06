@@ -32,7 +32,7 @@ class DashboardView(IsAuthenticated, TemplateView):
 
 
         survey = Survey.objects.first()
-        question = Question.objects.filter(survey=survey, type=TypeQuestion.RATING)
+        question = Question.objects.filter(survey=survey, type=TypeQuestion.RATING).order_by('created_at')
         label = []
         scores = []
         for q in question:
