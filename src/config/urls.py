@@ -19,7 +19,7 @@ from django.views.generic import TemplateView
 from django.conf.urls.static import static
 from django.conf import settings
 from general.views.customer_suervey_views import SaveSurveyView
-from general.views.customer_views import DashboardCustomerView, DetailInformasiCreateView, DetailSuerveCustomerView, InformasiCustomerView, InformasiPenerbanganCustomerView, KeluhanCustomerDeleteView, KeluhanCustomerListView, KeluhanCustomerUpdateView, KeluhanCustomerView, ReplayKeluhanVIew, SurveyCustomerListView
+from general.views.customer_views import CreateInformasiPenerbangan, DashboardCustomerView, DeleteInformasiPenerbangan, DetailInformasiCreateView, DetailSuerveCustomerView, InformasiCustomerView, InformasiPenerbanganCustomerView, KeluhanCustomerDeleteView, KeluhanCustomerListView, KeluhanCustomerUpdateView, KeluhanCustomerView, ReplayKeluhanVIew, SurveyCustomerListView, UpdateInformasiPenerbangan
 
 from general.views.dashboard_views import DashboardView
 from manage_user.views.login_views import ChangePasswordAdminView, CustomPasswordChangeView, LogoutCustomerView, LogoutView, ProfileUserApiView, UserLoginView
@@ -41,7 +41,13 @@ urlpatterns = [
         path("", KeluhanCustomerListView.as_view(), name="keluhan-customer-list"),
     ])),
     path('informasi', InformasiCustomerView.as_view(), name="informasi-customer"),
-    path('informasi-penerbangan', InformasiPenerbanganCustomerView.as_view(), name="informasi-penerbangan-customer"),
+    path("informasi-penerbangan/", include([
+        path('', InformasiPenerbanganCustomerView.as_view(), name="informasi-penerbangan-customer"),
+        path('create/', CreateInformasiPenerbangan.as_view(), name="informasi-penerbangan-customer-create"),
+        path('<int:pk>/update/', UpdateInformasiPenerbangan.as_view(), name="informasi-penerbangan-customer-update"),
+        path('<int:pk>/delete/', DeleteInformasiPenerbangan.as_view(), name="informasi-penerbangan-customer-delete"),
+    ])),
+
     path('informasi/<int:pk>/', DetailInformasiCreateView.as_view(), name="informasi-detail-customer"),
     path('survey', SurveyCustomerListView.as_view(), name="survey-customer"),
     path('survey/<int:pk>/', DetailSuerveCustomerView.as_view(), name="survey-detail-customer"),

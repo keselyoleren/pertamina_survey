@@ -13,6 +13,7 @@ from config.choice import RoleUser, TypeQuestion
 from config.smtp import Smtp
 from config.permis import LoginRequiredMixin
 from config.survey import MODEL_SURVEY, MODEL_WITH_INTRO
+from general.form.informasi_form import InformasiPenerbanganForm
 from general.form.keluhan_form import KeluhanForm
 from django.contrib import messages
 from manage_user.models import AccountUser
@@ -215,12 +216,15 @@ class DetailInformasiCreateView(LoginRequiredMixin, DetailView):
     context_object_name = 'informasi'
 
 
-class InformasiPenerbanganCustomerView(ListView):
+class InformasiPenerbanganCustomerView(LoginRequiredMixin, ListView):
     model = InformasiPenerbangan
     template_name = 'customer/informasi_penerbangan.html'
     context_object_name = 'informasi_penerbangan_list'
     paginate_by = 10
     object_list = []
+
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
 
     
     def get_context_data(self, **kwargs):
@@ -241,3 +245,52 @@ class DetailInformasiPenerbanganCreateView(LoginRequiredMixin, DetailView):
     model = Informasi
     template_name = 'customer/detail_informasi_penerbangan.html'
     context_object_name = 'informasi_penerbangan'
+
+
+class CreateInformasiPenerbangan(LoginRequiredMixin, CreateView):
+    model = InformasiPenerbangan
+    template_name = 'customer/component/form.html'
+    form_class = InformasiPenerbanganForm
+    success_url = reverse_lazy('informasi-penerbangan-customer')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['header'] = 'Informasi Penerbangan'
+        context['header_title'] = 'Tambah Informasi Penerbangan'
+        return context
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        messages.success(self.request, "Informasi Penerbangan berhasil ditambahkan")
+        return super().form_valid(form)
+
+class UpdateInformasiPenerbangan(LoginRequiredMixin, UpdateView):
+    model = InformasiPenerbangan
+    template_name = 'customer/component/form.html'
+    form_class = InformasiPenerbanganForm
+    success_url = reverse_lazy('informasi-penerbangan-customer')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['header'] = 'Informasi Penerbangan'
+        context['header_title'] = 'Edit Informasi Penerbangan'
+        return context
+
+    def form_valid(self, form):
+        messages.success(self.request, "Informasi Penerbangan berhasil diubah")
+        return super().form_valid(form)
+
+class DeleteInformasiPenerbangan(LoginRequiredMixin, DeleteView):
+    model = InformasiPenerbangan
+    template_name = 'customer/component/delete.html'
+    success_url = reverse_lazy('informasi-penerbangan-customer')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['header'] = 'Informasi Penerbangan'
+        context['header_title'] = 'Hapus Informasi Penerbangan'
+        return context
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "Informasi Penerbangan berhasil dihapus")
+        return super().delete(request, *args, **kwargs)

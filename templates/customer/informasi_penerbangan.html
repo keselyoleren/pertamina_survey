@@ -12,34 +12,48 @@
         </div>
         <br>
         <hr>
-        <div class="row mt-md mb-xl">
-            <div class="col">
-                <div class="table-responsive">
-                    <table id="datatable" class="table table-striped table-bordered" data-toggle="data-table">
-                       <thead>
-                          <tr>
-                             <th>Waktu</th>
-                             <th>Tujuan</th>
-                             <th>Maskapai</th>
-                             <th>Penerbangan</th>
-                             <th>Terminal</th>
-                             <th>Keterangan</th>
-                          </tr>
-                       </thead>
-                       <tbody>
-                          {% for item in informasi_penerbangan_list %}
-                          <tr>
-                             <td>{{ item.waktu }}</td>
-                             <td>{{ item.tujuan }}</td>
-                             <td>{{ item.maskapai }}</td>
-                             <td>{{ item.penerbangan }}</td>
-                             <td>{{ item.terminal }}</td>
-                             <td>{{ item.keterangan }}</td>
-                          </tr>
-                          {% endfor %}
-                       </tbody>
-                    </table>
-                 </div>
+        <div class="card">
+            <div class="card-header p-2">
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a href="{% url 'informasi-penerbangan-customer-create' %}" class="btn btn-primary btn-block"><i class="fa fa-plus"> Informasi Penerbangan </i></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <div class="">
+                    <div class="table-responsive">
+                        <table id="datatable" class="table table-striped table-bordered" data-toggle="data-table">
+                        <thead>
+                            <tr>
+                                <th>Waktu</th>
+                                <th>Tujuan</th>
+                                <th>Maskapai</th>
+                                <th>Penerbangan</th>
+                                <th>Terminal</th>
+                                <th>Keterangan</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in informasi_penerbangan_list %}
+                            <tr>
+                                <td>{{ item.waktu }}</td>
+                                <td>{{ item.tujuan }}</td>
+                                <td>{{ item.maskapai }}</td>
+                                <td>{{ item.penerbangan }}</td>
+                                <td>{{ item.terminal }}</td>
+                                <td>{{ item.keterangan }}</td>
+                                <td>
+                                    <a href="{% url 'informasi-penerbangan-customer-update' item.id %}" class="btn btn-outline-info"><i class="fa fa-edit"></i></a>
+                                    <a href="{% url 'informasi-penerbangan-customer-delete' item.id %}" class="btn btn-outline-danger"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row">

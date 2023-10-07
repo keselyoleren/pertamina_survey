@@ -23,29 +23,17 @@
                                  <th>Penerbangan</th>
                                  <th>Terminal</th>
                                  <th>Keterangan</th>
-                                 <th>Action</th>
                               </tr>
                            </thead>
                            <tbody>
                               {% for item in informasi_penerbangan %}
                               <tr>
-                                 <td>
-                                    <a href="{% url 'informasi_penerbangan-update' item.id %}">
-                                       {{ item.waktu }}
-                                    </a>
-                                 </td>
+                                 <td>{{ item.waktu }}</td>
                                  <td>{{ item.tujuan }}</td>
                                  <td>{{ item.maskapai }}</td>
                                  <td>{{ item.penerbangan }}</td>
                                  <td>{{ item.terminal }}</td>
                                  <td>{{ item.keterangan }}</td>
-                                 
-                                 <td>
-                                    <a href="{% url 'informasi_penerbangan-update' item.id %}"
-                                        type="button" class="btn btn-outline-info"><i class="fa fa-edit"></i></a>
-                                    <a href="{% url 'informasi_penerbangan-delete' item.id %}" 
-                                       class="btn btn-outline-danger"><i class="fa fa-trash"></i></a>
-                                 </td>
                               </tr>
                               {% endfor %}
                            </tbody>
