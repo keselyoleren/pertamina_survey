@@ -13,7 +13,19 @@
         
         <div class="row mt-md mb-xl">
             {% for item in informasi_list  %}
-                <div class="card card-primary card-outline">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">{{ item.customer }} || {{ item.created_at }} || Perihal = {{ item.perihal }} </h6>
+                </div>
+                <div class="card-body">
+                    <p>{{ item.informasi|truncatechars:"255"|safe }}</p>
+
+                    <div class="float-right">
+                        <a href="{% url 'informasi-detail-customer' item.pk %}"  class="btn btn-default"><i class="fa fa-detail-alt"></i> Read more..</a>
+                    </div>
+                </div>
+            </div>
+                {% comment %} <div class="card card-primary card-outline">
                     <div class="card-header">
                         <h2 class="card-title">{{ item.customer }}</h2>
                         <span class="float-right">{{ item.created_at }} <span class="mailbox-read-time float-right btn">Perihal  <span class="btn-primary">{{ item.perihal }}</span></span>
@@ -27,7 +39,7 @@
                         </div>
                     
                     </div>
-                </div>
+                </div> {% endcomment %}
                 <br>
             {% endfor %}
         </div>

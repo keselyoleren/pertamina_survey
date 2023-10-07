@@ -194,7 +194,8 @@ class InformasiCustomerView(LoginRequiredMixin, ListView):
     object_list = []
 
     def get_queryset(self):
-        return super().get_queryset().filter(user__ptm_location=self.request.user.ptm_location)
+        print(self.request.user.customer)
+        return super().get_queryset().filter(user__ptm_location=self.request.user.ptm_location, customer=self.request.user.customer).order_by('-created_at')
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
