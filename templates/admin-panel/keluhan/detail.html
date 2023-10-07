@@ -22,9 +22,11 @@
                     <h6 class="m-0 font-weight-bold text-primary">{{ header_title }}</h6>
                 </div>
                 <div class="card-body">
-                    <h2>Keluhan dari&nbsp;{{keluhan.user.ptm_location}} - {{ keluhan.user.customer }} </h2>
-                    <h4><strong>Perihal : {{keluhan.perihal}}</strong></h4>
-                    <p>{{ keluhan.komentar | safe }}</p>
+                    <h3>Keluhan dari&nbsp;{{keluhan.user.ptm_location}} - {{ keluhan.user.customer }} </h3>
+                    <h5><strong>Perihal : {{keluhan.perihal}}</strong></h5>
+                    <h6>
+                        <p>{{ keluhan.komentar | safe }}</p>
+                    </h6>
                     {% if keluhan.attachments %}
                         <a href="#" class="pop">
                             <img src="{{ keluhan.attachments.url }}"
