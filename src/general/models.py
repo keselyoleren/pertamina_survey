@@ -56,7 +56,9 @@ class Informasi(BaseModel):
     user = models.ForeignKey(AccountUser, on_delete=models.CASCADE, blank=True, null=True)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     perihal = models.CharField(_("Perihal"), max_length=255, choices=PrihalInformasi.choices)
+    open_survey = models.BooleanField(_("Buka Survey"), default=False)
     informasi = RichTextField(_("Informasi"))
+
 
 
     def __str__(self) -> str:

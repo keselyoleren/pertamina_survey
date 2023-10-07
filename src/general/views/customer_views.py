@@ -28,6 +28,14 @@ class DetailSuerveCustomerView(LoginRequiredMixin, DetailView):
     model = Survey
     context_object_name = 'survey'
 
+    # def get_template_names(self):
+    #     informasi = Informasi.objects.filter(user__ptm_location=self.request.user.ptm_location, \
+    #         customer=self.request.user.customer).first()
+    #     if informasi:
+    #         if informasi.open_survey:
+    #             return super().get_template_names()
+    #     return 'customer/survey/index.html'
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         data_model = []
