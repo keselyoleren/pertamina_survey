@@ -1,11 +1,14 @@
 import json
+import re
 from django.views.generic import TemplateView
 from django.views.generic import (
     ListView,
     CreateView,
     DetailView,
     UpdateView,
+    DeleteView
 )
+from django.urls import reverse_lazy
 from config.choice import RoleUser, TypeQuestion
 from config.smtp import Smtp
 from config.permis import LoginRequiredMixin
@@ -14,7 +17,7 @@ from general.form.keluhan_form import KeluhanForm
 from django.contrib import messages
 from manage_user.models import AccountUser
 from survey.models import Question, Survey
-from general.models import Informasi, InformasiPenerbangan, Keluhan
+from general.models import Informasi, InformasiPenerbangan, Keluhan, Tanggapan
 
 class DashboardCustomerView(TemplateView):
     template_name = 'customer/index.html'
@@ -129,30 +132,23 @@ class KeluhanCustomerUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context =  super().get_context_data(**kwargs)
-        context['jawaban_keluhan'] = Keluhan.objects.filter(parent=self.get_object())
+        context['tanggapan'] = Tanggapan.objects.filter(keluhan=self.get_object())
         return context
         
 
 
 class ReplayKeluhanVIew(LoginRequiredMixin, UpdateView):
     model = Keluhan
-    template_name = 'customer/keluhan.html'
+    template_name = 'customer/component/form.html'
     form_class = KeluhanForm
-
-    def get_success_url(self) -> str:
-        return f'/keluhan/{self.get_object().id}/update'
-
-    def form_valid(self, form):
-        form.instance.parent = self.get_object()
-        form.save()
-        return super().form_valid(form)
+    success_url = reverse_lazy('keluhan-customer-list')
     
 
 class KeluhanCustomerView(LoginRequiredMixin, CreateView):
     model = Keluhan
     template_name = 'customer/keluhan.html'
     form_class = KeluhanForm
-    success_url = '/'
+    success_url = reverse_lazy('keluhan-customer-list')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -176,6 +172,17 @@ class KeluhanCustomerView(LoginRequiredMixin, CreateView):
             ).send_mail()        
         messages.success(self.request, "Keluhan berhasil dikirim")
         return super().form_valid(form)
+
+class KeluhanCustomerDeleteView(LoginRequiredMixin, DeleteView):
+    model = Keluhan
+    template_name = 'customer/component/delete.html'
+    success_url = reverse_lazy('keluhan-customer-list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['header'] = 'Keluhan'
+        context['header_title'] = 'Hapus Keluhan'
+        return context
 
 
 class InformasiCustomerView(LoginRequiredMixin, ListView):

@@ -1,12 +1,14 @@
 # myapp/views.py
 
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+from django.views import View
 from django.urls import reverse_lazy
 from config.permis import IsAuthenticated, LoginRequiredMixin
 from config.choice import RoleUser
-from general.form.keluhan_form import KeluhanForm
+from general.form.keluhan_form import KeluhanForm, TanggapanForm
+from django.shortcuts import redirect
 
-from general.models import Keluhan
+from general.models import Keluhan, Tanggapan
 
 
 
@@ -65,8 +67,35 @@ class KeluhanDetailView(IsAuthenticated, DetailView):
         context = super().get_context_data(**kwargs)
         context['header'] = 'Keluhan'
         context['btn_add'] = False
+        context['form'] = TanggapanForm()
         context['header_title'] = 'Detail Keluhan Customer'
+        context['tanggapan'] = self.object.tanggapan_set.all()
         return context
+
+
+class KeluahnUpdateStatus(IsAuthenticated, View):
+    def post(self, request, *args, **kwargs):
+        keluhan = Keluhan.objects.get(pk=self.kwargs['pk'])
+        keluhan.status = self.request.POST['status']
+        keluhan.save()
+        return redirect('keluhan-detail', pk=keluhan.pk)
+
+
+class TanggapanView(IsAuthenticated, View):
+    def post(self, request, *args, **kwargs):
+        keluhan = Keluhan.objects.get(pk=self.kwargs['pk'])
+        form = TanggapanForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.instance.user = request.user
+            form.instance.keluhan = keluhan
+            form.save()
+            return redirect('keluhan-detail', pk=keluhan.pk)
+        return redirect('keluhan-detail', pk=keluhan.pk)
+
+    def get(self, request, *args, **kwargs):
+        tanggapan = Tanggapan.objects.get(pk=self.kwargs['pk'])
+        tanggapan.delete()
+        return redirect('keluhan-detail', pk=tanggapan.keluhan.pk)
 
 
 class KeluhanDeleteView(DeleteView):

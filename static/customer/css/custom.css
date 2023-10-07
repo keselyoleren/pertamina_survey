@@ -251,6 +251,14 @@
   .card-deck .card {
 	margin-bottom: 0.75rem;
   }
+
+  .border-left-primary {
+	border-left: 0.25rem solid #4e73df !important;
+  }
+
+.shadow {
+	box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
+}
   
   @media (min-width: 576px) {
 	.card-deck {
@@ -266,7 +274,7 @@
 	  margin-left: 0.75rem;
 	}
   }
-  
+
   .card-group > .card {
 	margin-bottom: 0.75rem;
   }
@@ -352,4 +360,6 @@
 	border-radius: 0;
 	margin-bottom: -1px;
   }
+  
+
   

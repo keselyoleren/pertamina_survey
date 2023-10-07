@@ -1,20 +1,30 @@
 {% extends 'admin-panel/layouts/main.html' %}
 {% load static %}
-
+{% block css %}{{ form.media.css }}{% endblock %}
 {% block content %}
     <!-- Page Heading -->
     {% include 'admin-panel/component/content_header.html' %}
     
     <div class="row">
-        <div class="col">
-            <div class="card shadow mb-4">
+        <div class="col-md-2">
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Status</h6>
+                </div>
+                <div class="card-body">
+                    <button type="button"  data-toggle="modal" data-target="#modal_status" class="btn btn-info"><i class="fa fa-replay-alt"></i> {{ keluhan.status }}</button>                    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="card shadow">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">{{ header_title }}</h6>
                 </div>
                 <div class="card-body">
                     <h2>Keluhan dari&nbsp;{{keluhan.user.ptm_location}} - {{ keluhan.user.customer }} </h2>
                     <h4><strong>Perihal : {{keluhan.perihal}}</strong></h4>
-                    <p>{{ keluhan.komentar }}</p>
+                    <p>{{ keluhan.komentar | safe }}</p>
                     {% if keluhan.attachments %}
                         <a href="#" class="pop">
                             <img src="{{ keluhan.attachments.url }}"
@@ -27,17 +37,136 @@
                     <h3>&nbsp;</h3>
                     <br>
                     <div class="float-right">  
-                        <button type="button" class="btn btn-info"><i class="fa fa-replay-alt"></i> Beri tanggapan</button>
+                        <button type="button"  data-toggle="modal" data-target="#exampleModal" class="btn btn-info"><i class="fa fa-replay-alt"></i> Beri tanggapan</button>
                     </div>
+                </div>
+            </div>
+
+
+            <div class="card card-default">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-bullhorn"></i>
+                        Tanggapan
+                    </h3>
+                </div>
+                
+                <div class="card-body">
+                    {% for item in tanggapan  %}
+                    <div class="card border-left-primary shadow">
+                        <div class="">
+                            <div class="card-body">
+                                <h4><strong>{{ item.user }}</strong></h4>
+                                <p>{{ item.komentar | safe }}</p>
+                                {% if item.attachments %}
+                                    <a href="#" class="pop">
+                                        <img src="{{ item.attachments.url }}"
+                                                width="70"
+                                                height="70"
+                                                alt=""
+                                                srcset="">
+                                    </a>
+                                {% endif %}
+                                <div class="float-right">  
+                                    <a class="btn btn-danger" href="{% url 'tanggapan-create' item.id %}"><i class="fa fa-trash-alt"></i> Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                {% endfor %}
                 </div>
             </div>
         </div>
     </div>
+  
+      
+  <!-- Modal -->
+    <div class="modal fade bd-example-modal-xl" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Beri Tanggapan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{% url 'tanggapan-create' keluhan.id %}" method="POST" id="myForm" enctype="multipart/form-data">
+                    <div class="modal-body">   
+                        {% csrf_token %}
+                        <div class="col-md-12">
+                            {% for fields in form.visible_fields %}
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-sm-2 text-left text-gray-800"
+                                        for="{{ fields.label_tag.id }}">
+                                        <h6>
+                                            {{ fields.label_tag }}
+                                            {% if fields.field.required %}
+                                                <span class="text-red" style="color: red;">*</span>
+                                            {% endif %}
+                                        </h6>
+                                    </label>
+
+                                    <div class="col-sm-10">
+                                        {{ fields.help_text }}
+                                        <span class="text-red">
+                                            {{ fields.errors }}
+                                        </span>
+                                        {{ fields }}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+<div class="modal fade" id="modal_status" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{% url 'keluhan-status' keluhan.id %}" method="POST" id="myForm" enctype="multipart/form-data">
+                <div class="modal-body">   
+                    {% csrf_token %}
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="">Change Status</label>
+                            <select name="status" id="">
+                                <option value="Pending">Pending</option>
+                                <option value="Process">Process</option>
+                                <option value="Done">Done</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+  
 
 
 {% endblock  %}
 {% block js %}
-
+{{ form.media.js }}
 <script>
     {% comment %} $.widget.bridge('uibutton', $.ui.button) {% endcomment %}
     $(function () {

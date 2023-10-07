@@ -31,19 +31,23 @@
                                          <th>Perihal</th>
                                          <th>status</th>
                                          <th>Last Update</th>
+                                         <th>Action</th>
                                       </tr>
                                    </thead>
                                    <tbody>
                                       {% for item in keluhan_list %}
                                         <tr>
                                             <td>
-                                                <a href="{% url 'keluhan-customer-update' item.id %}" class=" ">
+                                                <a href="{% url 'keluhan-customer-view' item.id %}" class=" ">
                                                 {{ item.customer }}
                                                 </a>
                                             </td>
                                             <td>{{ item.perihal }}</td>
                                             <td>{{ item.status }}</td>
                                             <td>{{ item.updated_at }}</td>
+                                            <td>
+                                                <a href="{% url 'keluhan-customer-delete' item.id %}" class="btn btn-outline-danger"><i class="fa fa-trash"></i></a>
+                                            </td>
                                         </tr>
                                       {% endfor %}
                                    </tbody>

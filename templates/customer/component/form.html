@@ -1,0 +1,69 @@
+{% extends 'customer/layout/main.html' %}
+{% block css %}{{ form.media.css }}{% endblock %}
+{% block content %}
+<style></style>
+<div class="main" role="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 center">
+                <div class="heading heading-border heading-middle-border heading-middle-border-center">
+                    <h1><strong>{{ header_title }}</strong></h1>
+                </div>
+            </div>
+            <div class="card-body">
+                <form action="." method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-12 col-lg-9">
+                            
+                            {% for fields in form.visible_fields %}
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-sm-2 text-left text-gray-800"
+                                        for="{{ fields.label_tag.id }}">
+                                        <h6>
+                                            {{ fields.label_tag }}
+                                            {% if fields.field.required %}
+                                                <span class="text-red" style="color: red;">*</span>
+                                            {% endif %}
+                                        </h6>
+                                    </label>
+
+                                    <div class="col-sm-10">
+                                        {{ fields.help_text }}
+                                        <span class="text-red">
+                                            {{ fields.errors }}
+                                        </span>
+                                        {{ fields }}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            
+                        </div>
+                        <!-- action -->
+                        <div class="col-12 col-lg-3">
+                            <div class="card card-primary card-outline">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        <i class="fa fa-edit"></i>
+                                        Actions
+                                    </h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <input type="submit" value="Save" class="btn btn-success form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+{{ form.media.js }}
+{% endblock  %}

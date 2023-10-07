@@ -19,7 +19,7 @@ class Keluhan(BaseModel):
     perihal = models.CharField(_("Perihal"), max_length=255, choices=PerihalKeluhan.choices,blank=True, null=True)
     status = models.CharField(_("Status"), max_length=255, choices=StatusKeluhan.choices, default=StatusKeluhan.PENDING, blank=True, null=True)
     attachments = models.FileField(_("Attachments"), upload_to='keluhan/', blank=True, null=True)
-    komentar = models.TextField(_("Komentar"))
+    komentar = RichTextField(_("Komentar"))
 
     def __str__(self) -> str:
         return self.perihal
@@ -33,6 +33,24 @@ class Keluhan(BaseModel):
     class Meta:
         verbose_name = _("Keluhan")
         verbose_name_plural = _("Keluhan")
+
+class Tanggapan(BaseModel):
+    user = models.ForeignKey(AccountUser, on_delete=models.CASCADE, blank=True, null=True)
+    keluhan = models.ForeignKey(Keluhan, on_delete=models.CASCADE, blank=True, null=True)
+    attachments = models.FileField(_("Attachments"), upload_to='keluhan/', blank=True, null=True)
+    komentar = RichTextField(_("Komentar"))
+
+    def __str__(self) -> str:
+        return self.user.username
+
+    def save(self, *args, **kwargs):
+        if not get_user().is_superuser:
+            self.user = get_user()
+        return super().save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = _("Tanggapan")
+        verbose_name_plural = _("Tanggapan")
 
 class Informasi(BaseModel):
     user = models.ForeignKey(AccountUser, on_delete=models.CASCADE, blank=True, null=True)

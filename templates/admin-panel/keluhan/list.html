@@ -19,7 +19,7 @@
                               <tr>
                                  <th>Customer</th>
                                  <th>Perihal</th>
-                                 <th>Komentar</th>
+                                 <th>Status</th>
                                  <th>Action</th>
                               </tr>
                            </thead>
@@ -32,7 +32,7 @@
                                     </a>
                                  </td>
                                  <td>{{ item.perihal }}</td>
-                                 <td>{{ item.komentar }}</td>
+                                 <td>{{ item.status }}</td>
                                  
                                  <td>
                                     <a href="{% url 'keluhan-detail' item.id %}"
