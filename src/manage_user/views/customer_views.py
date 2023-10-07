@@ -14,6 +14,7 @@ class CustomerListView(IsAuthenticated, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['header'] = 'Customer'
+        context['btn_add'] = True
         context['header_title'] = 'List Customer'
         context['create_url'] = reverse_lazy('customer-create')
         return context

@@ -20,6 +20,7 @@ class AccountUserListView(IsAuthenticated, ListView):
         context = super().get_context_data(**kwargs)
         context['header'] = 'User'
         context['header_title'] = 'List User'
+        context['btn_add'] = True
         context['create_url'] = reverse_lazy('user-create')
         return context
 

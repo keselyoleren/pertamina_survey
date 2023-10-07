@@ -14,6 +14,7 @@ class PTMListView(IsAuthenticated, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['header'] = 'DPPU'
+        context['btn_add'] = True
         context['header_title'] = 'List lokasi DPPU'
         context['create_url'] = reverse_lazy('ptm-create')
         return context

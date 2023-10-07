@@ -28,6 +28,7 @@ class InformasiListView(IsAuthenticated, ListView):
         context['header'] = 'Informasi'
         context['header_title'] = 'List Informasi'
         context['create_url'] = reverse_lazy('informasi-create')
+        context['btn_add'] = True
         return context
 
 class InformasiCreateView(IsAuthenticated, CreateView):
