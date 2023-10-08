@@ -1,6 +1,6 @@
 import json
-import re
 from django.views.generic import TemplateView
+from django.urls import reverse
 from django.views.generic import (
     ListView,
     CreateView,
@@ -18,7 +18,7 @@ from general.form.keluhan_form import KeluhanForm
 from django.contrib import messages
 from manage_user.models import AccountUser
 from survey.models import Question, Survey
-from general.models import Informasi, InformasiPenerbangan, Keluhan, Tanggapan
+from general.models import Informasi, InformasiPenerbangan, Keluhan, Notification, Tanggapan
 
 class DashboardCustomerView(TemplateView):
     template_name = 'customer/index.html'
@@ -172,7 +172,15 @@ class KeluhanCustomerView(LoginRequiredMixin, CreateView):
             'perihal':form.cleaned_data.get('perihal'),
             'komentar':form.cleaned_data.get('komentar'),
         }
+        form_valid = super().form_valid(form)
         for user in AccountUser.objects.filter(role_user=RoleUser.DPPU, ptm_location=self.request.user.ptm_location):
+            print(user.email)
+            notif = Notification.objects.create(
+                user=user,
+                message = f"Keluhan dari {self.request.user.customer} telah masuk dengan perihal {form.cleaned_data.get('perihal')} ",
+                link = reverse('keluhan-detail', kwargs={'pk':self.object.id})
+            )   
+            
             Smtp(
                 template=template,
                 subject='Keluhan',
@@ -180,7 +188,7 @@ class KeluhanCustomerView(LoginRequiredMixin, CreateView):
                 context=context
             ).send_mail()        
         messages.success(self.request, "Keluhan berhasil dikirim")
-        return super().form_valid(form)
+        return form_valid
 
 class KeluhanCustomerDeleteView(LoginRequiredMixin, DeleteView):
     model = Keluhan

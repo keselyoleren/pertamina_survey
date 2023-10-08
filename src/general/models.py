@@ -102,14 +102,8 @@ class Notification(BaseModel):
     message = models.TextField(_("Message"), blank=True, null=True)
     is_read = models.BooleanField(_("Is Read"), default=False)
 
-    def __str__(self) -> str:
-        return self.title
-
-    def save(self, *args, **kwargs):
-        if not get_user().is_superuser:
-            self.customer = get_user().customer
-            self.user = get_user()
-        return super().save(*args, **kwargs)
+    # def __str__(self) -> str:
+    #     return self.user
 
     class Meta:
         verbose_name = _("Notification")

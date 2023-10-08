@@ -1,6 +1,7 @@
 
 from django import template
 from config.choice import RoleUser
+from general.models import Notification
 from survey.models import Survey, SurveyResult
 from django.db.models import Avg
 from config.request import get_user
@@ -39,3 +40,11 @@ def format_size(value):
         return f"{mb_size:.2f} MB"
     gb_size = mb_size / 1024
     return f"{gb_size:.2f} GB"
+
+@register.filter(name='get_notification_count')
+def get_notification_count(arg):
+    return Notification.objects.filter(user=get_user(), is_read=False).count()
+
+@register.filter(name='get_notification')
+def get_notification(arg):
+    return Notification.objects.filter(user=get_user(), is_read=False).order_by('-created_at')
