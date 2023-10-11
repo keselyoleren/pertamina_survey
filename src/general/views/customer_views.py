@@ -46,8 +46,11 @@ class DetailSuerveCustomerView(LoginRequiredMixin, DetailView):
         questions = Question.objects.filter(survey=survey_object).order_by("created_at")
 
         # Initialize an empty list to store the arrays
-        html_intro = f"<h4>Kepada Yth. <br> <b>Pimpinan {self.request.user.customer}</b> </h4> <b> <p >Suara Anda adalah motivasi kami. Kami ingin mengetahui persepsi Anda tentang Pertamina {self.request.user.ptm_location.location} yang akan kami gunakan untuk menjaga, memperbaiki, dan meningkatkan kinerja kami melayani Anda</p><p ><br>{self.get_object().name}</p></b>"
-        
+        try:
+            html_intro = f"<h4>Kepada Yth. <br> <b>Pimpinan {self.request.user.customer}</b> </h4> <b> <p >Suara Anda adalah motivasi kami. Kami ingin mengetahui persepsi Anda tentang Pertamina {self.request.user.ptm_location.location} yang akan kami gunakan untuk menjaga, memperbaiki, dan meningkatkan kinerja kami melayani Anda</p><p ><br>{self.get_object().name}</p></b>"
+        except Exception:
+            html_intro = f"<h4>Kepada Yth. <br> <b>Pimpinan {self.request.user.customer}</b> </h4> <b> <p >Suara Anda adalah motivasi kami. Kami ingin mengetahui persepsi Anda tentang Pertamina {self.request.user.ptm_location} yang akan kami gunakan untuk menjaga, memperbaiki, dan meningkatkan kinerja kami melayani Anda</p><p ><br>{self.get_object().name}</p></b>"
+
         arrays = [{
             "name": "page0",
             "elements": [{
@@ -96,7 +99,7 @@ class DetailSuerveCustomerView(LoginRequiredMixin, DetailView):
                 })
                 current_array = []
         # 
-        
+
         MODEL_WITH_INTRO['pages'] = arrays
         context['model_survey'] = json.dumps(MODEL_WITH_INTRO)
         context['questions'] = Question.objects.filter(survey=self.get_object())
