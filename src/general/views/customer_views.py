@@ -273,11 +273,12 @@ class CreateInformasiPenerbangan(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['header'] = 'Informasi Penerbangan'
-        context['header_title'] = 'Tambah Informasi Penerbangan'
+        context['header_title'] = f'Tambah Informasi Penerbangan {self.request.user.customer}'
         return context
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+        form.instance.maskapai = self.request.user.customer
         messages.success(self.request, "Informasi Penerbangan berhasil ditambahkan")
         return super().form_valid(form)
 

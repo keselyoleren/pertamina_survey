@@ -78,7 +78,7 @@ class InformasiPenerbangan(BaseModel):
     user = models.ForeignKey(AccountUser, on_delete=models.CASCADE, blank=True, null=True)
     waktu = models.DateTimeField(_("Waktu"), blank=True, null=True)
     tujuan = models.CharField(_("Tujuan"), max_length=255, blank=True, null=True)
-    maskapai = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    maskapai = models.ForeignKey(Customer, on_delete=models.CASCADE, blank=True, null=True)
     penerbangan = models.CharField(_("Penerbangan"), max_length=255, blank=True, null=True)
     terminal = models.CharField(_("Terminal"), max_length=255, blank=True, null=True)
     keterangan = models.CharField(_("Keterangan"), max_length=255, blank=True, null=True)

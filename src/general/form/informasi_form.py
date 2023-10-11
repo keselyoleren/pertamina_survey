@@ -18,3 +18,5 @@ class InformasiPenerbanganForm(AbstractForm):
         for field in self.fields:
             if field == 'user':
                 self.fields['user'].widget = forms.HiddenInput()
+            if field == 'maskapai':
+                self.fields['maskapai'].widget = forms.HiddenInput()
