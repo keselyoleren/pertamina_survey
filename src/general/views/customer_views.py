@@ -46,7 +46,7 @@ class DetailSuerveCustomerView(LoginRequiredMixin, DetailView):
         questions = Question.objects.filter(survey=survey_object).order_by("created_at")
 
         # Initialize an empty list to store the arrays
-        html_intro = f"<h4>Kepada Yth. <br> <b>Pimpinan {self.request.user.customer.name}</b> </h4> <b> <p >Suara Anda adalah motivasi kami. Kami ingin mengetahui persepsi Anda tentang Pertamina {self.request.user.ptm_location.location} yang akan kami gunakan untuk menjaga, memperbaiki, dan meningkatkan kinerja kami melayani Anda</p><p ><br>{self.get_object().name}</p></b>"
+        html_intro = f"<h4>Kepada Yth. <br> <b>Pimpinan {self.request.user.customer}</b> </h4> <b> <p >Suara Anda adalah motivasi kami. Kami ingin mengetahui persepsi Anda tentang Pertamina {self.request.user.ptm_location.location} yang akan kami gunakan untuk menjaga, memperbaiki, dan meningkatkan kinerja kami melayani Anda</p><p ><br>{self.get_object().name}</p></b>"
         
         arrays = [{
             "name": "page0",
@@ -73,8 +73,8 @@ class DetailSuerveCustomerView(LoginRequiredMixin, DetailView):
                         "rateCount": 10, 
                         "rateMin": 1, 
                         "rateMax": 10, 
-                        "minRateDescription": {"default": " ",},
-                        "maxRateDescription": {"default": " ",}
+                        "minRateDescription": {"default": " Kurang Puas ",},
+                        "maxRateDescription": {"default": " Sangat Puas ",}
                     }
                 )
 
