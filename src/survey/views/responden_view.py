@@ -51,7 +51,7 @@ class ExportRespondenDetailView(IsAuthenticated, DetailView, GeneratePDF):
     def get(self, request, *args, **kwargs):
         context = {}
         context['numbers'] = list(range(1, 11))
-        context['reviews'] = SurveyResult.objects.filter(responden=self.get_object(), question__type=TypeQuestion.RATING)
+        context['reviews'] = SurveyResult.objects.filter(responden=self.get_object(), question__type=TypeQuestion.RATING).order_by('-created_at')
         context['comments'] = SurveyResult.objects.filter(responden=self.get_object(), question__type=TypeQuestion.TEXT)
         context['header_title'] = f'Customer {self.get_object().user.customer.name}' 
         context['customer'] = self.get_object().user.customer.name
@@ -92,7 +92,7 @@ class TotalSurveyView(IsAuthenticated, ListView):
         context = super().get_context_data(**kwargs)
         context['header'] = 'Survey'
         context['header_title'] = f'Total Survey  {self.request.user.ptm_location}'
-        context['questions'] = Question.objects.filter(type=TypeQuestion.RATING)
+        context['questions'] = Question.objects.filter(type=TypeQuestion.RATING).order_by('-created_at')
         # context['comments'] = SurveyResult.objects.filter(question__type=TypeQuestion.TEXT)
         context['customer'] = self.request.user.customer
         context['ptm'] = self.request.user.ptm_location
@@ -117,7 +117,7 @@ class ExportTotalSurveyView(IsAuthenticated, ListView, GeneratePDF):
         context['customer'] = self.request.user.customer
         context['ptm'] = self.request.user.ptm_location
         context['created_at'] = datetime.datetime.now()
-        context['questions'] = Question.objects.filter(type=TypeQuestion.RATING)
+        context['questions'] = Question.objects.filter(type=TypeQuestion.RATING).order_by('-created_at')
         return self.render_to_pdf(
             context, 
             self.template_name,
