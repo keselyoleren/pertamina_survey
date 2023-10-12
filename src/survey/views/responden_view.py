@@ -38,7 +38,7 @@ class RespondenDetailView(IsAuthenticated, DetailView, GeneratePDF):
         context = super().get_context_data(**kwargs)
         context['header'] = 'Responden'
         context['numbers'] = list(range(1, 11))
-        context['reviews'] = SurveyResult.objects.filter(responden=self.get_object(), question__type=TypeQuestion.RATING).order_by('created_at')
+        context['reviews'] = SurveyResult.objects.filter(responden=self.get_object(), question__type=TypeQuestion.RATING).order_by('-created_at')
         context['comments'] = SurveyResult.objects.filter(responden=self.get_object(), question__type=TypeQuestion.TEXT)
         context['header_title'] = f'Customer {self.get_object().user.customer.name}' 
         return context
