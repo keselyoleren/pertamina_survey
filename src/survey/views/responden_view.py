@@ -1,5 +1,6 @@
 # myapp/views.py
 
+from calendar import c
 import datetime
 from django.views.generic import ListView, DetailView, DeleteView
 from django.views import View
@@ -11,6 +12,16 @@ from manage_user.models import Customer
 
 from survey.models import Question, Survey, Responden, SurveyResult
 from survey.form.suervey_form import SurveyForm
+from django_filters.views import FilterView
+import django_filters
+from django.utils import timezone
+
+
+class RespondenFilter(django_filters.FilterSet):
+    class Meta:
+        model = Responden
+        fields = ['created_at', ]
+
 
 class RespondenListView(IsAuthenticated, ListView):
     model = Responden
@@ -18,9 +29,19 @@ class RespondenListView(IsAuthenticated, ListView):
     context_object_name = 'respondents'
     
     def get_queryset(self):
+        if 'created_at' in self.request.GET:
+            try:
+                return super().get_queryset().filter(created_at__date=self.request.GET.get('created_at')) \
+                if self.request.user.is_superuser or self.request.user.role_user == RoleUser.SUPER_ADMIN \
+                else super().get_queryset().filter(user__ptm_location=self.request.user.ptm_location, created_at__date=self.request.GET.get('created_at'))
+            except Exception:
+                if self.request.user.is_superuser or self.request.user.role_user == RoleUser.SUPER_ADMIN:
+                    return super().get_queryset()
+                return super().get_queryset().filter(user__ptm_location=self.request.user.ptm_location, created_at=datetime.date.today())
+
         if self.request.user.is_superuser or self.request.user.role_user == RoleUser.SUPER_ADMIN:
             return super().get_queryset()
-        return super().get_queryset().filter(user__ptm_location=self.request.user.ptm_location)
+        return super().get_queryset().filter(user__ptm_location=self.request.user.ptm_location, created_at=datetime.date.today())
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
