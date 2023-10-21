@@ -22,7 +22,10 @@ def survey_result(question, customer):
 @register.filter(name='avg_survey')
 def avg_survey(question):
     average_result = SurveyResult.objects.filter(question_id=question, responden__user__ptm_location=get_user().ptm_location).aggregate(avg_resp_int=Avg('resp_int'))
-    return "{:.1f}".format(average_result['avg_resp_int'])
+    try:
+        return "{:.1f}".format(average_result['avg_resp_int'])
+    except:
+        return average_result['avg_resp_int']
     
 
 
