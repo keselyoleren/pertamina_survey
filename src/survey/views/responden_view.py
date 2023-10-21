@@ -31,9 +31,9 @@ class RespondenListView(IsAuthenticated, ListView):
     def get_queryset(self):
         if 'created_at' in self.request.GET:
             try:
-                return super().get_queryset().filter(created_at__date=self.request.GET.get('created_at')) \
+                return super().get_queryset().filter(created_at__date__range=(self.request.GET.get('created_at'), self.request.GET.get('end_created_at'))) \
                 if self.request.user.is_superuser or self.request.user.role_user == RoleUser.SUPER_ADMIN \
-                else super().get_queryset().filter(user__ptm_location=self.request.user.ptm_location, created_at__date=self.request.GET.get('created_at'))
+                else super().get_queryset().filter(user__ptm_location=self.request.user.ptm_location, created_at__date=(self.request.GET.get('created_at'), self.request.GET.get('end_created_at')))
             except Exception:
                 if self.request.user.is_superuser or self.request.user.role_user == RoleUser.SUPER_ADMIN:
                     return super().get_queryset()

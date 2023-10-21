@@ -16,7 +16,8 @@ class PTM(BaseModel):
     location = models.CharField(_("Lokasi"), max_length=100)
 
     def __str__(self) -> str:
-        return f"{self.lokasi_id} - {self.location}"
+        with contextlib.suppress(Exception):
+            return f"{self.lokasi_id} - {self.location}"
 
     class Meta:
         verbose_name = _("Lokasi DPPU")
@@ -26,7 +27,8 @@ class Instansi(BaseModel):
     name = models.CharField(_("Nama Instansi"), max_length=100)
 
     def __str__(self) -> str:
-        return self.name
+        with contextlib.suppress(Exception):
+            return self.name
     
     class Meta:
         verbose_name = _("Instansi")
@@ -39,7 +41,8 @@ class Customer(BaseModel):
     name = models.CharField(_("Nama Customer"), max_length=100)
     
     def __str__(self) -> str:
-        return f"{self.cus_id} - {self.name} "
+        with contextlib.suppress(Exception):
+            return f"{self.cus_id} - {self.name} "
     
     class Meta:
         verbose_name = _("Customer")
