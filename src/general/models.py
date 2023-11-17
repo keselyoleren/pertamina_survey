@@ -63,7 +63,7 @@ class Informasi(BaseModel):
 
 
     def __str__(self) -> str:
-        return self.user.username
+        return self.perihal
 
     def save(self, *args, **kwargs):
         if not get_user().is_superuser:

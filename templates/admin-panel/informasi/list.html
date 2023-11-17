@@ -20,6 +20,8 @@
                                  <th>Customer</th>
                                  <th>Perihal</th>
                                  <th>Informasi</th>
+                                 <th>Status Survey</th>
+                                 <th>Created</th>
                                  <th>Action</th>
                               </tr>
                            </thead>
@@ -32,8 +34,21 @@
                                     </a>
                                  </td>
                                  <td>{{ item.perihal }}</td>
-                                 <td>{{ item.informasi|truncatechars:"255"|safe }}</td>
+
+                                 <td>{{ item.informasi|truncatechars:"50"|safe }}</td>
+                                 <td>
+                                 {% if item.perihal == 'Survey' %}
+                                    {% if item.open_survey %}
+                                       <button class="btn btn-outline-info">Open</button>
+                                    {% else %}
+                                       <button class="btn btn-outline-danger">Close</button>
+                                    {% endif %}
+                                 {% else %}
+                                    -   
+                                 {% endif %}
+                                 </td>
                                  
+                                 <td>{{ item.created_at }}</td>
                                  <td>
                                     <a href="{% url 'informasi-update' item.id %}"
                                         type="button" class="btn btn-outline-info"><i class="fa fa-edit"></i></a>

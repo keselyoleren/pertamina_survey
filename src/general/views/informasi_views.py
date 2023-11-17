@@ -19,8 +19,8 @@ class InformasiListView(IsAuthenticated, ListView):
     def get_queryset(self):
         user = self.request.user
         if user.is_superuser or user.role_user == RoleUser.SUPER_ADMIN:
-            return super().get_queryset()
-        return super().get_queryset().filter(user__ptm_location=self.request.user.ptm_location)
+            return super().get_queryset().order_by('-created_at')
+        return super().get_queryset().filter(user__ptm_location=self.request.user.ptm_location).order_by('-created_at')
 
     
     def get_context_data(self, **kwargs):

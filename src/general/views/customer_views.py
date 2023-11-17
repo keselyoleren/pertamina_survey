@@ -19,6 +19,7 @@ from django.contrib import messages
 from manage_user.models import AccountUser
 from survey.models import Question, Survey
 from general.models import Informasi, InformasiPenerbangan, Keluhan, Notification, Tanggapan
+from config.choice import PerihalKeluhan, PrihalInformasi, StatusKeluhan
 
 class DashboardCustomerView(TemplateView):
     template_name = 'customer/index.html'
@@ -28,13 +29,15 @@ class DetailSuerveCustomerView(LoginRequiredMixin, DetailView):
     model = Survey
     context_object_name = 'survey'
 
-    # def get_template_names(self):
-    #     informasi = Informasi.objects.filter(user__ptm_location=self.request.user.ptm_location, \
-    #         customer=self.request.user.customer).first()
-    #     if informasi:
-    #         if informasi.open_survey:
-    #             return super().get_template_names()
-    #     return 'customer/survey/index.html'
+    def get_template_names(self):
+        if self.request.user.role_user ==  RoleUser.CUSTOMER:    
+            informasi = Informasi.objects.filter(user__ptm_location=self.request.user.ptm_location, customer=self.request.user.customer).last()
+            if informasi:
+                if informasi.perihal == PrihalInformasi.SURVEY:
+                    if informasi.open_survey:
+                        return super().get_template_names()
+            return 'customer/survey/index.html'
+        return 'customer/survey/index.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
