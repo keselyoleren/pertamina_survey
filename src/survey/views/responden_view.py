@@ -37,11 +37,11 @@ class RespondenListView(IsAuthenticated, ListView):
             except Exception:
                 if self.request.user.is_superuser or self.request.user.role_user == RoleUser.SUPER_ADMIN:
                     return super().get_queryset()
-                return super().get_queryset().filter(user__ptm_location=self.request.user.ptm_location, created_at=datetime.date.today())
+                return super().get_queryset().filter(user__ptm_location=self.request.user.ptm_location)
 
         if self.request.user.is_superuser or self.request.user.role_user == RoleUser.SUPER_ADMIN:
             return super().get_queryset()
-        return super().get_queryset().filter(user__ptm_location=self.request.user.ptm_location, created_at=datetime.date.today())
+        return super().get_queryset().filter(user__ptm_location=self.request.user.ptm_location)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
