@@ -20,6 +20,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{% static  'dppu/css/sb-admin-2.min.css'%}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.6/dist/sweetalert2.min.css">
 
 </head>
 
@@ -67,6 +68,17 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{% static 'dppu/js/sb-admin-2.min.js'%}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.6/dist/sweetalert2.all.min.js"></script>
+
+    {% if messages %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+            {% for message in messages %}
+                swal.fire('{{ message.tags }}', '{{ message }}', '{{ message.tags }}');
+            {% endfor %}
+            });
+        </script>
+    {% endif %}
 
 </body>
 

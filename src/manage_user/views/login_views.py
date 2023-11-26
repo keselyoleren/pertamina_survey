@@ -16,11 +16,48 @@ from django.contrib.auth.views import PasswordChangeView
 class UserLoginView(IsLoginAuthenticated ,LoginView):
     template_name = 'auth/login.html'
     form_class = LoginForm
+    LOCKOUT_THRESHOLD = 3  # Adjust the threshold as needed
+
+    def lock_user(self, user):
+        user.login_attempts = 0
+        user.is_locked = True
+        user.save()
+
+    def unlock_user(self, user):
+        user.login_attempts = 0
+        user.is_locked = False
+        user.save()
+
+    def form_invalid(self, form):
+        response = super().form_invalid(form)
+        username = form.cleaned_data.get('username')
+        # Retrieve the user by username
+        user = AccountUser.objects.filter(username=username).first()
+        if user and user.login_attempts >= self.LOCKOUT_THRESHOLD:
+            self.lock_user(user)
+            messages.error(self.request, 'Your account is locked.  for active your account please contact admin via WA / Phone  085197309888')
+        elif user:
+            user.login_attempts += 1
+            user.save()
+        return response
+
+    def form_valid(self, form):
+        username = form.cleaned_data.get('username')
+        user = AccountUser.objects.filter(username=username).first()
+        if user and user.is_locked:
+            messages.error(self.request, 'Your account is locked.  for active your account please contact admin via WA / Phone  085197309888')
+            print("matamu")
+            return self.form_invalid(form)
+        else:
+            response = super().form_valid(form)
+            self.unlock_user(user)
+            return response
 
     def get_success_url(self) -> str:
         if self.request.user.role_user in [RoleUser.SUPER_ADMIN, RoleUser.DPPU]:
             return "/admin-panel/dashboard"
         return "/"
+
 
 class LogoutView(RedirectView):
     """

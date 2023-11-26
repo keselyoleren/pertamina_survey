@@ -55,6 +55,9 @@ class AccountUser(AbstractUser):
     role_user = models.CharField(_("Role User"), max_length=20, choices=RoleUser.choices, default=RoleUser.CUSTOMER)
     jabatan = models.CharField(_("Jabatan"), max_length=100, null=True, blank=True)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True, blank=True, verbose_name=_("Customer ID"))
+    login_attempts = models.IntegerField(default=0)
+    is_locked = models.BooleanField(default=False)
+
 
 
     def save(self, *args, **kwargs):

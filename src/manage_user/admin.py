@@ -6,7 +6,7 @@ from manage_user.models import PTM, AccountUser, Customer, Instansi
 # Register your models here.
 @admin.register(AccountUser)
 class UserAdmin(BaseUserAdmin):
-    list_display = ('username','email','role_user', 'is_superuser')
+    list_display = ('username','email','role_user', 'is_superuser', 'login_attempts', 'is_locked')
     fieldsets = (
         (None, {'fields': ('username', 'password', 'role_user', 'ptm_location')}),
         (_('Personal info'), {'fields': (

@@ -17,6 +17,7 @@
                            data-toggle="data-table">
                            <thead>
                               <tr>
+                                 <th>Status Account</th>
                                  <th>Photo</th>
                                  <th>Username</th>
                                  <th>Email</th>
@@ -31,7 +32,17 @@
                            <tbody>
                             {% for item in list_users %}
                                 <tr role="row" class="even">
-                                    
+                                    <td>
+                                        {% if item.is_locked %}
+                                            <center>
+                                                <span class="badge badge-danger">Is Locked</span>
+                                            </center>
+                                        {% else %}
+                                            <center>
+                                                <span class="badge badge-success">Active</span>
+                                            </center>    
+                                        {% endif %}
+                                    </td>
                                     <td>
                                         <a href="#" class="pop">
                                             {% if item.profile_picture %}

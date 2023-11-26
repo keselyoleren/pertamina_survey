@@ -20,6 +20,6 @@ class AccountUserForm(UserCreationForm):
 class UserForm(AbstractForm):
     class Meta:
         model = AccountUser
-        fields = ['role_user', 'ptm_location', 'jabatan', 'customer', 'username', 'email', 'first_name', 'last_name',   'profile_picture']
+        fields = ['role_user', 'ptm_location', 'jabatan', 'customer', 'username', 'email', 'first_name', 'last_name',   'profile_picture', 'is_locked']
 
     
